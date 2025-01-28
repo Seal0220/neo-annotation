@@ -23,3 +23,5 @@ const nextConfig = {
         LANG: JSON.stringify(['en', 'tw']),
     },
 };
+
+export default nextConfig;

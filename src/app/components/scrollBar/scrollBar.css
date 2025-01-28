@@ -1,0 +1,48 @@
+/* horizontal infinite scroll */
+.scroll {
+    position: relative;
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+    -webkit-mask-image: var(--mask, none);
+}
+
+/* 開啟遮罩 */
+.scroll[data-mask="true"] {
+    --mask: linear-gradient(90deg, transparent, #fff 20%, #fff 80%, transparent);
+}
+
+/* 禁用遮罩 */
+.scroll[data-mask="false"] {
+    --mask: none;
+}
+
+
+@keyframes scroll-animation {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.scroll .scroll-group {
+    display: flex;
+    white-space: nowrap;
+    animation: scroll-animation var(--time) var(--ease, linear) infinite;
+}
+
+.scroll:hover .scroll-group {
+    animation-play-state: paused;
+}
+
+.scroll .scroll-group {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.18em;
+    transition: 0.5s;
+}
