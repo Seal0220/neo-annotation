@@ -1,8 +1,10 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ScrollBar } from '@/app/components/scrollBar/scrollBar';
 import ThreeModel from './components/threeModel';
+import FlipBoard from '@/app/components/flipBoard/FlipBoard';
+import useElementMetrics from '@/app/hooks/useElementMetrics';
 
 export default function Home() {
   const items = [
@@ -29,7 +31,7 @@ export default function Home() {
     <div className='min-h-dvh bg-white'>
       {/* 3D 模型 */}
       <ThreeModel />
-      
+
       {/* 頂部滾動條 (sticky) */}
       <div className='sticky top-0 z-10 bg-white'>
         <ScrollBar
@@ -40,10 +42,11 @@ export default function Home() {
         />
       </div>
 
-      
+
 
       {/* 滾動區域 */}
-      <ZS />
+      {/* <FlipBoard /> */}
+      <ScrollHorizontal />
 
       {/* 最後一個區塊 */}
       <div className='sticky top-0 flex items-center justify-center min-h-dvh w-full bg-gray-200'>
@@ -55,82 +58,53 @@ export default function Home() {
 
 
 
-function ZS() {
-  const containerRef = useRef();
+function ScrollHorizontal() {
+  const containerRef = useRef(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  const metircs = useElementMetrics(containerRef);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = containerRef.current.querySelectorAll('.scroll-section');
-      const scrollY = window.scrollY;
-      const transitionRange = window.innerHeight / 2;
-      const scale = -0.25;
+    if (metircs) {
+      if (metircs) {
+        const handleScroll = () => {
+          if (!containerRef.current) return;
+          const scrollTop = window.scrollY;
+          const maxScroll = window.innerHeight * 2; // 最大滾動範圍 (因為頁面是 3 屏高)
+          const progress = Math.min(scrollTop / maxScroll, 1); // 0 到 1 之間
+          setScrollProgress(progress);
+        };
 
-      sections.forEach((section, index) => {
-        const sectionTop = index * window.innerHeight;
-        const offset = scrollY - sectionTop;
-        const progress =  (scrollY - (sectionTop + window.innerHeight)) / transitionRange * -100;
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+      }
+    }
+  }, [metircs]);
 
-        if (index === 0) {
-          // 第一個區塊的特殊處理
-          if (scrollY < sectionTop + window.innerHeight) {
-            // 第一個區塊正常滾動
-            section.style.transform = `translateY(0)`;
-
-          } else if (scrollY < sectionTop + window.innerHeight + transitionRange) {
-            // 過渡距離內，逐漸進入 z 軸滾動
-            const zPosition = progress;
-            section.style.transform = `translateZ(${zPosition}px)`;
-
-          } else {
-            // 超過過渡距離後，開始正式 z 軸滾動
-            const zPosition = progress  + (scrollY - (sectionTop + window.innerHeight + transitionRange)) * scale;
-            section.style.transform = `translateZ(${zPosition}px)`;
-
-          }
-        } else {
-          // 其他區塊的處理
-          if (offset >= 0 && offset <= window.innerHeight) {
-            // 滾動範圍內，觸發 z 軸移動
-            const zPosition = offset * scale;
-            section.style.transform = `translateZ(${zPosition}px)`;
-          } else if (offset < 0) {
-            // 區塊還沒滾到視窗
-            section.style.transform = `translateZ(0px)`;
-          } else {
-            // 區塊已經超出視窗
-            const zPosition = window.innerHeight * scale;
-            section.style.transform = `translateZ(${zPosition}px)`;
-          }
-        }
-      });
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  useEffect(() => { console.log(metircs) }, [metircs]);
 
   return (
-    <div
-      ref={containerRef}
-      className='bg-black h-[400dvh] w-full relative'
-      style={{
-        perspective: window.innerHeight * 1, // 設置透視效果
-      }}
-    >
-      <div className='sticky top-0 scroll-section flex items-center justify-center min-h-dvh w-full bg-gray-200 drop-shadow-spread shadow-black text-black rounded-lg'>
-        <div className='text-black text-5xl font-bold'>1</div>
-      </div>
-
-      <div className='sticky top-0 scroll-section flex items-center justify-center min-h-dvh w-full bg-gray-200 drop-shadow-spread shadow-black text-black rounded-lg'>
-        <div className='text-black text-5xl font-bold'>2</div>
-      </div>
-
-      <div className='sticky top-0 scroll-section flex items-center justify-center min-h-dvh w-full bg-gray-200 drop-shadow-spread shadow-black text-black rounded-lg'>
-        <div className='text-black text-5xl font-bold'>3</div>
-      </div>
-
-      <div className='sticky top-0 scroll-section flex items-center justify-center min-h-dvh w-full bg-gray-200 drop-shadow-spread shadow-black text-black rounded-lg'>
-        <div className='text-black text-5xl font-bold'>4</div>
+    <div className="h-[300vh] bg-gray-100">
+      {/* 固定滾動區域 */}
+      <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
+        <div
+          ref={containerRef}
+          className="flex space-x-10 w-[300vw] "
+          style={{
+            transform: `translateX(-${scrollProgress * 100}vw)`, // 控制水平移動
+          }}
+        >
+          {/* 內容區塊 */}
+          <div className="w-screen h-96 bg-blue-500 flex items-center justify-center text-white text-5xl font-bold rounded-lg shadow-lg">
+            內容 1
+          </div>
+          <div className="w-screen h-96 bg-red-500 flex items-center justify-center text-white text-5xl font-bold rounded-lg shadow-lg">
+            內容 2
+          </div>
+          <div className="w-screen h-96 bg-green-500 flex items-center justify-center text-white text-5xl font-bold rounded-lg shadow-lg">
+            內容 3
+          </div>
+        </div>
       </div>
     </div>
   );
