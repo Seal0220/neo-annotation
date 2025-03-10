@@ -13,6 +13,7 @@ export default function useElementMetrics(ref) {
     height: 0,
     width: 0,
     zIndex: 0,
+    isDone: false,
   });
 
   useEffect(() => {
@@ -24,17 +25,18 @@ export default function useElementMetrics(ref) {
       const zIndex = window.getComputedStyle(ref.current).zIndex || '0';
 
       setMetrics({
-        top: rect.top,
-        bottom: rect.bottom,
-        left: rect.left,
-        right: rect.right,
-        scrollTop: rect.top + window.scrollY,
-        scrollBottom: rect.bottom + window.scrollY,
-        scrollLeft: rect.left + window.scrollX,
-        scrollRight: rect.right + window.scrollX,
+        top: rect.top + window.scrollY,
+        bottom: rect.bottom + window.scrollY,
+        left: rect.left + window.scrollX,
+        right: rect.right + window.scrollX,
+        scrollTop: rect.top,
+        scrollBottom: rect.bottom,
+        scrollLeft: rect.left,
+        scrollRight: rect.right,
         height: rect.height,
         width: rect.width,
         zIndex: parseInt(zIndex, 10) || 0,
+        isDone: true,
       });
     };
 
