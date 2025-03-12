@@ -6,6 +6,7 @@ export default function useAnimator(animatorRef) {
     const animations = useRef([]);
     const lastScrollY = useRef(0);
     const [isStart, setIsStart] = useState(false);
+    const isDebug = useRef(false); // 將 isDebug 改為 useRef
 
     let animationFrameId = null;
 
@@ -14,7 +15,6 @@ export default function useAnimator(animatorRef) {
             run();
         }
     }, [animatorMetrics, isStart]);
-
 
     const useAnimation = (ref) => {
         const animation = {
@@ -56,6 +56,10 @@ export default function useAnimator(animatorRef) {
         const progress = (window.scrollY - (animatorMetrics.top || 0)) / window.outerHeight;
 
         if (window.scrollY !== lastScrollY.current) {
+            if (isDebug.current) { // 使用 isDebug.current 判斷
+                console.log(`animation scroll: ${progress}`);
+            }
+
             lastScrollY.current = window.scrollY;
             animations.current.forEach(anim => anim.apply(progress));
         }
@@ -67,7 +71,7 @@ export default function useAnimator(animatorRef) {
         if (!animationFrameId) {
             animationFrameId = requestAnimationFrame(updateScroll);
         }
-    }
+    };
 
     const start = () => {
         setIsStart(true);
@@ -80,5 +84,10 @@ export default function useAnimator(animatorRef) {
         }
     };
 
-    return { useAnimation, start, stop };
+    // debug 方法改為直接設定 isDebug.current
+    const debug = () => {
+        isDebug.current = true;
+    };
+
+    return { useAnimation, start, stop, debug };
 }

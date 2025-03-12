@@ -1,12 +1,5 @@
-import { Sen } from 'next/font/google';
 import './globals.css';
-
-const sen = Sen({
-  variable: '--font-sen',
-  subsets: ['latin'],
-});
-
-
+import './fonts.css';
 
 export const metadata = {
   title: 'NEO-ANNOTATION',
@@ -17,7 +10,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang=''>
       <body
-        className={`${sen.variable} antialiased font-[family-name:var(--font-sen)]`}
+        className={`antialiased`}
       >
         <main className='min-h-dvh'>
           {children}
