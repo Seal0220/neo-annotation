@@ -124,7 +124,7 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
       ele.style.transition = 'all 0.5s ease-out';
     })
     .after({ on: 2.5 }, (ele) => {
-      ele.style.transform = `translate(calc(-50% - 25vw), calc(-50% - 25dvh)) rotate(-90deg) scale(1)`;
+      ele.style.transform = `translate(calc(50% - 50vw), calc(-50% - 25dvh)) rotate(-90deg) scale(1)`;
       ele.style.transition = 'all 0.5s ease-in-out';
     });
 
@@ -236,9 +236,9 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
         </div>
 
         {/* 粉塊，動畫控制後會露出 */}
-        <div ref={pinkBlockRef} className="sticky top-[50dvh] left-0 w-full h-dvh flex flex-col items-center bg-pink-400">
+        {/* <div ref={pinkBlockRef} className="sticky top-[50dvh] left-0 w-full h-dvh flex flex-col items-center bg-pink-400"> */}
           {/* 這裡放粉塊內容，初始狀態會被 info 區塊覆蓋 */}
-        </div>
+        {/* </div> */}
       </div>
 
       <div className="sticky top-0 h-dvh flex flex-col items-center justify-center bg-green-400 text-white text-5xl font-bold">
