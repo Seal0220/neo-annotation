@@ -53,6 +53,9 @@ export default function Home() {
 
 function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
   const { textConfig, updateConfig, TitleTextComponent } = useTitleText();
+
+  const isInfoShow = useRef(false);
+
   const animatorRef = useRef(null);
 
   const titleTextRef = useRef(null);
@@ -128,20 +131,25 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
       ele.style.transition = 'all 0.5s ease-in-out';
     });
 
-  // 新增：控制粉塊的動畫
-  // animator.useAnimation(pinkBlockRef)
-  //   .before({ on: 4 }, (ele) => {
-  //     ele.style.position = 'fixed';
-  //     ele.style.top = '350dvh';
-  //   })
-  //   .after({ on: 4 }, (ele) => {
-  //     // 當滾動進度超過 4，切換成相對定位，讓粉塊跟著內容一起滾動
-  //     ele.style.position = 'absolute';
-  //     // 計算粉塊新的 top 值：固定 350dvh 加上額外下移的 100dvh
-  //     // ele.style.top = 'calc(350dvh + 100dvh)';
-  //     // ele.style.transform = 'translateY(0)';
-  //     // ele.style.transition = 'none';
-  //   });
+  animator.useAnimation(pinkBlockRef)
+    .before({ on: 2 }, (ele) => {
+      ele.style.position = 'fixed';
+      ele.style.top = '0';
+      ele.style.display = 'none';
+    })
+    .when({ on: 1.5, to: 5 }, (ele, { progress, innerProgress, innerHeight }) => {
+      ele.style.position = 'fixed';
+      ele.style.top = '0';
+      ele.style.display = 'flex';
+    })
+    .after({ on: 5 }, (ele) => {
+      // 當滾動進度超過 4，切換成相對定位，讓粉塊跟著內容一起滾動
+      ele.style.position = 'absolute';
+      // 計算粉塊新的 top 值：固定 350dvh 加上額外下移的 100dvh
+      // ele.style.top = 'calc(350dvh + 100dvh)';
+      // ele.style.transform = 'translateY(0)';
+      // ele.style.transition = 'none';
+    });
 
   useEffect(() => {
     animator.start();
@@ -236,9 +244,9 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
         </div>
 
         {/* 粉塊，動畫控制後會露出 */}
-        {/* <div ref={pinkBlockRef} className="sticky top-[50dvh] left-0 w-full h-dvh flex flex-col items-center bg-pink-400"> */}
+        <div ref={pinkBlockRef} className="left-0 w-full h-dvh items-center bg-pink-400 z-10 hidden">
           {/* 這裡放粉塊內容，初始狀態會被 info 區塊覆蓋 */}
-        {/* </div> */}
+        </div>
       </div>
 
       <div className="sticky top-0 h-dvh flex flex-col items-center justify-center bg-green-400 text-white text-5xl font-bold">
