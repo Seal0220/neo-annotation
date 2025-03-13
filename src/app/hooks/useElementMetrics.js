@@ -1,5 +1,45 @@
 import { useState, useEffect, useRef } from 'react';
 
+export function getElementMetrics(element) {
+  if (!element) return null;
+  const rect = element.getBoundingClientRect();
+  const computedZIndex = window.getComputedStyle(element).zIndex || '0';
+
+  // 是否在 viewport 內：若元素至少有一部分顯示在 viewport 內則為 true
+  const isInViewport =
+    rect.bottom > 0 &&
+    rect.right > 0 &&
+    rect.top < window.innerHeight &&
+    rect.left < window.innerWidth;
+
+  // 檢查四個方向是否碰邊或超過視窗
+  const touchesTop = rect.top <= 0;
+  const touchesLeft = rect.left <= 0;
+  const touchesRight = rect.right >= window.innerWidth;
+  const touchesBottom = rect.bottom >= window.innerHeight;
+
+  return {
+    top: rect.top + window.scrollY,
+    bottom: rect.bottom + window.scrollY,
+    left: rect.left + window.scrollX,
+    right: rect.right + window.scrollX,
+    scrollTop: rect.top,
+    scrollBottom: rect.bottom,
+    scrollLeft: rect.left,
+    scrollRight: rect.right,
+    height: rect.height,
+    width: rect.width,
+    zIndex: parseInt(computedZIndex, 10) || 0,
+    isDone: true,
+    isInViewport,
+    touchesTop,
+    touchesBottom,
+    touchesLeft,
+    touchesRight,
+  };
+}
+
+
 export default function useElementMetrics(ref) {
   const [metrics, setMetrics] = useState({
     top: 0,
@@ -14,6 +54,11 @@ export default function useElementMetrics(ref) {
     width: 0,
     zIndex: 0,
     isDone: false,
+    isInViewport: false,
+    touchesTop: false,
+    touchesBottom: false,
+    touchesLeft: false,
+    touchesRight: false,
   });
 
   useEffect(() => {
@@ -21,23 +66,10 @@ export default function useElementMetrics(ref) {
 
     const updateMetrics = () => {
       if (!ref.current) return;
-      const rect = ref.current.getBoundingClientRect();
-      const zIndex = window.getComputedStyle(ref.current).zIndex || '0';
-
-      setMetrics({
-        top: rect.top + window.scrollY,
-        bottom: rect.bottom + window.scrollY,
-        left: rect.left + window.scrollX,
-        right: rect.right + window.scrollX,
-        scrollTop: rect.top,
-        scrollBottom: rect.bottom,
-        scrollLeft: rect.left,
-        scrollRight: rect.right,
-        height: rect.height,
-        width: rect.width,
-        zIndex: parseInt(zIndex, 10) || 0,
-        isDone: true,
-      });
+      const newMetrics = getElementMetrics(ref.current);
+      if (newMetrics) {
+        setMetrics(newMetrics);
+      }
     };
 
     updateMetrics();

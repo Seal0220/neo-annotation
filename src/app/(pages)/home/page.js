@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { use, useEffect, useRef, useState } from 'react';
 import ThreeModel from './components/threeModel';
 
 import useElementMetrics from '@/app/hooks/useElementMetrics';
@@ -54,8 +54,6 @@ export default function Home() {
 function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
   const { textConfig, updateConfig, TitleTextComponent } = useTitleText();
 
-  const isInfoShow = useRef(false);
-
   const animatorRef = useRef(null);
 
   const titleTextRef = useRef(null);
@@ -73,76 +71,76 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
   const animator = useAnimator(animatorRef);
   animator.debug();
 
-  animator.useAnimation(infoRef)
-    .before({ on: 1 }, (ele) => {
+  const infoAni = animator.useAnimation(infoRef)
+    .before({ on: 1 }, (ele, vars) => {
       ele.style.transform = 'translateY(0)';
     })
-    .when({ on: 1, to: 2 }, (ele, { progress, innerProgress, innerHeight }) => {
+    .when({ on: 1, to: 2 }, (ele, vars, { progress }) => {
       ele.style.transform = `translateY(calc(-100dvh + 48px))`;
     })
-    .after({ on: 2 }, (ele) => {
+    .after({ on: 2 }, (ele, vars) => {
       ele.style.transform = `translateY(calc(-100dvh + 48px))`;
     });
 
-  animator.useAnimation(infoMaskRef)
-    .before({ on: 0 }, (ele) => {
+  const infoMaskAni = animator.useAnimation(infoMaskRef)
+    .before({ on: 0 }, (ele, vars) => {
       ele.style.width = `100%`;
     })
-    .when({ on: 0, to: 3 }, (ele, { progress, innerProgress, innerHeight }) => {
+    .when({ on: 0, to: 3 }, (ele, vars, { progress, innerProgress, innerHeight }) => {
       ele.style.width = `100%`;
     })
-    .after({ on: 3 }, (ele) => {
+    .after({ on: 3 }, (ele, vars) => {
       ele.style.width = `64px`;
     });
 
-  animator.useAnimation(symbolBracesL1Ref)
-    .before({ on: 1 }, (ele) => {
+  const symbolBracesL1Ani = animator.useAnimation(symbolBracesL1Ref)
+    .before({ on: 1 }, (ele, vars) => {
       ele.style.transform = 'translate(calc(-50% - 100vw), -50%) rotate(-90deg) scale(0.75)';
       ele.style.transition = 'all 0.5s ease-in-out';
     })
-    .when({ on: 1, to: 1.25 }, (ele, { progress, innerProgress, innerHeight }) => {
+    .when({ on: 1, to: 1.25 }, (ele, vars, { progress, innerProgress, innerHeight }) => {
       ele.style.transform = `translate(-25%, calc(-50% - 15dvh)) rotate(21deg) scale(1.1)`;
       ele.style.transition = 'all 0.5s ease-in-out';
     })
-    .when({ on: 1.25, to: 2.5 }, (ele, { progress, innerProgress, innerHeight }) => {
+    .when({ on: 1.25, to: 2.5 }, (ele, vars, { progress, innerProgress, innerHeight }) => {
       ele.style.transform = `translate(calc(-25% + ${innerProgress * 30}%), calc(-50% - 15dvh - ${innerProgress * 30}dvh)) rotate(${21 + innerProgress * 30}deg) scale(1.1)`;
       ele.style.transition = 'all 0.5s ease-out';
     })
-    .after({ on: 2.5 }, (ele) => {
+    .after({ on: 2.5 }, (ele, vars) => {
       ele.style.transform = `translate(calc(-50% + 50vw), calc(-50% + 15dvh)) rotate(90deg) scale(1)`;
       ele.style.transition = 'all 0.5s ease-in-out';
     });
 
-  animator.useAnimation(symbolBracesR1Ref)
-    .before({ on: 1 }, (ele) => {
+    const symbolBracesR1Ani = animator.useAnimation(symbolBracesR1Ref)
+    .before({ on: 1 }, (ele, vars) => {
       ele.style.transform = 'translate(calc(-50% + 100vw), -50%) rotate(90deg) scale(1.5)';
       ele.style.transition = 'all 0.5s ease-in-out';
     })
-    .when({ on: 1, to: 1.25 }, (ele, { progress, innerProgress, innerHeight }) => {
+    .when({ on: 1, to: 1.25 }, (ele, vars, { progress, innerProgress, innerHeight }) => {
       ele.style.transform = 'translate(20%, calc(-50% + 10dvh)) rotate(3deg) scale(0.9)';
       ele.style.transition = 'all 0.5s ease-out';
     })
-    .when({ on: 1.25, to: 2.5 }, (ele, { progress, innerProgress, innerHeight }) => {
+    .when({ on: 1.25, to: 2.5 }, (ele, vars, { progress, innerProgress, innerHeight }) => {
       ele.style.transform = `translate(calc(20% - ${innerProgress * 30}%), calc(-50% + 10dvh - ${innerProgress * 20}dvh)) rotate(${3 - innerProgress * 30}deg) scale(0.9)`;
       ele.style.transition = 'all 0.5s ease-out';
     })
-    .after({ on: 2.5 }, (ele) => {
+    .after({ on: 2.5 }, (ele, vars) => {
       ele.style.transform = `translate(calc(50% - 50vw), calc(-50% - 25dvh)) rotate(-90deg) scale(1)`;
       ele.style.transition = 'all 0.5s ease-in-out';
     });
 
-  animator.useAnimation(pinkBlockRef)
-    .before({ on: 2 }, (ele) => {
+    const pinkBlockAni = animator.useAnimation(pinkBlockRef)
+    .before({ on: 3 }, (ele, vars) => {
       ele.style.position = 'fixed';
       ele.style.top = '0';
-      ele.style.display = 'none';
+      ele.style.display = infoAni.ele.metrics.touchesTop ? 'flex' : 'none';
     })
-    .when({ on: 1.5, to: 5 }, (ele, { progress, innerProgress, innerHeight }) => {
+    .when({ on: 3, to: 8 }, (ele, vars, { progress, innerProgress, innerHeight }) => {
       ele.style.position = 'fixed';
       ele.style.top = '0';
       ele.style.display = 'flex';
     })
-    .after({ on: 5 }, (ele) => {
+    .after({ on: 8 }, (ele, vars) => {
       // 當滾動進度超過 4，切換成相對定位，讓粉塊跟著內容一起滾動
       ele.style.position = 'absolute';
       // 計算粉塊新的 top 值：固定 350dvh 加上額外下移的 100dvh
