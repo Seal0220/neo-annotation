@@ -1,9 +1,31 @@
 import { useState, useEffect, useRef } from 'react';
+import { convertTransformRotation } from '../functions/utils';
+
+const _metrics = {
+  top: 0,
+  bottom: 0,
+  left: 0,
+  right: 0,
+  scrollTop: 0,
+  scrollBottom: 0,
+  scrollLeft: 0,
+  scrollRight: 0,
+  height: 0,
+  width: 0,
+  rotation: 0,
+  zIndex: 0,
+  isDone: false,
+  isInViewport: false,
+  touchesTop: false,
+  touchesBottom: false,
+  touchesLeft: false,
+  touchesRight: false,
+};
 
 export function getElementMetrics(element) {
-  if (!element) return null;
+  if (!element) return _metrics;
   const rect = element.getBoundingClientRect();
-  const computedZIndex = window.getComputedStyle(element).zIndex || '0';
+  const computed = window.getComputedStyle(element)
 
   // 是否在 viewport 內：若元素至少有一部分顯示在 viewport 內則為 true
   const isInViewport =
@@ -29,7 +51,8 @@ export function getElementMetrics(element) {
     scrollRight: rect.right,
     height: rect.height,
     width: rect.width,
-    zIndex: parseInt(computedZIndex, 10) || 0,
+    rotation: convertTransformRotation(computed.transform) || 0,
+    zIndex: parseInt(computed.zIndex, 10) || 0,
     isDone: true,
     isInViewport,
     touchesTop,
@@ -41,25 +64,7 @@ export function getElementMetrics(element) {
 
 
 export default function useElementMetrics(ref) {
-  const [metrics, setMetrics] = useState({
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    scrollTop: 0,
-    scrollBottom: 0,
-    scrollLeft: 0,
-    scrollRight: 0,
-    height: 0,
-    width: 0,
-    zIndex: 0,
-    isDone: false,
-    isInViewport: false,
-    touchesTop: false,
-    touchesBottom: false,
-    touchesLeft: false,
-    touchesRight: false,
-  });
+  const [metrics, setMetrics] = useState(_metrics);
 
   useEffect(() => {
     if (!ref.current) return;

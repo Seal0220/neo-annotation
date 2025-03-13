@@ -69,7 +69,7 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
   const element3Ref = useRef(null);
 
   const animator = useAnimator(animatorRef);
-  animator.debug();
+  // animator.debug();
 
   const infoAni = animator.useAnimation(infoRef)
     .before({ on: 1 }, (ele, vars) => {
@@ -83,13 +83,12 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
     });
 
   const infoMaskAni = animator.useAnimation(infoMaskRef)
-    .before({ on: 0 }, (ele, vars) => {
-      ele.style.width = `100%`;
-    })
-    .when({ on: 0, to: 3 }, (ele, vars, { progress, innerProgress, innerHeight }) => {
+    .before({ on: 3 }, (ele, vars) => {
       ele.style.width = `100%`;
     })
     .after({ on: 3 }, (ele, vars) => {
+      // console.log(symbolBracesL1Ani.ele.metrics)
+      // if (symbolBracesL1Ani.ele.style)
       ele.style.width = `64px`;
     });
 
@@ -111,7 +110,7 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
       ele.style.transition = 'all 0.5s ease-in-out';
     });
 
-    const symbolBracesR1Ani = animator.useAnimation(symbolBracesR1Ref)
+  const symbolBracesR1Ani = animator.useAnimation(symbolBracesR1Ref)
     .before({ on: 1 }, (ele, vars) => {
       ele.style.transform = 'translate(calc(-50% + 100vw), -50%) rotate(90deg) scale(1.5)';
       ele.style.transition = 'all 0.5s ease-in-out';
@@ -129,7 +128,7 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
       ele.style.transition = 'all 0.5s ease-in-out';
     });
 
-    const pinkBlockAni = animator.useAnimation(pinkBlockRef)
+  const pinkBlockAni = animator.useAnimation(pinkBlockRef)
     .before({ on: 3 }, (ele, vars) => {
       ele.style.position = 'fixed';
       ele.style.top = '0';
