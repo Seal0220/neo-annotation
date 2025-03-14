@@ -168,7 +168,7 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
           />
         </div>
 
-        <div ref={infoMaskRef} className="masked-wrapper absolute h-full transition-all duration-1000 ease-out z-20">
+        <div ref={infoMaskRef} className="masked-wrapper absolute w-full h-full transition-all duration-1000 ease-out z-20">
           <div ref={infoRef} className="fixed top-[calc(100dvh-48px)] h-full bg-black transition-transform duration-300 ease-in-out z-20">
             <div ref={scrollBarInfoRef}>
               <ScrollBarInfo />
@@ -241,7 +241,7 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
         </div>
 
         {/* 粉塊，動畫控制後會露出 */}
-        <div ref={pinkBlockRef} className="left-0 w-full h-dvh items-center bg-pink-400 z-10 hidden">
+        <div ref={pinkBlockRef} className="left-0 w-full h-dvh items-center bg-paper z-10 hidden">
           {/* 這裡放粉塊內容，初始狀態會被 info 區塊覆蓋 */}
         </div>
       </div>
