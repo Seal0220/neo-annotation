@@ -62,7 +62,8 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
   const scrollBarInfoRef = useRef(null);
   const symbolBracesL1Ref = useRef(null);
   const symbolBracesR1Ref = useRef(null);
-  const pinkBlockRef = useRef(null); // 新增粉塊 ref
+  const infoContentRef = useRef(null);
+  const aboutRef = useRef(null);
 
   const element1Ref = useRef(null);
   const element2Ref = useRef(null);
@@ -83,14 +84,23 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
     });
 
   const infoMaskAni = animator.useAnimation(infoMaskRef)
-    .before({ on: 3 }, (ele, vars) => {
+    .before({ on: 2.5 }, (ele, vars) => {
       ele.style.width = `100%`;
     })
-    .after({ on: 3 }, (ele, vars) => {
-      // console.log(symbolBracesL1Ani.ele.metrics)
-      // if (symbolBracesL1Ani.ele.style)
-      ele.style.width = `64px`;
+    .after({ on: 2.5 }, (ele, vars) => {
+      if (symbolBracesL1Ani.ele.metrics?.rotation === 90) {
+        ele.style.width = `64px`;
+      }
     });
+
+  const infoContentAni = animator.useAnimation(infoContentRef)
+    .before({ on: 2.5 }, (ele, vars) => {
+      ele.style.opacity = 1;
+    })
+    .after({ on: 2.5 }, (ele, vars) => {
+        ele.style.opacity = 0;
+    });
+
 
   const symbolBracesL1Ani = animator.useAnimation(symbolBracesL1Ref)
     .before({ on: 1 }, (ele, vars) => {
@@ -128,7 +138,7 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
       ele.style.transition = 'all 0.5s ease-in-out';
     });
 
-  const pinkBlockAni = animator.useAnimation(pinkBlockRef)
+  const aboutAni = animator.useAnimation(aboutRef)
     .before({ on: 3 }, (ele, vars) => {
       ele.style.position = 'fixed';
       ele.style.top = '0';
@@ -164,7 +174,7 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
           <TitleTextComponent />
           <img
             src="symbol-Hashtag.png"
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-[60dvh] select-none pointer-events-none"
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-[60dvh] object-contain select-none pointer-events-none"
           />
         </div>
 
@@ -190,7 +200,7 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
                 className="absolute right-0 top-1/2 h-[90dvh] object-contain"
               />
 
-              <div className="flex flex-col gap-16 -translate-y-12">
+              <div ref={infoContentRef} className="flex flex-col gap-16 -translate-y-12 transition-all duration-500">
                 <div className="flex flex-row gap-32 text-center justify-between -translate-x-16">
                   {/* 30 位同學 */}
                   <div className="size-52 place-content-center">
@@ -240,9 +250,12 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
           </div>
         </div>
 
-        {/* 粉塊，動畫控制後會露出 */}
-        <div ref={pinkBlockRef} className="left-0 w-full h-dvh items-center bg-paper z-10 hidden">
-          {/* 這裡放粉塊內容，初始狀態會被 info 區塊覆蓋 */}
+        {/* 關於資訊 */}
+        <div ref={aboutRef} className="left-0 w-full h-dvh items-center bg-paper z-10 hidden">
+        <img
+            src="symbol-HTML.png"
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 h-[60dvh] object-contain select-none pointer-events-none"
+          />
         </div>
       </div>
 
