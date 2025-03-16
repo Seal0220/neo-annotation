@@ -14,8 +14,8 @@ function RotatingModel({ modelPath }) {
     // 監聽滑鼠移動
     useEffect(() => {
         const handleMouseMove = (event) => {
-            mouse.current.x = (event.clientX / window.innerWidth) * 2 - 1;
-            mouse.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
+            mouse.current.x = (event.clientX / document.documentElement.clientWidth) * 2 - 1;
+            mouse.current.y = -(event.clientY / document.documentElement.clientHeight) * 2 + 1;
         };
         window.addEventListener("mousemove", handleMouseMove);
         return () => window.removeEventListener("mousemove", handleMouseMove);

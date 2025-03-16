@@ -52,7 +52,7 @@ export function ScrollBar({
     document.body.removeChild(testContainer);
 
     // 取得視窗寬度並計算需要的組數 (多加幾組以免滾動時出現空隙)
-    const pageWidth = window.innerWidth;
+    const pageWidth = document.documentElement.clientWidth;
     const groupCount = Math.ceil(pageWidth / groupWidth) + 2;
 
     // 產生多組滾動內容

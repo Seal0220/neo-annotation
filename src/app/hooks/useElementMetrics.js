@@ -31,14 +31,14 @@ export function getElementMetrics(element) {
   const isInViewport =
     rect.bottom > 0 &&
     rect.right > 0 &&
-    rect.top < window.innerHeight &&
-    rect.left < window.innerWidth;
+    rect.top < document.documentElement.clientHeight &&
+    rect.left < document.documentElement.clientWidth;
 
   // 檢查四個方向是否碰邊或超過視窗
   const touchesTop = rect.top <= 0;
   const touchesLeft = rect.left <= 0;
-  const touchesRight = rect.right >= window.innerWidth;
-  const touchesBottom = rect.bottom >= window.innerHeight;
+  const touchesRight = rect.right >= document.documentElement.clientWidth;
+  const touchesBottom = rect.bottom >= document.documentElement.clientHeight;
 
   return {
     top: rect.top + window.scrollY,

@@ -13,7 +13,7 @@ export default function ScrollHorizontal() {
         const handleScroll = () => {
           if (!containerRef.current) return;
           const scrollTop = window.scrollY;
-          const maxScroll = window.innerHeight * 2; // 最大滾動範圍 (因為頁面是 3 屏高)
+          const maxScroll = document.documentElement.clientHeight * 2; // 最大滾動範圍 (因為頁面是 3 屏高)
           const progress = Math.min(scrollTop / maxScroll, 1); // 0 到 1 之間
           setScrollProgress(progress);
         };

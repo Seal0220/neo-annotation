@@ -17,7 +17,7 @@ export default function ScrollStepContent() {
       const handleScroll = () => {
         const scrollY = window.scrollY;
         const containerTop = containerMetrics.scrollTop;
-        const screenHeight = window.innerHeight;
+        const screenHeight = document.documentElement.clientHeight;
   
         if (scrollY >= containerTop) {
           // 計算內部的 activeIndex（相對於 container）

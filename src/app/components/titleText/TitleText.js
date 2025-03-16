@@ -66,6 +66,7 @@ export default function useTitleText() {
             let font;
             let particles = [];
             let textMask;
+            const textBaseWidth = 880;
 
             p.config = { ...textConfig };
             p.updateConfig = (newConfig) => {
@@ -77,10 +78,11 @@ export default function useTitleText() {
                 textMask = p.loadImage(p.config.textImagePath);
             };
 
-            p.setup = () => {
-                p.createCanvas(p.windowWidth, p.windowHeight).parent(canvasRef.current);
-                const baseWidth = 880;
-                textMask.resize(baseWidth * p.config.imageScale, 0);
+            function generateParticles() {
+                if (!textMask) return;
+                particles = [];
+
+                textMask.resize(textBaseWidth * p.config.imageScale, 0);
                 textMask.loadPixels();
 
                 const offsetX = (p.width - textMask.width) / 2;
@@ -95,7 +97,8 @@ export default function useTitleText() {
                             particles.push(new Particle(
                                 offsetX + (x / p.config.imageScale) * p.config.particleScaleFactor,
                                 offsetY + (y / p.config.imageScale) * p.config.particleScaleFactor,
-                                letter, c
+                                letter,
+                                c
                             ));
                             totalParticles++;
                             if (totalParticles >= p.config.maxParticles) {
@@ -105,7 +108,17 @@ export default function useTitleText() {
                     }
                 }
                 console.log(`Total particles generated: ${particles.length}`);
+            }
+
+            p.setup = () => {
+                p.createCanvas(p.windowWidth, p.windowHeight).parent(canvasRef.current);
+                generateParticles();
             };
+
+            //   p.windowResized = () => {
+            //     p.resizeCanvas(p.windowWidth, p.windowHeight);
+            //     generateParticles();
+            //   };
 
             p.draw = () => {
                 p.clear();
@@ -121,6 +134,7 @@ export default function useTitleText() {
                 }
                 p.pop();
             };
+
 
 
             function getCharacterByColor(color) {
@@ -289,6 +303,8 @@ export default function useTitleText() {
         }
     }, [textConfig]);
 
-    const TitleTextComponent = useCallback(() => <div ref={canvasRef} className='select-none pointer-events-none'></div>, []);
+    const TitleTextComponent = useCallback(({className}) => (
+        <div ref={canvasRef} className={`select-none pointer-events-none ${className}`} />
+    ), []);
     return { textConfig, updateConfig, TitleTextComponent };
 }
