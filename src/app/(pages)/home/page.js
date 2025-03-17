@@ -10,7 +10,7 @@ import FlipBoard from '@/app/components/flipBoard/FlipBoard';
 import useTitleText from '@/app/components/titleText/TitleText';
 import ScrollBarInfo from '@/app/components/scrollBarInfo/ScrollBarInfo';
 import MoreInfoBtn from '@/app/components/btn/moreInfoBtn/MoreInfoBtn';
-import Typewriter, { TypewriterText } from '@/app/components/typewriter/Typewriter';
+import Typewriter, { TypewriterParagraph, TypewriterFormatted } from '@/app/components/typewriter/Typewriter';
 
 
 
@@ -78,10 +78,17 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
   const aboutRef = useRef(null);
   const symbolHtml1Ref = useRef(null);
   const symbolHashtag1Ref = useRef(null);
+  const symbolStar1Ref = useRef(null);
   const logotypeH1Ref = useRef(null);
+  const aboutTitle1Ref = useRef(null);
+  const aboutTitle2Ref = useRef(null);
+  const aboutTitle3Ref = useRef(null);
   const aboutTypewriter1Ref = useRef(null);
+  const aboutTypewriter2Ref = useRef(null);
+  const aboutTypewriter4Ref = useRef(null);
+  const aboutUsBtnRef = useRef(null);
   const [aboutTypewriter1Start, setAboutTypewriter1Start] = useState(false);
-
+  const [aboutTypewriter2Start, setAboutTypewriter2Start] = useState(false);
 
   const titleTextAni = animator.useAnimation(titleTextRef);
 
@@ -95,6 +102,7 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
       ele.style.transform = `translateY(calc(-100lvh + 48px))`;
     })
     .after({ on: 2 }, (ele, vars) => {
+      setInfoTypewriterStart(true);
       ele.style.transform = `translateY(calc(-100lvh + 48px))`;
     });
 
@@ -196,22 +204,45 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
       }
     })
     .after({ on: 4 }, (ele, vars, { progress }) => {
-      ele.style.transform = 'translate(-10vw, -10lvh) rotate(0deg)';
+      ele.style.transform = 'translate(100vw, -50lvh) rotate(60deg)';
     })
 
   const symbolHashtag1Ani = animator.useAnimation(symbolHashtag1Ref)
     .before({ on: 2.5 }, (ele, vars, { progress }) => {
-      ele.style.transform = 'translate(-30vw, 100lvh) rotate(-120deg) ';
+      ele.style.transform = 'translate(-30vw, 100lvh) rotate(-120deg) scale(1)';
     })
     .when({ on: 2.5, to: 4 }, (ele, vars, { progress }) => {
       if (infoMaskAni.vars.isUnderHalf) {
-        ele.style.transform = 'translate(-10vw, 70lvh) rotate(-75deg) ';
+        ele.style.transform = 'translate(-10vw, 70lvh) rotate(-75deg) scale(1)';
       } else {
-        ele.style.transform = 'translate(-30vw, 100lvh) rotate(-120deg) ';
+        ele.style.transform = 'translate(-30vw, 100lvh) rotate(-120deg) scale(1)';
       }
     })
-    .after({ on: 4 }, (ele, vars, { progress }) => {
-      ele.style.transform = 'translate(-10vw, 70lvh) rotate(-75deg) ';
+    .when({ on: 4, to: 5 }, (ele, vars, { progress }) => {
+      ele.style.transform = 'translate(10vw, 0) rotate(0deg) scale(0.8)';
+    })
+    .after({ on: 5 }, (ele, vars, { progress }) => {
+      ele.style.transform = 'translate(-20vw, -200lvh) rotate(120deg) scale(1.5)';
+    })
+
+  const symbolStar1Ani = animator.useAnimation(symbolStar1Ref)
+    .before({ on: 4 }, (ele, vars, { progress }) => {
+      ele.style.transform = 'translate(-100vw, 100lvh) rotate(-60deg)';
+      ele.style.userSelect = 'none';
+      // ele.style.opacity = 0;
+    })
+    .when({ on: 4, to: 5 }, (ele, vars, { progress }) => {
+      ele.style.transform = 'translate(-45vw, 65lvh) rotate(-30deg)';
+    })
+    .when({ on: 5, to: 6 }, (ele, vars, { progress }) => {
+      ele.style.transform = 'translate(-20vw, -65lvh) rotate(60deg)';
+      ele.style.userSelect = 'auto';
+      // ele.style.opacity = 1;
+    })
+    .after({ on: 6 }, (ele, vars, { progress }) => {
+      ele.style.transform = 'translate(-15vw, 32lvh) rotate(15deg)';
+      ele.style.userSelect = 'none';
+      // ele.style.opacity = 0;
     })
 
   const logotypeH1Ani = animator.useAnimation(logotypeH1Ref)
@@ -226,11 +257,86 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
       }
     })
     .when({ on: 4, to: 5 }, (ele, vars, { progress }) => {
-      ele.style.transform = 'translate(-70vw, -20lvh) rotate(-30deg) scale(1.2)';
+      ele.style.transform = 'translate(-70vw, -30lvh) rotate(-30deg) scale(1.2)';
     })
-    .after({ on: 5 }, (ele, vars, { progress }) => {
+    .when({ on: 5, to: 6 }, (ele, vars, { progress }) => {
+      ele.style.transform = 'translate(-50vw, 50lvh) rotate(15deg) scale(0.8)';
+    })
+    .after({ on: 6 }, (ele, vars, { progress }) => {
       ele.style.transform = 'translate(-30vw, -33.33lvh) rotate(0deg)';
     })
+
+
+  const aboutTitle1Ani = animator.useAnimation(aboutTitle1Ref)
+    .before({ on: 4 }, (ele, vars, { progress }) => {
+      ele.style.transform = 'translate(20vw, -3lvh) scale(1)';
+      ele.style.opacity = 1;
+    })
+    .after({ on: 4 }, (ele, vars, { progress }) => {
+      ele.style.transform = 'translate(0vw, 50lvh) rotate(90deg) scale(0.1)';
+      ele.style.opacity = 0;
+    })
+
+  const aboutTypewriter1Ani = animator.useAnimation(aboutTypewriter1Ref)
+    .before({ on: 4 }, (ele, vars, { progress }) => {
+      ele.style.transform = 'translate(-15vw, 32lvh) scale(1)';
+      ele.style.userSelect = 'auto';
+      ele.style.opacity = 1;
+    })
+    .after({ on: 4 }, (ele, vars, { progress }) => {
+      ele.style.transform = 'translate(0vw, 50lvh) rotate(90deg) scale(0.1)';
+      ele.style.userSelect = 'none';
+      ele.style.opacity = 0;
+    })
+
+
+  const aboutTitle2Ani = animator.useAnimation(aboutTitle2Ref)
+    .before({ on: 4 }, (ele, vars, { progress }) => {
+      ele.style.transform = 'translate(10vw, 100lvh) scale(0.1)';
+      ele.style.opacity = 0;
+    })
+    .when({ on: 4, to: 5 }, (ele, vars, { progress }) => {
+      setAboutTypewriter2Start(true);
+      ele.style.transform = 'translate(10vw, 45lvh) scale(1)';
+      ele.style.opacity = 1;
+    })
+    .after({ on: 5 }, (ele, vars, { progress }) => {
+      setAboutTypewriter2Start(true);
+      ele.style.transform = 'translate(10vw, 45lvh) scale(1)';
+      ele.style.opacity = 0;
+    })
+
+  const aboutUsBtnAni = animator.useAnimation(aboutUsBtnRef)
+    .before({ on: 4 }, (ele, vars, { progress }) => {
+      ele.style.pointerEvents = 'none';
+      ele.style.opacity = 0;
+    })
+    .when({ on: 4, to: 5 }, (ele, vars, { progress }) => {
+      ele.style.pointerEvents = 'auto';
+      ele.style.opacity = 1;
+    })
+    .after({ on: 5 }, (ele, vars, { progress }) => {
+      ele.style.pointerEvents = 'none';
+      ele.style.opacity = 0;
+    })
+
+  const aboutTypewriter2Ani = animator.useAnimation(aboutTypewriter2Ref)
+    .before({ on: 4 }, (ele, vars, { progress }) => {
+      ele.style.transform = 'translate(-20vw, 45lvh) rotate(-30deg)';
+      ele.style.userSelect = 'none';
+      ele.style.opacity = 0;
+    })
+    .when({ on: 4, to: 5 }, (ele, vars, { progress }) => {
+      ele.style.transform = 'translate(-12vw, 45lvh) rotate(0)';
+      ele.style.userSelect = 'auto';
+      ele.style.opacity = 1;
+    })
+    .after({ on: 5 }, (ele, vars, { progress }) => {
+      ele.style.transform = 'translate(-15vw, 32lvh) rotate(15deg)';
+      ele.style.userSelect = 'none';
+      ele.style.opacity = 0;
+    })
+
 
 
   useEffect(() => {
@@ -266,7 +372,7 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
 
 
         <div ref={infoMaskRef} className='masked-wrapper absolute w-0 h-full transition-all duration-1000 ease-out z-20 select-none pointer-events-none'>
-          <div ref={infoRef} className='fixed top-[calc(100lvh-48px)] h-full bg-black transition-transform duration-300 ease-in-out z-20'>
+          <div ref={infoRef} className='fixed top-[calc(100lvh-48px)] h-full bg-black transition-transform duration-300 ease-in-out z-20 select-text pointer-events-auto'>
             <div ref={scrollBarInfoRef}>
               <ScrollBarInfo />
             </div>
@@ -290,22 +396,22 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
                   {/* 30 位同學 */}
                   <div className="size-52 place-content-center">
                     <div>
-                      <TypewriterText
-                        text="30"
+                      <Typewriter
+                        content="30"
                         speed={500}
                         start={infoTypewriterStart}
                         className="text-[6rem] font-extrabold"
                       />
-                      <TypewriterText
-                        text="位同學"
+                      <Typewriter
+                        content="位同學"
                         speed={500}
                         start={infoTypewriterStart}
                         className="text-2xl font-extrabold ml-2"
                       />
                     </div>
                     <div className="text-sm opacity-80">
-                      <TypewriterText
-                        text="/* 北藝新媒 110級 */"
+                      <Typewriter
+                        content="/* 北藝新媒 110級 */"
                         speed={100}
                         start={infoTypewriterStart}
                         className=""
@@ -316,22 +422,22 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
                   {/* 19 組作品 */}
                   <div className="size-52 place-content-center">
                     <div>
-                      <TypewriterText
-                        text="19"
+                      <Typewriter
+                        content="19"
                         speed={500}
                         start={infoTypewriterStart}
                         className="text-[6rem] font-extrabold"
                       />
-                      <TypewriterText
-                        text="組作品"
+                      <Typewriter
+                        content="組作品"
                         speed={500}
                         start={infoTypewriterStart}
                         className="text-2xl font-extrabold ml-2"
                       />
                     </div>
                     <div className="text-sm opacity-80">
-                      <TypewriterText
-                        text="/* 11 組個人 + 8 組團體 */"
+                      <Typewriter
+                        content="/* 11 組個人 + 8 組團體 */"
                         speed={100}
                         start={infoTypewriterStart}
                         className=""
@@ -344,22 +450,22 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
                   {/* 1 場開幕 */}
                   <div className="size-52 place-content-center">
                     <div>
-                      <TypewriterText
-                        text="1"
+                      <Typewriter
+                        content="1"
                         speed={500}
                         start={infoTypewriterStart}
                         className="text-[6rem] font-extrabold"
                       />
-                      <TypewriterText
-                        text="場開幕"
+                      <Typewriter
+                        content="場開幕"
                         speed={500}
                         start={infoTypewriterStart}
                         className="text-2xl font-extrabold ml-2"
                       />
                     </div>
                     <div className="text-sm opacity-80">
-                      <TypewriterText
-                        text="/* 3 組表演者 */"
+                      <Typewriter
+                        content="/* 3 組表演者 */"
                         speed={100}
                         start={infoTypewriterStart}
                         className=""
@@ -370,22 +476,22 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
                   {/* 1 場講座 */}
                   <div className="size-52 place-content-center">
                     <div>
-                      <TypewriterText
-                        text="1"
+                      <Typewriter
+                        content="1"
                         speed={500}
                         start={infoTypewriterStart}
                         className="text-[6rem] font-extrabold"
                       />
-                      <TypewriterText
-                        text="場講座"
+                      <Typewriter
+                        content="場講座"
                         speed={500}
                         start={infoTypewriterStart}
                         className="text-2xl font-extrabold ml-2"
                       />
                     </div>
                     <div className="text-sm opacity-80">
-                      <TypewriterText
-                        text="/* 創作經驗分享 */"
+                      <Typewriter
+                        content="/* 創作經驗分享 */"
                         speed={100}
                         start={infoTypewriterStart}
                         className=""
@@ -396,7 +502,7 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
 
                 {/* 按鈕：更多策展資訊 */}
                 <div className="size-fit place-self-center pt-12 -translate-x-6">
-                  <MoreInfoBtn text={'作品與活動資訊'} />
+                  <MoreInfoBtn content={'作品與活動資訊'} />
                 </div>
               </div>
             </div>
@@ -412,21 +518,26 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
             className='absolute top-0 left-0 -translate-x-1/2 -translate-y-full h-[60lvh] w-auto max-w-none object-contain select-none pointer-events-none transition-all duration-1000 ease-out'
           />
           <img
+            ref={symbolHashtag1Ref}
+            src='symbols/symbol-Hashtag.png'
+            className='absolute z-[12] top-0 right-0 -translate-x-[10vw] translate-y-[70lvh] -rotate-[75deg] h-[125lvh] w-auto min-w-[70vw] min-h-[125lvh] max-h-none max-w-none object-contain select-none pointer-events-none transition-all duration-1000 ease-out'
+          />
+          <img
+            ref={symbolStar1Ref}
+            src='symbols/symbol-Star.png'
+            className='absolute z-[12] top-0 left-0 -translate-x-[45vw] translate-y-[65lvh] -rotate-[30deg] h-auto w-[70vw] max-h-none object-contain select-none pointer-events-none transition-all duration-1000 ease-out'
+          />
+          <img
             ref={logotypeH1Ref}
             src='logotypes/logotype-horizontal.png'
             className='absolute top-0 left-1/2 translate-x-[100vw] translate-y-[50lvh] -rotate-[60deg] h-[60lvh] w-auto max-w-none object-contain select-none pointer-events-none transition-all duration-1000 ease-out'
           />
-          <img
-            ref={symbolHashtag1Ref}
-            src='symbols/symbol-hashtag.png'
-            className='absolute top-0 right-0 -translate-x-[10vw] translate-y-[70lvh] -rotate-[75deg] h-auto w-[70vw] max-h-none object-contain select-none pointer-events-none transition-all duration-1000 ease-out'
-          />
 
           <div
             ref={aboutTypewriter1Ref}
-            className='absolute top-0 right-1/4 translate-y-[37lvh] w-1/3 flex flex-col gap-8 leading-tight text-sm font-semibold'
+            className='absolute z-[11] top-0 right-0 opacity-0 -translate-x-[12vw] translate-y-[35lvh] w-2/5 flex flex-col gap-8 leading-snug text-base font-semibold transition-all duration-1000 ease-in-out'
           >
-            <Typewriter
+            <TypewriterParagraph
               paragraphs={[
                 "本屆北藝大新媒體藝術學系110級畢業展「新增註解 neo-annotation」，以現代生活中線上編輯工具的「註解」功能為靈感，將「註解」延伸為藝術行動，探索多元觀點和言論如何在科技和社群媒介的推動下共存與對話。這場展覽將新媒體藝術視作註解的「媒材」，引領觀眾在作品中，從多角度理解和重新詮釋熟悉的社會現況、意識形態與日常生活。",
                 "本展覽旨在打破固有的觀看框架，透過跨領域的創作激發出新舊觀點的承接和累加。與傳統的文字註解不同，藝術作品成為學生們「註解」世界的方式，以視覺、聲音和互動等方式來對當前現象進行觀察、解構，並重新構築。展覽場域如同一個自由對話的空間，提供學生表達多重視角的機會，同時讓觀者與作品之間產生有機反應，進而激發新的思想連結。",
@@ -436,6 +547,49 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
               start={aboutTypewriter1Start}
               className='flex flex-col gap-8'
             />
+          </div>
+
+          <div
+            ref={aboutTitle1Ref}
+            className='absolute z-[13] top-0 left-0 opacity-0 h-fit max-w-[15rem] translate-x-[20vw] -translate-y-[3lvh] select-none leading-none transition-all duration-1000 ease-in-out'
+          >
+            <Typewriter
+              content={'新增註解。'}
+              speed={250}
+              start={aboutTypewriter1Start}
+              className='font-bold text-[20lvh] vertical-text'
+            />
+          </div>
+
+          <div
+            ref={aboutTitle2Ref}
+            className='absolute z-[13] top-0 left-0 opacity-0 translate-x-[10vw] translate-y-[45lvh] select-none leading-tight transition-all duration-1000 ease-in-out'
+          >
+            <Typewriter
+              speed={250}
+              start={aboutTypewriter2Start}
+              className='font-bold text-[20lvh]'
+              content='我們<br/>&nbsp;&nbsp;&nbsp;&nbsp;是誰?'
+            />
+          </div>
+
+          <div
+            ref={aboutTypewriter2Ref}
+            className='absolute z-[13] top-0 right-0 opacity-0 -translate-x-[12vw] translate-y-[45lvh] w-1/4 leading-snug text-base font-semibold transition-all duration-1000 ease-in-out'
+          >
+            <Typewriter
+              content={'國立臺北藝術大學新媒體藝術學系為一跨越人文藝術領域與尖端科技結合的未來學門。它作為推動數位科技與藝術整合的重要推手，以培育前瞻性的「新媒體科技」、「新媒體影像」與「新媒體跨域」等全方位未來藝術創意人才。'}
+              speed={20}
+              start={aboutTypewriter2Start}
+              className='flex flex-col gap-8'
+            />
+          </div>
+
+          <div
+            ref={aboutUsBtnRef}
+            className='absolute w-fit h-fit z-[13] top-0 right-0 opacity-0 -translate-x-[12vw] translate-y-[65lvh] leading-normal transition-all duration-1000 ease-in-out'
+          >
+            <MoreInfoBtn text='關於我們' color='black' />
           </div>
         </div>
       </div>
