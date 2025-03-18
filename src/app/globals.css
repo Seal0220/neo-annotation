@@ -52,3 +52,21 @@ body {
   writing-mode: vertical-rl;
   text-orientation: upright;
 }
+
+
+
+/* Info */
+.info-hidden {
+  transform: translateY(0) !important;
+}
+.info-visible {
+  transform: translateY(calc(-100vh + 48px)) !important;
+}
+
+/* InfoMask */
+.infomask-expand {
+  width: 100% !important;
+}
+.infomask-collapse {
+  width: 64px !important;
+}

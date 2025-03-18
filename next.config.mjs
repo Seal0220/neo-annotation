@@ -5,7 +5,7 @@ const HOSTS = {
 }
 
 const nextConfig = {
-    reactStrictMode: true,
+    reactStrictMode: false,
     eslint: {
         ignoreDuringBuilds: false,
     },

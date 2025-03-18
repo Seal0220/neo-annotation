@@ -1,3 +1,4 @@
+'use client';
 import { useState, useRef, useEffect } from 'react';
 import useElementMetrics, { getElementMetrics } from './useElementMetrics';
 
@@ -24,6 +25,14 @@ export default function useAnimator(animatorRef) {
             this.actions = [];
             this.vars = {};
             this.ele = {};
+        }
+        setVar(key, value) {
+            this.vars[key] = value;
+            return this;
+        }
+        setVars(vars = {}) {
+            this.vars = {...this.vars, ...vars}
+            return this;
         }
         // before 回調：在 progress 小於 on 時執行
         before({ on }, action) {
@@ -85,15 +94,15 @@ export default function useAnimator(animatorRef) {
     const updateScroll = () => {
         const progress = (window.scrollY - (metrics.top || 0)) / window.outerHeight;
         // if (window.scrollY !== lastScrollY.current) {
-            const now = Date.now();
-            if (now - lastUpdateTime.current >= updateInterval) {
-                if (isDebug.current) {
-                    console.log(`animation scroll: ${progress.toFixed(2)}`);
-                }
-                lastScrollY.current = window.scrollY;
-                lastUpdateTime.current = now;
-                animations.current.forEach((anim) => anim.apply(progress));
+        const now = Date.now();
+        if (now - lastUpdateTime.current >= updateInterval) {
+            if (isDebug.current) {
+                console.log(`animation scroll: ${progress.toFixed(2)}`);
             }
+            lastScrollY.current = window.scrollY;
+            lastUpdateTime.current = now;
+            animations.current.forEach((anim) => anim.apply(progress));
+        }
         // }
         animationFrameId = requestAnimationFrame(updateScroll);
     };

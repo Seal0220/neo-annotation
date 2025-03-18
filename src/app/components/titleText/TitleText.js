@@ -1,12 +1,12 @@
 'use client';
 import React, { forwardRef, useRef, useState, useEffect, useCallback } from 'react';
-import p5 from 'p5';
 
 import { randomRange } from '@/app/functions/utils';
 
 export default function useTitleText() {
     const canvasRef = useRef(null);
-    const p5InstanceRef = useRef(null); // 用來儲存 p5 實例
+    const p5InstanceRef = useRef(null);
+
 
     const [textConfig, setTextConfig] = useState({
         textImagePath: '/titleText/neo-annotation_mask.png',                                // 遮罩圖片路徑
@@ -59,251 +59,259 @@ export default function useTitleText() {
         });
     };
 
-
     // 初始化 p5 實例（僅掛載時執行一次）
     useEffect(() => {
-        const sketch = (p) => {
-            let font;
-            let particles = [];
-            let textMask;
-            const textBaseWidth = 880;
+        if (typeof window === 'undefined' || p5InstanceRef.current) return;
 
-            p.config = { ...textConfig };
-            p.updateConfig = (newConfig) => {
-                p.config = { ...newConfig };
-            };
+        import('p5').then((module) => {
+            const p5 = module.default;
+            const sketch = (p) => {
+                let font;
+                let particles = [];
+                let textMask;
+                const textBaseWidth = 880;
 
-            p.preload = () => {
-                font = p.loadFont(p.config.fontPath);
-                textMask = p.loadImage(p.config.textImagePath);
-            };
+                p.config = { ...textConfig };
+                p.updateConfig = (newConfig) => {
+                    p.config = { ...newConfig };
+                };
 
-            function generateParticles() {
-                if (!textMask) return;
-                particles = [];
+                p.preload = () => {
+                    font = p.loadFont(p.config.fontPath);
+                    textMask = p.loadImage(p.config.textImagePath);
+                };
 
-                textMask.resize(textBaseWidth * p.config.imageScale, 0);
-                textMask.loadPixels();
+                function generateParticles() {
+                    if (!textMask) return;
+                    particles = [];
 
-                const offsetX = (p.width - textMask.width) / 2;
-                const offsetY = (p.height - textMask.height) / 2;
+                    textMask.resize(textBaseWidth * p.config.imageScale, 0);
+                    textMask.loadPixels();
 
-                let totalParticles = 0;
-                for (let x = 0; x < textMask.width; x += p.config.samplingStep) {
-                    for (let y = 0; y < textMask.height; y += p.config.samplingStep) {
-                        let c = textMask.get(x, y);
-                        let letter = getCharacterByColor(c);
-                        if (letter && p.random() < p.config.densityFactor) {
-                            particles.push(new Particle(
-                                offsetX + (x / p.config.imageScale) * p.config.particleScaleFactor,
-                                offsetY + (y / p.config.imageScale) * p.config.particleScaleFactor,
-                                letter,
-                                c
-                            ));
-                            totalParticles++;
-                            if (totalParticles >= p.config.maxParticles) {
-                                return;
+                    const offsetX = (p.width - textMask.width) / 2;
+                    const offsetY = (p.height - textMask.height) / 2;
+
+                    let totalParticles = 0;
+                    for (let x = 0; x < textMask.width; x += p.config.samplingStep) {
+                        for (let y = 0; y < textMask.height; y += p.config.samplingStep) {
+                            let c = textMask.get(x, y);
+                            let letter = getCharacterByColor(c);
+                            if (letter && p.random() < p.config.densityFactor) {
+                                particles.push(new Particle(
+                                    offsetX + (x / p.config.imageScale) * p.config.particleScaleFactor,
+                                    offsetY + (y / p.config.imageScale) * p.config.particleScaleFactor,
+                                    letter,
+                                    c
+                                ));
+                                totalParticles++;
+                                if (totalParticles >= p.config.maxParticles) {
+                                    return;
+                                }
                             }
                         }
                     }
-                }
-                console.log(`Total particles generated: ${particles.length}`);
-            }
-
-            p.setup = () => {
-                p.createCanvas(p.windowWidth, p.windowHeight).parent(canvasRef.current);
-                generateParticles();
-            };
-
-            //   p.windowResized = () => {
-            //     p.resizeCanvas(p.windowWidth, p.windowHeight);
-            //     generateParticles();
-            //   };
-
-            p.draw = () => {
-                p.clear();
-
-                p.push();
-                p.translate(p.width / 2, p.height / 2);
-                p.scale(p.config.canvasScale);
-                p.translate(-p.width / 2, -p.height / 2);
-
-                for (let particle of particles) {
-                    particle.update();
-                    particle.show();
-                }
-                p.pop();
-            };
-
-
-
-            function getCharacterByColor(color) {
-                let r = p.red(color);
-                let g = p.green(color);
-                let b = p.blue(color);
-                if (isColorMatch(r, g, b, 255, 0, 0)) return "n";
-                if (isColorMatch(r, g, b, 255, 136, 0)) return "e";
-                if (isColorMatch(r, g, b, 251, 255, 0)) return "o";
-                if (isColorMatch(r, g, b, 64, 255, 0)) return "-";
-                if (isColorMatch(r, g, b, 0, 255, 208)) return "a";
-                if (isColorMatch(r, g, b, 229, 0, 255)) return "t";
-                if (isColorMatch(r, g, b, 0, 26, 255)) return "i";
-                return null;
-            }
-
-            function isColorMatch(r, g, b, targetR, targetG, targetB) {
-                return (
-                    Math.abs(r - targetR) < p.config.colorTolerance &&
-                    Math.abs(g - targetG) < p.config.colorTolerance &&
-                    Math.abs(b - targetB) < p.config.colorTolerance
-                );
-            }
-
-            function gaussianOffset(factor = 1) {
-                return p.randomGaussian() * factor;
-            }
-
-            class Particle {
-                constructor(x, y, letter, color) {
-                    // 原始文字輪廓的目標位置
-                    this.target = p.createVector(x, y);
-                    // 初始位置：稍微偏離目標位置（加入高斯雜訊）
-                    this.pos = p.createVector(
-                        x + gaussianOffset(p.config.spreadFactor),
-                        y + gaussianOffset(p.config.spreadFactor)
-                    );
-                    // 隨機初始速度
-                    this.vel = p5.Vector.random2D().mult(p.config.textMult);
-                    this.acc = p.createVector();
-                    this.maxSpeed = 3;
-                    this.letter = letter;
-                    this.color = color;
-                    this.noiseOffsetX = p.random(1000);
-                    this.noiseOffsetY = p.random(1000);
-                    // escape 相關屬性
-                    this.isEscaping = false;
-                    this.isReturning = false;
-                    this.escapeTimer = 0;
-                    this.escapeNoiseOffset = p.random(1000);
-
-                    // 建立一個散開目標：以畫布中心為基準，再加上一個隨機位移
-                    const center = p.createVector(p.width / 2, p.height / 2);
-                    const maxRadius = 400; // 散開最大半徑（可依需求調整）
-                    let randomVec = p5.Vector.random2D().mult(p.random(maxRadius));
-                    this.scatteredPos = p5.Vector.add(center, randomVec);
+                    console.log(`Total particles generated: ${particles.length}`);
                 }
 
-                update() {
-                    // 以 scatterFactor (0~1) 決定最終目標位置
-                    // scatterFactor 為 0 時最終目標為 this.target；為 1 時為 this.scatteredPos
-                    const finalTarget = p5.Vector.lerp(this.target, this.scatteredPos, p.config.scatterFactor);
+                p.setup = () => {
+                    p.createCanvas(p.windowWidth, p.windowHeight).parent(canvasRef.current);
+                    generateParticles();
+                };
 
-                    // 計算指向 finalTarget 的向量
-                    let force = p5.Vector.sub(finalTarget, this.pos);
-                    let distance = force.mag();
-                    let isNearTarget = distance < p.config.stabilityThreshold;
+                //   p.windowResized = () => {
+                //     p.resizeCanvas(p.windowWidth, p.windowHeight);
+                //     generateParticles();
+                //   };
 
-                    // 當粒子靠近目標時，有一定機率觸發 escape 行為
-                    if (!this.isEscaping && isNearTarget && p.random() < p.config.escapeChance) {
-                        this.triggerEscape();
-                    }
+                p.draw = () => {
+                    p.clear();
 
-                    // 如果處於 escape 狀態，加入回歸力與 noise 擾動
-                    if (this.isEscaping) {
-                        this.escapeTimer--;
-                        let pullBackForce = p5.Vector.sub(finalTarget, this.pos);
-                        pullBackForce.setMag(p.config.reboundForce);
-                        this.vel.add(pullBackForce);
+                    p.push();
+                    p.translate(p.width / 2, p.height / 2);
+                    p.scale(p.config.canvasScale);
+                    p.translate(-p.width / 2, -p.height / 2);
 
-                        let noiseX = (p.noise(this.escapeNoiseOffset + p.millis() * 0.002) - 0.5) * p.config.escapeNoiseStrength;
-                        let noiseY = (p.noise(this.escapeNoiseOffset + p.millis() * 0.002 + 500) - 0.5) * p.config.escapeNoiseStrength;
-                        this.pos.add(noiseX, noiseY);
-
-                        if (this.escapeTimer <= 0) {
-                            this.isEscaping = false;
-                            this.isReturning = true;
-                        }
-                    } else {
-                        // 未 escape 狀態下：如果離最終目標太遠，就朝向它施加加速度
-                        if (distance > p.config.stabilityThreshold) {
-                            force.setMag(p.config.textSpeed);
-                            this.acc.add(force);
-                        } else {
-                            this.vel.mult(p.config.nearTargetDamping);
-                            this.isEscaping = false;
-                            this.isReturning = false;
-                        }
-                    }
-
-                    // 更新速度與位置
-                    this.vel.add(this.acc);
-                    this.vel.limit(this.maxSpeed);
-                    this.pos.add(this.vel);
-                    this.acc.mult(0);
-
-                    // 處理 noise 與隨機漂移
-                    let noiseEffect = p.config.noiseStrength;
-                    let driftEffect = p.config.driftFactor;
-                    if (this.isReturning) {
-                        let recoveryFactor = p.map(distance, 0, p.config.stabilityThreshold, 0, 1);
-                        noiseEffect *= recoveryFactor * p.config.recoveryFactorScale;
-                        driftEffect *= recoveryFactor * p.config.recoveryFactorScale;
-                    }
-                    let floatX = (p.noise(this.noiseOffsetX + p.millis() * p.config.noiseScale) - 0.5) * noiseEffect;
-                    let floatY = (p.noise(this.noiseOffsetY + p.millis() * p.config.noiseScale + 500) - 0.5) * noiseEffect;
-                    this.pos.add(p.createVector(floatX, floatY));
-
-                    if (p.random() < p.config.targetDriftChance) {
-                        let driftX = p.random(-driftEffect, driftEffect);
-                        let driftY = p.random(-driftEffect, driftEffect);
-                        this.pos.add(p.createVector(driftX, driftY));
-                    }
-                }
-
-                triggerEscape(escapeDirection = null) {
-                    if (this.isEscaping) return;
-                    this.isEscaping = true;
-                    this.isReturning = false;
-                    this.escapeTimer = p.config.escapeDuration();
-                    if (!escapeDirection) {
-                        let baseAngle = p.random(p.TWO_PI);
-                        escapeDirection = baseAngle + p.radians(p.random(-p.config.collapseAngle() / 2, p.config.collapseAngle() / 2));
-                    }
-                    let escapeVelocity = p5.Vector.fromAngle(escapeDirection).mult(p.config.escapePower());
-                    this.vel.add(escapeVelocity);
-                    let splashCount = 0;
                     for (let particle of particles) {
-                        let d = p.dist(this.pos.x, this.pos.y, particle.pos.x, particle.pos.y);
-                        if (d < p.config.splashRadius && !particle.isEscaping && p.random() < p.config.splashProbability) {
-                            particle.triggerEscape(escapeDirection);
-                            splashCount++;
-                            if (splashCount >= p.config.splashLimit) break;
+                        particle.update();
+                        particle.show();
+                    }
+                    p.pop();
+                };
+
+
+
+                function getCharacterByColor(color) {
+                    let r = p.red(color);
+                    let g = p.green(color);
+                    let b = p.blue(color);
+                    if (isColorMatch(r, g, b, 255, 0, 0)) return "n";
+                    if (isColorMatch(r, g, b, 255, 136, 0)) return "e";
+                    if (isColorMatch(r, g, b, 251, 255, 0)) return "o";
+                    if (isColorMatch(r, g, b, 64, 255, 0)) return "-";
+                    if (isColorMatch(r, g, b, 0, 255, 208)) return "a";
+                    if (isColorMatch(r, g, b, 229, 0, 255)) return "t";
+                    if (isColorMatch(r, g, b, 0, 26, 255)) return "i";
+                    return null;
+                }
+
+                function isColorMatch(r, g, b, targetR, targetG, targetB) {
+                    return (
+                        Math.abs(r - targetR) < p.config.colorTolerance &&
+                        Math.abs(g - targetG) < p.config.colorTolerance &&
+                        Math.abs(b - targetB) < p.config.colorTolerance
+                    );
+                }
+
+                function gaussianOffset(factor = 1) {
+                    return p.randomGaussian() * factor;
+                }
+
+                class Particle {
+                    constructor(x, y, letter, color) {
+                        // 原始文字輪廓的目標位置
+                        this.target = p.createVector(x, y);
+                        // 初始位置：稍微偏離目標位置（加入高斯雜訊）
+                        this.pos = p.createVector(
+                            x + gaussianOffset(p.config.spreadFactor),
+                            y + gaussianOffset(p.config.spreadFactor)
+                        );
+                        // 隨機初始速度
+                        this.vel = p5.Vector.random2D().mult(p.config.textMult);
+                        this.acc = p.createVector();
+                        this.maxSpeed = 3;
+                        this.letter = letter;
+                        this.color = color;
+                        this.noiseOffsetX = p.random(1000);
+                        this.noiseOffsetY = p.random(1000);
+                        // escape 相關屬性
+                        this.isEscaping = false;
+                        this.isReturning = false;
+                        this.escapeTimer = 0;
+                        this.escapeNoiseOffset = p.random(1000);
+
+                        // 建立一個散開目標：以畫布中心為基準，再加上一個隨機位移
+                        const center = p.createVector(p.width / 2, p.height / 2);
+                        const maxRadius = 400; // 散開最大半徑（可依需求調整）
+                        let randomVec = p5.Vector.random2D().mult(p.random(maxRadius));
+                        this.scatteredPos = p5.Vector.add(center, randomVec);
+                    }
+
+                    update() {
+                        // 以 scatterFactor (0~1) 決定最終目標位置
+                        // scatterFactor 為 0 時最終目標為 this.target；為 1 時為 this.scatteredPos
+                        const finalTarget = p5.Vector.lerp(this.target, this.scatteredPos, p.config.scatterFactor);
+
+                        // 計算指向 finalTarget 的向量
+                        let force = p5.Vector.sub(finalTarget, this.pos);
+                        let distance = force.mag();
+                        let isNearTarget = distance < p.config.stabilityThreshold;
+
+                        // 當粒子靠近目標時，有一定機率觸發 escape 行為
+                        if (!this.isEscaping && isNearTarget && p.random() < p.config.escapeChance) {
+                            this.triggerEscape();
                         }
+
+                        // 如果處於 escape 狀態，加入回歸力與 noise 擾動
+                        if (this.isEscaping) {
+                            this.escapeTimer--;
+                            let pullBackForce = p5.Vector.sub(finalTarget, this.pos);
+                            pullBackForce.setMag(p.config.reboundForce);
+                            this.vel.add(pullBackForce);
+
+                            let noiseX = (p.noise(this.escapeNoiseOffset + p.millis() * 0.002) - 0.5) * p.config.escapeNoiseStrength;
+                            let noiseY = (p.noise(this.escapeNoiseOffset + p.millis() * 0.002 + 500) - 0.5) * p.config.escapeNoiseStrength;
+                            this.pos.add(noiseX, noiseY);
+
+                            if (this.escapeTimer <= 0) {
+                                this.isEscaping = false;
+                                this.isReturning = true;
+                            }
+                        } else {
+                            // 未 escape 狀態下：如果離最終目標太遠，就朝向它施加加速度
+                            if (distance > p.config.stabilityThreshold) {
+                                force.setMag(p.config.textSpeed);
+                                this.acc.add(force);
+                            } else {
+                                this.vel.mult(p.config.nearTargetDamping);
+                                this.isEscaping = false;
+                                this.isReturning = false;
+                            }
+                        }
+
+                        // 更新速度與位置
+                        this.vel.add(this.acc);
+                        this.vel.limit(this.maxSpeed);
+                        this.pos.add(this.vel);
+                        this.acc.mult(0);
+
+                        // 處理 noise 與隨機漂移
+                        let noiseEffect = p.config.noiseStrength;
+                        let driftEffect = p.config.driftFactor;
+                        if (this.isReturning) {
+                            let recoveryFactor = p.map(distance, 0, p.config.stabilityThreshold, 0, 1);
+                            noiseEffect *= recoveryFactor * p.config.recoveryFactorScale;
+                            driftEffect *= recoveryFactor * p.config.recoveryFactorScale;
+                        }
+                        let floatX = (p.noise(this.noiseOffsetX + p.millis() * p.config.noiseScale) - 0.5) * noiseEffect;
+                        let floatY = (p.noise(this.noiseOffsetY + p.millis() * p.config.noiseScale + 500) - 0.5) * noiseEffect;
+                        this.pos.add(p.createVector(floatX, floatY));
+
+                        if (p.random() < p.config.targetDriftChance) {
+                            let driftX = p.random(-driftEffect, driftEffect);
+                            let driftY = p.random(-driftEffect, driftEffect);
+                            this.pos.add(p.createVector(driftX, driftY));
+                        }
+                    }
+
+                    triggerEscape(escapeDirection = null) {
+                        if (this.isEscaping) return;
+                        this.isEscaping = true;
+                        this.isReturning = false;
+                        this.escapeTimer = p.config.escapeDuration();
+                        if (!escapeDirection) {
+                            let baseAngle = p.random(p.TWO_PI);
+                            escapeDirection = baseAngle + p.radians(p.random(-p.config.collapseAngle() / 2, p.config.collapseAngle() / 2));
+                        }
+                        let escapeVelocity = p5.Vector.fromAngle(escapeDirection).mult(p.config.escapePower());
+                        this.vel.add(escapeVelocity);
+                        let splashCount = 0;
+                        for (let particle of particles) {
+                            let d = p.dist(this.pos.x, this.pos.y, particle.pos.x, particle.pos.y);
+                            if (d < p.config.splashRadius && !particle.isEscaping && p.random() < p.config.splashProbability) {
+                                particle.triggerEscape(escapeDirection);
+                                splashCount++;
+                                if (splashCount >= p.config.splashLimit) break;
+                            }
+                        }
+                    }
+
+                    show() {
+                        p.fill(0);
+                        p.noStroke();
+                        p.textSize(p.config.particleSize);
+                        p.text(this.letter, this.pos.x, this.pos.y);
                     }
                 }
 
-                show() {
-                    p.fill(0);
-                    p.noStroke();
-                    p.textSize(p.config.particleSize);
-                    p.text(this.letter, this.pos.x, this.pos.y);
-                }
+            };
+
+            p5InstanceRef.current = new p5(sketch);
+        });
+        return () => {
+            if (p5InstanceRef.current && typeof p5InstanceRef.current.remove === 'function') {
+                p5InstanceRef.current.remove();
+                p5InstanceRef.current = null;
             }
-
         };
+    }, []);
 
-        p5InstanceRef.current = new p5(sketch);
-        return () => p5InstanceRef.current.remove();
-    }, []); // 依賴陣列為空，僅初始化一次
-
-    // 當 textConfig 更新時，通知 p5 實例更新內部的配置
     useEffect(() => {
         if (p5InstanceRef.current && p5InstanceRef.current.updateConfig) {
             p5InstanceRef.current.updateConfig(textConfig);
         }
     }, [textConfig]);
 
-    const TitleTextComponent = useCallback(({className}) => (
+    const TitleTextComponent = useCallback(({ className }) => (
         <div ref={canvasRef} className={`select-none pointer-events-none ${className}`} />
     ), []);
     return { textConfig, updateConfig, TitleTextComponent };
