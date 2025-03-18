@@ -66,7 +66,6 @@ function revealContent(content, count) {
     ));
   }
 
-  console.log(content, count)
   return revealChildren(content, count);
 }
 
@@ -79,24 +78,41 @@ function revealContent(content, count) {
  * - start: 是否開始打字（由 false 轉 true 觸發打字效果）
  * - className: 外層容器的 className
  */
-export default function Typewriter({ content, speed = 50, start = false, className = '', onDone = () => {} }) {
-  const [charCount, setCharCount] = useState(0);
-  const hasStarted = useRef(false);
+export default function Typewriter({ contentKey = null, content, speed = 50, start = false, className = '', onDone = () => { } }) {
   const intervalRef = useRef(null);
-  const [done, setDone] = useState(false);
+  const [prevContentKey, setPrevContentKey] = useState(contentKey);
+  const [charCount, setCharCount] = useState(0);
+  const [hasStarted, setHasStarted] = useState(false);
+  const [isDone, setIsDone] = useState(false);
+
+
 
   useEffect(() => {
-    if (!start || hasStarted.current) return;
-    hasStarted.current = true;
+    if (prevContentKey !== contentKey) {
+      setHasStarted(false);
+      setCharCount(0);
+      setIsDone(false);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+      setPrevContentKey(contentKey);
+    }
+  }, [contentKey]);
+
+  useEffect(() => {
+    if (!start) return;
+    setHasStarted(true);
     const total = countChars(content);
-    console.log(content, total)
-    setCharCount(0);
+    if (!hasStarted) {
+      setCharCount(0);
+    }
     intervalRef.current = setInterval(() => {
       setCharCount((prev) => {
         if (prev >= total) {
           clearInterval(intervalRef.current);
-          if (!done) {
-            setDone(true);
+          if (!isDone) {
+
+            setIsDone(true);
             onDone();
           }
           return prev;
@@ -107,25 +123,15 @@ export default function Typewriter({ content, speed = 50, start = false, classNa
     return () => clearInterval(intervalRef.current);
   }, [content, speed, start]);
 
-
-  useEffect(() => {console.log(charCount)}, [charCount])
   const revealed = revealContent(content, charCount);
   return <div className={className}>{revealed}</div>;
-}
-
-
-/**
- * 用於純文字的打字機元件（傳入 text prop）
- */
-export function TypewriterText({ text, speed = 50, start = false, className = '' }) {
-  return <Typewriter content={text} speed={speed} start={start} className={className} />;
 }
 
 /**
  * 用於格式化內容的打字機元件（傳入 children）
  */
 export function TypewriterFormatted({ children, speed = 50, start = false, className = '' }) {
-  return <Typewriter content={children} speed={speed} start={start} className={className} />;
+  return <Typewriter key={key} content={children} speed={speed} start={start} className={className} />;
 }
 
 /**
@@ -136,7 +142,7 @@ export function TypewriterParagraph({ paragraphs, speed = 50, start = false, cla
     <div className={className}>
       {paragraphs.map((para, index) => (
         <div key={index}>
-          <TypewriterText text={para} speed={speed} start={start} />
+          <Typewriter content={para} speed={speed} start={start} />
         </div>
       ))}
     </div>

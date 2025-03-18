@@ -81,18 +81,29 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
   const symbolHtml1Ref = useRef(null);
   const symbolHashtag1Ref = useRef(null);
   const symbolStar1Ref = useRef(null);
+  const symbolVerticalLine1Ref = useRef(null);
   const logotypeH1Ref = useRef(null);
   const aboutTitle1Ref = useRef(null);
   const aboutTitle2Ref = useRef(null);
   const aboutTitle3Ref = useRef(null);
+  const aboutTitle4Ref = useRef(null);
   const aboutTypewriter1Ref = useRef(null);
   const aboutTypewriter2Ref = useRef(null);
-  const aboutTypewriter3Ref = useRef(null);
   const aboutUsBtnRef = useRef(null);
   const [aboutTypewriter1Start, setAboutTypewriter1Start] = useState(false);
   const [aboutTypewriter2Start, setAboutTypewriter2Start] = useState(false);
   const [aboutTypewriter3Start, setAboutTypewriter3Start] = useState(false);
 
+  const whereRef = useRef(null);
+  const whereDateDatetimeRef = useRef(null);
+  const whereDateTimeRef = useRef(null);
+  const whereDateYearRef = useRef(null);
+  const whereLocationClabRef = useRef(null);
+  const whereLocationAddressRef = useRef(null);
+  const whereBtnRef = useRef(null);
+
+
+  /* TITLE */
   const titleTextAni = animator.useAnimation(titleTextRef);
 
   /* INFO */
@@ -255,22 +266,32 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
 
   const symbolStar1Ani = animator.useAnimation(symbolStar1Ref)
     .before({ on: 4 }, (ele, vars, { progress }) => {
-      ele.style.transform = 'translate(-100vw, 100lvh) rotate(-60deg)';
-      ele.style.userSelect = 'none';
-      // ele.style.opacity = 0;
+      ele.style.transform = 'translate(-100vw, 100lvh) rotate(-60deg) scale(1)';
     })
     .when({ on: 4, to: 5 }, (ele, vars, { progress }) => {
-      ele.style.transform = 'translate(-45vw, 65lvh) rotate(-30deg)';
+      ele.style.transform = 'translate(-45vw, 65lvh) rotate(-30deg) scale(1)';
     })
     .when({ on: 5, to: 6 }, (ele, vars, { progress }) => {
-      ele.style.transform = 'translate(-20vw, -65lvh) rotate(60deg)';
-      ele.style.userSelect = 'auto';
-      // ele.style.opacity = 1;
+      ele.style.transform = 'translate(-20vw, -65lvh) rotate(60deg) scale(1)';
     })
     .after({ on: 6 }, (ele, vars, { progress }) => {
-      ele.style.transform = 'translate(-15vw, 32lvh) rotate(15deg)';
-      ele.style.userSelect = 'none';
-      // ele.style.opacity = 0;
+      ele.style.transform = 'translate(10vw, -150lvh) rotate(180deg) scale(1)';
+    })
+
+  const symbolVerticalLine1Ani = animator.useAnimation(symbolVerticalLine1Ref)
+    .before({ on: 5 }, (ele, vars, { progress }) => {
+      ele.style.transform = 'translate(0vw, 65lvh) rotate(-60deg) scale(0.8)';
+    })
+    .when({ on: 5, to: 6 }, (ele, vars, { progress }) => {
+      ele.style.transform = 'translate(55vw, 24lvh) rotate(25deg) scale(1)';
+    })
+    .after({ on: 6 }, (ele, vars, { progress }) => {
+      if (ele.metrics?.rotation >= 90) {
+        ele.style.transform = `translate(calc(-50% + 50vw + 64px), calc(-50% + 50lvh)) rotate(90deg) scale(5)`;
+      }
+      else {
+        ele.style.transform = 'translate(calc(-50% + 50vw + 64px), calc(-50% + 50lvh)) rotate(90deg) scale(1)';
+      }
     })
 
   const logotypeH1Ani = animator.useAnimation(logotypeH1Ref)
@@ -291,22 +312,30 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
       ele.style.transform = 'translate(-50vw, 50lvh) rotate(15deg) scale(0.8)';
     })
     .after({ on: 6 }, (ele, vars, { progress }) => {
-      ele.style.transform = 'translate(-30vw, -33.33lvh) rotate(0deg)';
+      ele.style.transform = 'translate(calc(-50% + 64px), calc(-50% + 50lvh)) rotate(0deg) scale(0.2)';
     })
 
 
   const aboutTitle1Ani = animator.useAnimation(aboutTitle1Ref)
-    .before({ on: 4 }, (ele, vars, { progress }) => {
+    .before({ on: 2.5 }, (ele, vars, { progress }) => {
+      ele.style.transform = 'translate(0vw, 0lvh) scale(0.5)';
+      ele.style.opacity = 0;
+    })
+    .when({ on: 2.5, to: 4 }, (ele, vars, { progress }) => {
       ele.style.transform = 'translate(20vw, -3lvh) scale(1)';
       ele.style.opacity = 1;
     })
     .after({ on: 4 }, (ele, vars, { progress }) => {
-      ele.style.transform = 'translate(0vw, 50lvh) rotate(90deg) scale(0.1)';
+      ele.style.transform = 'translate(0vw, 50lvh) rotate(90deg) scale(3)';
       ele.style.opacity = 0;
     })
 
   const aboutTypewriter1Ani = animator.useAnimation(aboutTypewriter1Ref)
-    .before({ on: 4 }, (ele, vars, { progress }) => {
+    .before({ on: 2.5 }, (ele, vars, { progress }) => {
+      ele.style.transform = 'translate(120vw, 10lvh) rotate(-60deg) scale(5)';
+      ele.style.opacity = 0;
+    })
+    .when({ on: 2.5, to: 4 }, (ele, vars, { progress }) => {
       ele.style.transform = 'translate(-15vw, 32lvh) scale(1)';
       ele.style.userSelect = 'auto';
       ele.style.opacity = 1;
@@ -320,7 +349,7 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
 
   const aboutTitle2Ani = animator.useAnimation(aboutTitle2Ref)
     .before({ on: 4 }, (ele, vars, { progress }) => {
-      ele.style.transform = 'translate(10vw, 100lvh) scale(0.1)';
+      ele.style.transform = 'translate(10vw, 0lvh) scale(5)';
       ele.style.opacity = 0;
     })
     .when({ on: 4, to: 5 }, (ele, vars, { progress }) => {
@@ -328,7 +357,7 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
       ele.style.opacity = 1;
     })
     .after({ on: 5 }, (ele, vars, { progress }) => {
-      ele.style.transform = 'translate(10vw, 45lvh) scale(1)';
+      ele.style.transform = 'translate(10vw, 100lvh) scale(0.8)';
       ele.style.opacity = 0;
     })
 
@@ -363,6 +392,77 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
       ele.style.opacity = 0;
     })
 
+  const aboutTitle3Ani = animator.useAnimation(aboutTitle3Ref)
+    .before({ on: 5 }, (ele, vars, { progress }) => {
+      ele.style.transform = 'translate(10vw, -100lvh) rotate(0deg) scale(0.8)';
+      ele.style.opacity = 0;
+    })
+    .when({ on: 5, to: 6 }, (ele, vars, { progress }) => {
+      ele.style.transform = 'translate(10vw, 0) rotate(0deg) scale(1)';
+      ele.style.opacity = 1;
+    })
+    .after({ on: 6 }, (ele, vars, { progress }) => {
+      ele.style.transform = 'translate(-50vw, 0lvh) rotate(0deg) scale(3)';
+      ele.style.opacity = 0;
+    })
+
+  const whereDateDatetimeAni = animator.useAnimation(whereDateDatetimeRef);
+  const whereDateTimeAni = animator.useAnimation(whereDateTimeRef);
+  const whereDateYearAni = animator.useAnimation(whereDateYearRef);
+  const whereLocationClabAni = animator.useAnimation(whereLocationClabRef);
+  const whereLocationAddressAni = animator.useAnimation(whereLocationAddressRef);
+  const whereAni = animator.useAnimation(whereRef)
+    .before({ on: 5 }, (ele, vars, { progress }) => {
+      whereDateDatetimeAni.ele.style.transform = 'translate(-50%, -100%)';
+      whereDateTimeAni.ele.style.transform = 'translate(-50%, -100%)';
+      whereDateYearAni.ele.style.transform = 'translate(-50%, -100%)';
+      whereLocationClabAni.ele.style.transform = 'translate(-50%, -100%)';
+      whereLocationAddressAni.ele.style.transform = 'translate(-50%, -100%)';
+      ele.style.opacity = 0;
+    })
+    .when({ on: 5, to: 6 }, (ele, vars, { progress }) => {
+      whereDateDatetimeAni.ele.style.transform = 'translate(0, 0)';
+      whereDateTimeAni.ele.style.transform = 'translate(0, 0)';
+      whereDateYearAni.ele.style.transform = 'translate(0, 0)';
+      whereLocationClabAni.ele.style.transform = 'translate(0, 0)';
+      whereLocationAddressAni.ele.style.transform = 'translate(0, 0)';
+      ele.style.opacity = 1;
+    })
+    .after({ on: 6 }, (ele, vars, { progress }) => {
+      whereDateDatetimeAni.ele.style.transform = 'translate(50%, 100%)';
+      whereDateTimeAni.ele.style.transform = 'translate(50%, 100%)';
+      whereDateYearAni.ele.style.transform = 'translate(50%, 100%)';
+      whereLocationClabAni.ele.style.transform = 'translate(50%, 100%)';
+      whereLocationAddressAni.ele.style.transform = 'translate(50%, 100%)';
+      ele.style.opacity = 0;
+    })
+
+  const whereBtnAni = animator.useAnimation(whereBtnRef)
+    .before({ on: 5 }, (ele, vars, { progress }) => {
+      ele.style.transform = 'translate(-15vw, 52lvh)';
+      ele.style.opacity = 0;
+    })
+    .when({ on: 5, to: 6 }, (ele, vars, { progress }) => {
+      ele.style.transform = 'translate(-10vw, 47lvh)';
+      ele.style.opacity = 1;
+    })
+    .after({ on: 6 }, (ele, vars, { progress }) => {
+      ele.style.transform = 'translate(-5vw, 42lvh)';
+      ele.style.opacity = 0;
+    })
+
+
+  const aboutTitle4Ani = animator.useAnimation(aboutTitle4Ref)
+    .before({ on: 6 }, (ele, vars, { progress }) => {
+      ele.style.transform = 'translate(calc(-50% + 50vw + 64px), calc(-50% + 50lvh - 16px)) scale(5)';
+      ele.style.opacity = 0;
+    })
+    .after({ on: 6 }, (ele, vars, { progress }) => {
+      if (symbolVerticalLine1Ani.ele.metrics.touchesTop || symbolVerticalLine1Ani.ele.metrics.touchesRight) {
+        ele.style.transform = 'translate(calc(-50% + 50vw + 64px), calc(-50% + 50lvh - 16px)) scale(1)';
+        ele.style.opacity = 1;
+      }
+    })
 
 
   useEffect(() => {
@@ -541,7 +641,7 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
           <img
             ref={symbolHtml1Ref}
             src='symbols/symbol-HTML.png'
-            className='absolute top-0 left-0 -translate-x-1/2 -translate-y-full h-[60lvh] w-auto max-w-none object-contain select-none pointer-events-none transition-all duration-1000 ease-out'
+            className='absolute z-[9] top-0 left-0 -translate-x-1/2 -translate-y-full h-[60lvh] w-auto max-w-none object-contain select-none pointer-events-none transition-all duration-1000 ease-out'
           />
           <img
             ref={symbolHashtag1Ref}
@@ -551,20 +651,36 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
           <img
             ref={symbolStar1Ref}
             src='symbols/symbol-Star.png'
-            className='absolute z-[12] top-0 left-0 -translate-x-[45vw] translate-y-[65lvh] -rotate-[30deg] h-auto w-[70vw] max-h-none object-contain select-none pointer-events-none transition-all duration-1000 ease-out'
+            className='absolute z-[12] top-0 left-0 -translate-x-[45vw] translate-y-[65lvh] -rotate-[30deg] h-[125lvh] w-auto max-h-none object-contain select-none pointer-events-none transition-all duration-1000 ease-out'
+          />
+          <img
+            ref={symbolVerticalLine1Ref}
+            src='symbols/symbol-VerticalLine.png'
+            className='absolute z-[9] top-0 left-0 translate-x-[47vw] translate-y-[27lvh] rotate-[10deg] h-[110lvh] w-auto max-h-none object-contain select-none pointer-events-none transition-all duration-1000 ease-out'
           />
           <img
             ref={logotypeH1Ref}
             src='logotypes/logotype-horizontal.png'
-            className='absolute top-0 left-1/2 translate-x-[100vw] translate-y-[50lvh] -rotate-[60deg] h-[60lvh] w-auto max-w-none object-contain select-none pointer-events-none transition-all duration-1000 ease-out'
+            className='absolute z-[10] top-0 left-1/2 translate-x-[100vw] translate-y-[50lvh] -rotate-[60deg] h-[60lvh] w-auto max-w-none min-h-[512px] object-contain select-none pointer-events-none transition-all duration-1000 ease-out'
           />
 
           <div ref={aboutContentRef}>
             {/* 新增註解介紹 */}
             <div>
               <div
+                ref={aboutTitle1Ref}
+                className='absolute z-[13] top-0 left-0 opacity-0 h-fit max-w-[15rem] translate-x-[0] -translate-y-[0] scale-[0.5] overflow-visible select-none leading-none transition-all duration-1000 ease-in-out'
+              >
+                <Typewriter
+                  content={'新增註解。'}
+                  speed={250}
+                  start={aboutTypewriter1Start}
+                  className='font-bold text-[20lvh] vertical-text will-change-contents'
+                />
+              </div>
+              <div
                 ref={aboutTypewriter1Ref}
-                className='absolute z-[11] top-0 right-0 opacity-0 -translate-x-[12vw] translate-y-[35lvh] w-2/5 flex flex-col gap-8 leading-snug text-base font-semibold transition-all duration-1000 ease-in-out'
+                className='absolute z-[11] top-0 right-0 opacity-0 -translate-x-[120] translate-y-[10] scale-[5] w-2/5 flex flex-col gap-8 leading-snug text-base font-semibold transition-all duration-1000 ease-in-out'
               >
                 <TypewriterParagraph
                   paragraphs={[
@@ -577,25 +693,13 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
                   className='flex flex-col gap-8'
                 />
               </div>
-
-              <div
-                ref={aboutTitle1Ref}
-                className='absolute z-[13] top-0 left-0 opacity-0 h-fit max-w-[15rem] overflow-visible translate-x-[20vw] -translate-y-[3lvh] select-none leading-none transition-all duration-1000 ease-in-out'
-              >
-                <Typewriter
-                  content={'新增註解。'}
-                  speed={250}
-                  start={aboutTypewriter1Start}
-                  className='font-bold text-[20lvh] vertical-text will-change-contents'
-                />
-              </div>
             </div>
 
             {/* 我們是誰 */}
             <div>
               <div
                 ref={aboutTitle2Ref}
-                className='absolute z-[13] top-0 left-0 opacity-0 translate-x-[10vw] overflow-visible translate-y-[45lvh] select-none leading-tight transition-all duration-1000 ease-in-out'
+                className='absolute z-[13] top-0 left-0 opacity-0 translate-x-[10vw] translate-y-[0lvh] scale-[5] overflow-visible select-none leading-tight transition-all duration-1000 ease-in-out'
               >
                 <Typewriter
                   speed={250}
@@ -616,20 +720,28 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
                   className='flex flex-col gap-8'
                 />
               </div>
+
+              <div
+                ref={aboutUsBtnRef}
+                className='absolute w-fit h-fit z-[13] top-0 right-0 opacity-0 -translate-x-[12vw] translate-y-[65lvh] leading-normal transition-all duration-1000 ease-in-out'
+              >
+                <MoreInfoBtn text='關於我們' color='black' />
+              </div>
             </div>
 
             {/* 在哪裡 */}
             <div>
               <div
                 ref={aboutTitle3Ref}
-                className='absolute z-[14] top-0 left-0 opacity-1 translate-x-[10vw] overflow-visible -translate-y-[0lvh] select-none transition-all duration-1000 ease-in-out'
+                className='absolute z-[14] top-0 left-0 opacity-0 translate-x-[10vw] -translate-y-[100lvh] scale-[0.8] overflow-visible select-none transition-all duration-1000 ease-in-out'
               >
                 <Typewriter
+                  contentKey={'aboutTitle3'}
                   speed={250}
                   start={aboutTypewriter3Start}
                   className='font-bold text-[20lvh]'
                   content={(
-                    <div className='place-items-end bg-red-600'>
+                    <div className='place-items-end'>
                       <div className='leading-none text-right'>來這</div>
                       <div className='leading-none vertical-text'>找我們！</div>
                     </div>
@@ -637,27 +749,59 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
                 />
               </div>
 
-              <div
-                ref={aboutTypewriter3Ref}
-                className='absolute z-[14] top-0 right-0 opacity-1 -translate-x-[12vw] translate-y-[45lvh] w-1/4 leading-snug text-base font-semibold transition-all duration-1000 ease-in-out'
-              >
-                <Typewriter
-                  content={'國立臺北藝術大學新媒體藝術學系為一跨越人文藝術領域與尖端科技結合的未來學門。它作為推動數位科技與藝術整合的重要推手，以培育前瞻性的「新媒體科技」、「新媒體影像」與「新媒體跨域」等全方位未來藝術創意人才。'}
-                  speed={20}
-                  start={aboutTypewriter3Start}
-                  className='flex flex-col gap-8'
+              <div ref={whereRef} className='absolute top-0 right-0 opacity-0 -translate-x-[7vw] translate-y-[15lvh] w-[700px] h-[250px] z-[15] transition-all duration-1000 ease-in-out'>
+                <img
+                  ref={whereDateDatetimeRef}
+                  src='info/info-date_datetime.png'
+                  className='absolute top-[25%] left-[5%] h-20 w-auto -translate-x-[50%] -translate-y-[100%] object-contain select-none pointer-events-none transition-all duration-1000 ease-in-out'
                 />
+                <img
+                  ref={whereDateTimeRef}
+                  src='info/info-date_time.png'
+                  className='absolute top-[25%] left-[50%] h-20 w-auto -translate-x-[50%] -translate-y-[100%] object-contain select-none pointer-events-none transition-all duration-1000 ease-in-out'
+                />
+                <img
+                  ref={whereDateYearRef}
+                  src='info/info-date_year.png'
+                  className='absolute top-[0%] left-[0%] h-20 w-auto -translate-x-[50%] -translate-y-[100%] object-contain select-none pointer-events-none transition-all duration-1000 ease-in-out'
+                />
+                <img
+                  ref={whereLocationClabRef}
+                  src='info/info-location_clab.png'
+                  className='absolute top-[55%] left-[3%] h-20 w-auto -translate-x-[50%] -translate-y-[100%] object-contain select-none pointer-events-none transition-all duration-1000 ease-in-out'
+                />
+                <img
+                  ref={whereLocationAddressRef}
+                  src='info/info-location_address.png'
+                  className='absolute top-[80%] left-[45%] h-16 w-auto -translate-x-[50%] -translate-y-[100%] object-contain select-none pointer-events-none transition-all duration-1000 ease-in-out'
+                />
+              </div>
+
+              <div
+                ref={whereBtnRef}
+                className='absolute w-fit h-fit z-[13] top-0 right-0 opacity-0 -translate-x-[15vw] translate-y-[52lvh] leading-normal transition-all duration-1000 ease-in-out'
+              >
+                <MoreInfoBtn text='場地資訊' color='black' />
+              </div>
+            </div>
+
+
+
+            <div>
+              <div
+                ref={aboutTitle4Ref}
+                className='absolute z-[14] top-0 left-0 opacity-0 overflow-visible select-none transition-all duration-500 ease-in pointer-events-none select-none'
+                style={{ transform: 'translate(calc(-50% + 50vw + 64px), calc(-50% + 50lvh - 16px)) scale(5)' }}
+              >
+                <div className='font-bold text-[15lvh] place-items-center'>
+                  <div className='leading-none text-center'>一起</div>
+                  <br />
+                  <div className='leading-none text-center'>吧！</div>
+                </div>
               </div>
             </div>
           </div>
 
-
-          <div
-            ref={aboutUsBtnRef}
-            className='absolute w-fit h-fit z-[13] top-0 right-0 opacity-0 -translate-x-[12vw] translate-y-[65lvh] leading-normal transition-all duration-1000 ease-in-out'
-          >
-            <MoreInfoBtn text='關於我們' color='black' />
-          </div>
         </div>
       </div>
     </div>
