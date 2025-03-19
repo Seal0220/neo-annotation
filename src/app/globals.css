@@ -19,6 +19,7 @@
   --main-yellow-800: rgb(133, 119, 0);
   --main-yellow-900: rgb(102, 92, 0);
   --paper: #DFDFDF;
+  --paper-dark: #868686;
 }
 
 
@@ -30,7 +31,9 @@ body {
 }
 
 
-
+ul {
+list-style-type: '- ' !important;
+}
 
 .masked-wrapper {
   mask-image: linear-gradient(black, black);
@@ -39,12 +42,14 @@ body {
 
 
 /* 3D容器 */
-.perspective-container {
-  perspective: 1000px;
-}
+@media (min-width: 768px) {
+  .perspective-container {
+    perspective: 1000px;
+  }
 
-.perspective-3d {
-  transform-style: preserve-3d;
+  .perspective-3d {
+    transform-style: preserve-3d;
+  }
 }
 
 /* 直書 */

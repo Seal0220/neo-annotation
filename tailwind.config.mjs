@@ -28,6 +28,7 @@ export default {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
         paper: 'var(--paper)',
+        'paper-dark': 'var(--paper-dark)',
         'main-yellow-50': 'var(--main-yellow-50)',
         'main-yellow-100': 'var(--main-yellow-100)',
         'main-yellow-200': 'var(--main-yellow-200)',

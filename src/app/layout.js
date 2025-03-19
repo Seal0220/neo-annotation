@@ -16,8 +16,8 @@ export default function RootLayout({ children }) {
           {children}
         </main>
 
-        <footer className='bottom-0 flex gap-6 flex-wrap items-center justify-center bg-yellow-500'>
-          FOOTER
+        <footer className='bottom-0 flex gap-6 h-16 text-neutral-400 text-xs font-bold flex-wrap items-center justify-center bg-black'>
+          北藝新媒110級畢業展 neo-annotation
         </footer>
       </body>
     </html>

@@ -5,10 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 4000",
     "lint": "next lint"
   },
   "dependencies": {
+    "@novu/nextjs": "^3.0.0",
     "@react-three/drei": "^9.121.4",
     "@react-three/fiber": "^8.17.12",
     "next": "^14.2.16",
@@ -17,7 +18,8 @@
     "react-dom": "^18.2.0",
     "react-three-fiber": "^6.0.13",
     "three": "^0.172.0",
-    "three-stdlib": "^2.35.12"
+    "three-stdlib": "^2.35.12",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

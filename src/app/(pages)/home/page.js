@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 
 import useElementMetrics from '@/app/hooks/useElementMetrics';
 import useAnimator from '@/app/hooks/useAnimator';
-import useTilt from '@/app/hooks/useTilt';
+import { useTilt } from '@/app/hooks/useTilt';
 
 import useTitleText from '@/app/components/titleText/TitleText';
 import ThreeModel from './components/threeModel';
@@ -628,7 +628,7 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
 
                 {/* 按鈕：更多策展資訊 */}
                 <div className='size-fit place-self-center pt-12 -translate-x-6'>
-                  <MoreInfoBtn content={'作品與活動資訊'} />
+                  <MoreInfoBtn text={'作品與活動資訊'} />
                 </div>
               </div>
             </div>
