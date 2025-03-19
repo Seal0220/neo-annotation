@@ -26,13 +26,15 @@ export default function HoverVideo({ ref, src = '', className = '' }) {
         >
             <video
                 ref={videoRef}
-                className='h-full w-full min-h-full min-w-full select-none pointer-events-none object-cover'
+                className='bg-paper-dark h-full w-full min-h-full min-w-full select-none pointer-events-none object-cover'
                 muted
                 loop
                 playsInline
                 preload='metadata'
+                poster={`${src}-poster.png`}
             >
-                <source src={src} />
+                <source src={`${src}.webm`} type="video/webm"/>
+                <source src={`${src}.mp4`} type="video/mp4"/>
                 Your browser does not support the video tag.
             </video>
         </div>

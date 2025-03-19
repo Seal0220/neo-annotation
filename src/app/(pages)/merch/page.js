@@ -83,7 +83,7 @@ export default function Merch() {
 
                             <MerchCard
                                 ref={tilt1Ref}
-                                videoSrc='merch/01_Keycap/Mov/Simple_Keycap.webm'
+                                videoSrc='merch/01_Keycap/Mov/Simple_Keycap'
                                 productName='#/**/鍵帽按鈕'
                                 description='清脆段落青軸和閃爍的霓虹燈，是舒壓的好夥伴。不只是吊飾，拔下鍵帽即可裝到自己的鍵盤上，讓輸入成為風格的一部分。'
                                 hashtags={['共有「鏡面#」、「黃色/**/」兩種款式']}
@@ -95,7 +95,7 @@ export default function Merch() {
                             {/* 雙頭隨身碟 */}
                             <MerchCard
                                 ref={tilt2Ref}
-                                videoSrc='merch/04_USB/Mov/Simple_USB.webm'
+                                videoSrc='merch/04_USB/Mov/Simple_USB'
                                 productName='雙頭隨身碟'
                                 description='輕鬆穿梭 Mac 和 Windows 的雙頭隨身碟，小巧、快速、64G大容量，採用三星晶片。讓任何筆記、文件、雷切檔案都暢行無阻！'
                                 hashtags={[]}
@@ -107,7 +107,7 @@ export default function Merch() {
                             {/* 貼紙鑰匙圈 */}
                             <MerchCard
                                 ref={tilt3Ref}
-                                videoSrc='merch/05_Sticker/Mov/Simple_Sticker.webm'
+                                videoSrc='merch/05_Sticker/Mov/Simple_Sticker'
                                 productName='貼紙鑰匙圈'
                                 description='是靜電貼紙、吊飾，也是隨身小鏡子。註解符號的貼紙特別製作成靜電貼，在各種平滑表面都能做註解。撕下貼紙的壓克力吊飾就掛在書包吧！內附鏡子隨時保持完美的狀態！'
                                 hashtags={['靜電貼紙*4', '壓克力吊牌*4']}
@@ -119,7 +119,7 @@ export default function Merch() {
                             {/* 打火機 */}
                             <MerchCard
                                 ref={tilt4Ref}
-                                videoSrc='merch/03_Lighter/Mov/Simple_Lighter.webm'
+                                videoSrc='merch/03_Lighter/Mov/Simple_Lighter'
                                 productName='打火機'
                                 description='復古銀色打火機，點燃你的靈感、新鮮空氣和熱縮套！'
                                 hashtags={['防風打火機', '可補充瓦斯']}
@@ -131,7 +131,7 @@ export default function Merch() {
                             {/* 字母標籤機 */}
                             <MerchCard
                                 ref={tilt5Ref}
-                                videoSrc='merch/02_LabelPrinter/Mov/Simple_LabelMachine.webm'
+                                videoSrc='merch/02_LabelPrinter/Mov/Simple_LabelMachine'
                                 productName='字母標籤機'
                                 description='為你的小物們註記分類吧！'
                                 hashtags={['膠帶顏色隨機出貨']}
@@ -144,7 +144,7 @@ export default function Merch() {
                             <MerchCard
                                 ref={tilt6Ref}
                                 // 若海報原本用圖片，可以將 videoSrc 改為圖片路徑，並在 MerchCard 中判斷副檔名決定使用 <HoverVideo> 或 <img>
-                                videoSrc='merch/06_Poster/poster-Mov.webm'
+                                videoSrc='merch/06_Poster/poster-Mov'
                                 productName='海報'
                                 description='註解的註解的註解，有什麼小秘密在字裡行間呢？手工打凹的海報，限量發行！'
                                 hashtags={['共五色', '僅供展場自取']}
@@ -156,7 +156,7 @@ export default function Merch() {
                             <div className='flex flex-col md:flex-row justify-between gap-8'>
                                 {/* 小禮包 */}
                                 <div ref={tilt7Ref} className='perspective-3d transition-all duration-300 ease-out will-change-[all]'>
-                                    <div className='w-full md:!size-[25lvh] bg-paper flex flex-col md:flex-row hover:scale-110 transition-all duration-1000 ease-in-out'>
+                                    <div className='relative w-full md:!size-[25lvh] bg-paper flex flex-col md:flex-row hover:scale-110 transition-all duration-1000 ease-in-out'>
                                         <div className='h-auto box-border p-5 flex flex-col gap-4'>
                                             <div className='w-fit text-black text-lg bg-main-yellow-500 px-2 font-bold'>
                                                 小禮包
@@ -184,7 +184,7 @@ export default function Merch() {
 
                                 {/* 大禮包 */}
                                 <div ref={tilt8Ref} className='perspective-3d transition-all duration-300 ease-out will-change-[all]'>
-                                    <div className='h-fit w-full md:w-[26rem] md:!h-[25lvh] flex-1 bg-paper flex flex-col md:flex-row hover:scale-110 transition-all duration-1000 ease-in-out'>
+                                    <div className='relative h-fit w-full md:w-[26rem] md:!h-[25lvh] flex-1 bg-paper flex flex-col md:flex-row hover:scale-110 transition-all duration-1000 ease-in-out'>
                                         <div className='h-auto box-border p-5 flex flex-col gap-4'>
                                             <div className='w-fit text-black text-lg bg-main-yellow-500 px-2 font-bold'>
                                                 大禮包
