@@ -260,7 +260,7 @@ export default function Order() {
                                 <div className='flex flex-col gap-4'>
                                     {groupedProducts.map((group) => (
                                         <div key={group.groupName} className='relative mb-4 flex flex-col md:flex-row md:items-center'>
-                                            <div className='font-semibold w-20'>{group.groupName}</div>
+                                            <div className='font-semibold w-fit md:w-20'>{group.groupName}</div>
 
                                             <ul className='list-inside md:ml-4'>
                                                 {group.items.map((item) => {
