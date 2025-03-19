@@ -327,6 +327,7 @@ export default function Order() {
                                             姓名：
                                         </label>
                                         <input
+                                            required
                                             type='text'
                                             value={name}
                                             onChange={(e) => setName(e.target.value)}
@@ -338,6 +339,7 @@ export default function Order() {
                                             電話：
                                         </label>
                                         <input
+                                            required
                                             type='text'
                                             value={phone}
                                             onChange={(e) => setPhone(e.target.value)}
@@ -349,6 +351,7 @@ export default function Order() {
                                     信箱：
                                 </label>
                                 <input
+                                    required
                                     type='email'
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
