@@ -21,7 +21,7 @@ const MerchCard = forwardRef(function MerchCard(
         >
             {/* 使用 flex-col（在 md 以下）與 flex-row（md 以上）的排版 */}
             <div className='flex flex-col md:flex-row hover:scale-110 transition-all duration-1000 ease-in-out'>
-                <div className='h-auto md:!size-[25lvh] w-full md:w-auto max-h-none border-[20px] border-main-yellow-500 transition-all duration-1000 ease-in-out cursor-pointer'>
+                <div className='!size-80 md:!size-[25lvh] md:w-auto max-h-none border-[20px] border-main-yellow-500 transition-all duration-1000 ease-in-out cursor-pointer'>
                     <HoverVideo
                         src={videoSrc}
                         className='h-full w-auto brightness-125 z-0 top-0 left-0 -translate-x-[0] translate-y-[0] -rotate-[0] object-contain select-none transition-all duration-1000 ease-out'

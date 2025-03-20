@@ -10,11 +10,11 @@ const initialGroupedProducts = [
     {
         groupName: '海報',
         items: [
-            { id: 'poster-white', label: '白', price: 70, qty: 0 },
-            { id: 'poster-blue', label: '藍', price: 70, qty: 0 },
-            { id: 'poster-brown', label: '棕', price: 70, qty: 0 },
-            { id: 'poster-orange', label: '橘', price: 70, qty: 0 },
-            { id: 'poster-gray', label: '灰', price: 70, qty: 0 },
+            { id: 'poster-white', label: '淡藍紫', price: 70, qty: 0 },
+            { id: 'poster-blue', label: '深藍', price: 70, qty: 0 },
+            { id: 'poster-brown', label: '深灰', price: 70, qty: 0 },
+            { id: 'poster-orange', label: '黃', price: 70, qty: 0 },
+            { id: 'poster-gray', label: '淺灰', price: 70, qty: 0 },
         ],
     },
     {
@@ -73,7 +73,7 @@ export default function Order() {
         }))
     );
 
-    const [shippingMethod, setShippingMethod] = useState(''); // 7-11 或 現場取貨
+    const [shippingMethod, setShippingMethod] = useState(''); // 7-11 或 自取
     const [note, setNote] = useState('');
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
@@ -200,7 +200,7 @@ export default function Order() {
                                     <span className='ml-2'>7-11 賣貨便</span>
                                 </label>
                                 <label
-                                    className={`flex items-center p-2 rounded-md cursor-pointer border hover:bg-yellow-100 transition-colors duration-200 ${shippingMethod === '現場取貨'
+                                    className={`flex items-center p-2 rounded-md cursor-pointer border hover:bg-yellow-100 transition-colors duration-200 ${shippingMethod === '自取'
                                         ? 'border-main-yellow-500 bg-yellow-200'
                                         : 'border-gray-300'
                                         }`}
@@ -208,28 +208,19 @@ export default function Order() {
                                     <input
                                         type='radio'
                                         name='shippingMethod'
-                                        value='現場取貨'
-                                        checked={shippingMethod === '現場取貨'}
+                                        value='自取'
+                                        checked={shippingMethod === '自取'}
                                         onChange={(e) => {
                                             setShippingMethod(e.target.value);
                                             setIsPickUp(true);
                                         }}
                                         className='form-radio text-main-yellow-400 h-5 w-5 accent-main-yellow-400'
                                     />
-                                    <span className='ml-2'>現場取貨</span>
+                                    <span className='ml-2'>自取</span>
                                 </label>
                             </div>
                         </div>
                         <div className='place-self-center text-sm mt-8 mb-6'>
-                            <div>
-                                <div className='font-bold mb-2'>꒰ 自取 ꒱˚</div>
-                                <div className='ml-2'>
-                                    選取喜歡的周邊商品，輸入資料後，會在5個工作天之內寄送 email 給您，
-                                    再照著 email 上的資訊匯款至指定帳戶，
-                                    並回信附上末五碼，即購買成功ㄛ！<br />
-                                    購買成功後，於展覽期間至展場取貨即可☆.
-                                </div>
-                            </div>
                             <div className='mt-8'>
                                 <div className='font-bold mb-2'>꒰ 7-11賣貨便 ꒱˚</div>
                                 <div className='ml-2'>
@@ -240,13 +231,22 @@ export default function Order() {
                                     </ul>
                                 </div>
                             </div>
+                            <div>
+                                <div className='font-bold mb-2'>꒰ 自取 ꒱˚</div>
+                                <div className='ml-2'>
+                                    選取喜歡的周邊商品，輸入資料後，會在5個工作天之內寄送 email 給您，
+                                    再照著 email 上的資訊匯款至指定帳戶，
+                                    並回信附上末五碼，即購買成功ㄛ！<br />
+                                    購買成功後，於展覽期間至展場取貨即可☆.
+                                </div>
+                            </div>
                             <div className='place-self-center h-px w-full bg-neutral-400 mt-6 mb-2' />
                             <div className='text-neutral-600'>
-                                ⊹因運送過程中可能導致壓折，手工打凹厚紙海報僅提供展覽現場取貨
+                                ⊹因運送過程中可能導致壓折，手工打凹厚紙海報僅提供展覽自取
                                 <br />
                                 ⊹周邊商品僅限官網購買取得，展覽現場將不販售任何周邊
                                 <br />
-                                ⊹圖品僅供參考
+                                ⊹圖片僅供參考
                             </div>
                         </div>
                     </div>
@@ -378,7 +378,7 @@ export default function Order() {
                     ) : shippingMethod === '7-11' && (
                         <ArrowBtn
                             text='前往7-11賣貨便'
-                            to='https://myship.7-11.com.tw/general/detail/GM2503194729173'
+                            to={process.env.MYSHOP711_LINK}
                             color='black'
                             className='place-self-center'
                         />

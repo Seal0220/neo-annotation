@@ -144,7 +144,7 @@ export default function Merch() {
                             <MerchCard
                                 ref={tilt6Ref}
                                 // 若海報原本用圖片，可以將 videoSrc 改為圖片路徑，並在 MerchCard 中判斷副檔名決定使用 <HoverVideo> 或 <img>
-                                videoSrc='merch/06_Poster/poster-Mov'
+                                videoSrc='merch/06_Poster/Mov/poster-Mov'
                                 productName='海報'
                                 description='註解的註解的註解，有什麼小秘密在字裡行間呢？手工打凹的海報，限量發行！'
                                 hashtags={['共五色', '僅供展場自取']}
