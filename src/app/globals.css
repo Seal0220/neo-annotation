@@ -126,3 +126,12 @@ ul {
     transform: translate(calc(-50% + 50vw + 64px), calc(-50% + 50lvh)) rotate(90deg) scale(1) !important;
   }
 }
+
+.logotypeH1Ani-final {
+  transform: translate(calc(-50% + 0px), calc(-50% + 50lvh)) rotate(0deg) scale(0.2);
+}
+@media (min-width: 1024px) {
+  .logotypeH1Ani-final {
+    transform: translate(calc(-50% + 64px), calc(-50% + 50lvh)) rotate(0deg) scale(0.2);
+  }
+}

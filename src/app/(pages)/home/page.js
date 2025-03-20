@@ -306,9 +306,11 @@ function ScrollAnimationContent({ height = 500, isPaddingBottom = true }) {
 
   const logotypeH1Ani = animator.useAnimation(logotypeH1Ref)
     .before({ on: 2.5 }, (ele, vars, { progress }) => {
+      ele.classList.remove('logotypeH1Ani-final');
       ele.style.transform = 'translate(100vw, 50lvh) rotate(-60deg) scale(1)';
     })
     .when({ on: 2.5, to: 4 }, (ele, vars, { progress }) => {
+      ele.classList.remove('logotypeH1Ani-final');
       if (infoMaskAni.vars.isUnderHalf) {
         ele.style.transform = 'translate(-30vw, -33.33lvh) rotate(0deg) scale(1)';
       } else {
@@ -316,13 +318,15 @@ function ScrollAnimationContent({ height = 500, isPaddingBottom = true }) {
       }
     })
     .when({ on: 4, to: 5 }, (ele, vars, { progress }) => {
+      ele.classList.remove('logotypeH1Ani-final');
       ele.style.transform = 'translate(-70vw, -30lvh) rotate(-30deg) scale(1.2)';
     })
     .when({ on: 5, to: 6 }, (ele, vars, { progress }) => {
+      ele.classList.remove('logotypeH1Ani-final');
       ele.style.transform = 'translate(-50vw, 50lvh) rotate(15deg) scale(0.8)';
     })
     .after({ on: 6 }, (ele, vars, { progress }) => {
-      ele.style.transform = `translate(calc(-50% + ${infoMaskCollapseWidth}px), calc(-50% + 50lvh)) rotate(0deg) scale(0.2)`;
+      ele.classList.add('logotypeH1Ani-final');
     })
 
 
