@@ -73,5 +73,10 @@ list-style-type: '- ' !important;
   width: 100% !important;
 }
 .infomask-collapse {
-  width: 64px !important;
+  width: 0 !important;
+}
+@media (min-width: 1024px) {
+  .infomask-collapse {
+    width: 64px !important;
+  }
 }

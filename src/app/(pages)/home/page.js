@@ -59,9 +59,14 @@ export default function Home() {
 function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
   const { textConfig, updateConfig, TitleTextComponent } = useTitleText();
 
+
+
+
   const animatorRef = useRef(null);
   const animator = useAnimator(animatorRef);
-  animator.debug();
+  // animator.debug();
+
+  const [infoTypewriterStart, setInfoTypewriterStart] = useState(false);
 
   const titleTextRef = useRef(null);
   const tiltRef = useRef(null);
@@ -74,7 +79,7 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
   const symbolBracesL1Ref = useRef(null);
   const symbolBracesR1Ref = useRef(null);
   const infoContentRef = useRef(null);
-  const [infoTypewriterStart, setInfoTypewriterStart] = useState(false);
+  const [infoMaskCollapseWidth, setInfoMaskCollapseWidth] = useState(64);
 
   const aboutRef = useRef(null);
   const aboutContentRef = useRef(null);
@@ -102,6 +107,15 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
   const whereLocationAddressRef = useRef(null);
   const whereBtnRef = useRef(null);
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if (window.innerWidth < 1024) {
+        setInfoMaskCollapseWidth(0);
+      } else {
+        setInfoMaskCollapseWidth(64);
+      }
+    }
+  }, []);
 
   /* TITLE */
   const titleTextAni = animator.useAnimation(titleTextRef);
@@ -287,10 +301,10 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
     })
     .after({ on: 6 }, (ele, vars, { progress }) => {
       if (ele.metrics?.rotation >= 90) {
-        ele.style.transform = `translate(calc(-50% + 50vw + 64px), calc(-50% + 50lvh)) rotate(90deg) scale(5)`;
+        ele.style.transform = `translate(calc(-50% + 50vw + ${infoMaskCollapseWidth}px), calc(-50% + 50lvh)) rotate(90deg) scale(5)`;
       }
       else {
-        ele.style.transform = 'translate(calc(-50% + 50vw + 64px), calc(-50% + 50lvh)) rotate(90deg) scale(1)';
+        ele.style.transform = `translate(calc(-50% + 50vw + ${infoMaskCollapseWidth}px), calc(-50% + 50lvh)) rotate(90deg) scale(1)`;
       }
     })
 
@@ -312,7 +326,7 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
       ele.style.transform = 'translate(-50vw, 50lvh) rotate(15deg) scale(0.8)';
     })
     .after({ on: 6 }, (ele, vars, { progress }) => {
-      ele.style.transform = 'translate(calc(-50% + 64px), calc(-50% + 50lvh)) rotate(0deg) scale(0.2)';
+      ele.style.transform = `translate(calc(-50% + ${infoMaskCollapseWidth}px), calc(-50% + 50lvh)) rotate(0deg) scale(0.2)`;
     })
 
 
@@ -454,12 +468,12 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
 
   const aboutTitle4Ani = animator.useAnimation(aboutTitle4Ref)
     .before({ on: 6 }, (ele, vars, { progress }) => {
-      ele.style.transform = 'translate(calc(-50% + 50vw + 64px), calc(-50% + 50lvh - 16px)) scale(5)';
+      ele.style.transform = `translate(calc(-50% + 50vw + ${infoMaskCollapseWidth}px), calc(-50% + 50lvh - 16px)) scale(5)`;
       ele.style.opacity = 0;
     })
     .after({ on: 6 }, (ele, vars, { progress }) => {
       if (symbolVerticalLine1Ani.ele.metrics.touchesTop || symbolVerticalLine1Ani.ele.metrics.touchesRight) {
-        ele.style.transform = 'translate(calc(-50% + 50vw + 64px), calc(-50% + 50lvh - 16px)) scale(1)';
+        ele.style.transform = `translate(calc(-50% + 50vw + ${infoMaskCollapseWidth}px), calc(-50% + 50lvh - 16px)) scale(1)`;
         ele.style.opacity = 1;
       }
     })
@@ -485,12 +499,12 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
             />
           </div>
           <div ref={tiltContainerRef} className='group/title perspective-container fixed w-screen h-[100lvh] top-0 left-0 -z-10'>
-            <div ref={tiltRef} className='perspective-3d w-[100vw] h-[100lvh] bg-paper top-[0lvh] left-[0vw] overflow-visible flex items-center justify-center shadow-spread text-paper transition-transform duration-500 ease-out'>
+            <div ref={tiltRef} className='perspective-3d w-[100vw] h-[100lvh] lg:bg-paper top-[0lvh] left-[0vw] overflow-visible flex items-center justify-center shadow-spread text-paper transition-transform duration-500 ease-out'>
               <TitleTextComponent className='group-hover/title:translate-z-40 group-hover/title:drop-shadow-spread text-black-1/2 transition-all duration-1000 ease-in-out ' />
               <img
                 src='symbols/symbol-Hashtag.png'
                 alt='Hashtag'
-                className='absolute h-[60lvh] w-auto object-contain select-none pointer-events-none -z-10 group-hover/title:translate-z-24 group-hover/title:drop-shadow-spread text-black-1/2 transition-all duration-1000 ease-in-out'
+                className='absolute p-8 lg:p-0 h-[60lvh] w-auto object-contain select-none pointer-events-none -z-10 group-hover/title:translate-z-24 group-hover/title:drop-shadow-spread text-black-1/2 transition-all duration-1000 ease-in-out'
               />
             </div>
           </div>
@@ -508,25 +522,25 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
               <img
                 ref={symbolBracesL1Ref}
                 src='symbols/symbol-BracesLeft.png'
-                className='absolute left-0 top-[50lvh] h-[90lvh] object-contain select-none pointer-events-none will-change-transform'
+                className='absolute left-0 top-[50lvh] hidden lg:block h-[90lvh] object-contain select-none pointer-events-none will-change-transform'
               />
               {/* 右括號 */}
               <img
                 ref={symbolBracesR1Ref}
                 src='symbols/symbol-BracesRight.png'
-                className='absolute right-0 top-[50lvh] h-[90lvh] object-contain select-none pointer-events-none will-change-transform'
+                className='absolute right-0 top-[50lvh] hidden lg:block lg:h-[90lvh] object-contain select-none pointer-events-none will-change-transform'
               />
 
-              <div ref={infoContentRef} className='flex flex-col gap-16 -translate-y-12 transition-all duration-500'>
-                <div className='flex flex-row gap-32 text-center justify-between -translate-x-16'>
+              <div ref={infoContentRef} className='flex flex-col items-center gap-2 lg:gap-16 -translate-y-12 transition-all duration-500'>
+                <div className='flex flex-col lg:flex-row gap-2 lg:gap-32 text-center justify-between lg:-translate-x-16'>
                   {/* 30 位同學 */}
-                  <div className='size-52 place-content-center'>
+                  <div className='size-36 lg:size-52 place-content-center'>
                     <div>
                       <Typewriter
                         content='30'
                         speed={500}
                         start={infoTypewriterStart}
-                        className='text-[6rem] font-extrabold'
+                        className='text-6xl lg:text-[6rem] font-extrabold'
                       />
                       <Typewriter
                         content='位同學'
@@ -546,13 +560,13 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
                   </div>
 
                   {/* 19 組作品 */}
-                  <div className='size-52 place-content-center'>
+                  <div className='size-36 lg:size-52 place-content-center'>
                     <div>
                       <Typewriter
                         content='19'
                         speed={500}
                         start={infoTypewriterStart}
-                        className='text-[6rem] font-extrabold'
+                        className='text-6xl lg:text-[6rem] font-extrabold'
                       />
                       <Typewriter
                         content='組作品'
@@ -572,15 +586,15 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
                   </div>
                 </div>
 
-                <div className='flex flex-row gap-32 text-center justify-between translate-x-16'>
+                <div className='flex flex-col lg:flex-row gap-2 lg:gap-32 text-center justify-between lg:translate-x-16'>
                   {/* 1 場開幕 */}
-                  <div className='size-52 place-content-center'>
+                  <div className='size-36 lg:size-52 place-content-center'>
                     <div>
                       <Typewriter
                         content='1'
                         speed={500}
                         start={infoTypewriterStart}
-                        className='text-[6rem] font-extrabold'
+                        className='text-6xl lg:text-[6rem] font-extrabold'
                       />
                       <Typewriter
                         content='場開幕'
@@ -600,13 +614,13 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
                   </div>
 
                   {/* 1 場講座 */}
-                  <div className='size-52 place-content-center'>
+                  <div className='size-36 lg:size-52 place-content-center'>
                     <div>
                       <Typewriter
                         content='1'
                         speed={500}
                         start={infoTypewriterStart}
-                        className='text-[6rem] font-extrabold'
+                        className='text-6xl lg:text-[6rem] font-extrabold'
                       />
                       <Typewriter
                         content='場講座'
@@ -627,8 +641,8 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
                 </div>
 
                 {/* 按鈕：更多策展資訊 */}
-                <div className='size-fit place-self-center pt-12 -translate-x-6'>
-                  <MoreInfoBtn text={'作品與活動資訊'} />
+                <div className='size-fit place-self-center pt-12 lg:-translate-x-6'>
+                  {/* <MoreInfoBtn text={'作品與活動資訊'} /> */}
                 </div>
               </div>
             </div>
@@ -675,12 +689,12 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
                   content={'新增註解。'}
                   speed={250}
                   start={aboutTypewriter1Start}
-                  className='font-bold text-[20lvh] vertical-text will-change-contents'
+                  className='font-bold text-6xl lg:text-[20lvh] vertical-text will-change-contents'
                 />
               </div>
               <div
                 ref={aboutTypewriter1Ref}
-                className='absolute z-[11] top-0 right-0 opacity-0 -translate-x-[120] translate-y-[10] scale-[5] w-2/5 flex flex-col gap-8 leading-snug text-base font-semibold transition-all duration-1000 ease-in-out'
+                className='absolute z-20 lg:z-[11] top-16 lg:top-0 right-0 opacity-0 -translate-x-[120] translate-y-[10] scale-[5] w-2/3 lg:w-2/5 h-[50lvh] overflow-y-scroll flex flex-col gap-8 leading-snug text-sm lg:text-base font-semibold transition-all duration-1000 ease-in-out'
               >
                 <TypewriterParagraph
                   paragraphs={[
@@ -699,19 +713,19 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
             <div>
               <div
                 ref={aboutTitle2Ref}
-                className='absolute z-[13] top-0 left-0 opacity-0 translate-x-[10vw] translate-y-[0lvh] scale-[5] overflow-visible select-none leading-tight transition-all duration-1000 ease-in-out'
+                className='absolute z-[13] top-40 lg:top-0 left-0 opacity-0 translate-x-[10vw] translate-y-[0lvh] scale-[5] overflow-visible select-none leading-tight transition-all duration-1000 ease-in-out'
               >
                 <Typewriter
                   speed={250}
                   start={aboutTypewriter2Start}
-                  className='font-bold text-[20lvh]'
+                  className='font-bold text-6xl lg:text-[20lvh]'
                   content='我們<br/>&nbsp;&nbsp;&nbsp;&nbsp;是誰?'
                 />
               </div>
 
               <div
                 ref={aboutTypewriter2Ref}
-                className='absolute z-[13] top-0 right-0 opacity-0 -translate-x-[12vw] translate-y-[45lvh] w-1/4 leading-snug text-base font-semibold transition-all duration-1000 ease-in-out'
+                className='absolute z-[13] -top-40 lg:top-0 right-12 lg:right-0 opacity-0 -translate-x-[12vw] translate-y-[45lvh] w-[60vw] lg:w-1/4 leading-snug text-base font-semibold transition-all duration-1000 ease-in-out'
               >
                 <Typewriter
                   content={'國立臺北藝術大學新媒體藝術學系為一跨越人文藝術領域與尖端科技結合的未來學門。它作為推動數位科技與藝術整合的重要推手，以培育前瞻性的「新媒體科技」、「新媒體影像」與「新媒體跨域」等全方位未來藝術創意人才。'}
@@ -725,7 +739,7 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
                 ref={aboutUsBtnRef}
                 className='absolute w-fit h-fit z-[13] top-0 right-0 opacity-0 -translate-x-[12vw] translate-y-[65lvh] leading-normal transition-all duration-1000 ease-in-out'
               >
-                <MoreInfoBtn text='關於我們' color='black' />
+                {/* <MoreInfoBtn text='關於我們' color='black' /> */}
               </div>
             </div>
 
@@ -739,7 +753,7 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
                   contentKey={'aboutTitle3'}
                   speed={250}
                   start={aboutTypewriter3Start}
-                  className='font-bold text-[20lvh]'
+                  className='font-bold text-6xl lg:text-[20lvh]'
                   content={(
                     <div className='place-items-end'>
                       <div className='leading-none text-right'>來這</div>
@@ -749,7 +763,7 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
                 />
               </div>
 
-              <div ref={whereRef} className='absolute top-0 right-0 opacity-0 -translate-x-[7vw] translate-y-[15lvh] w-[700px] h-[250px] z-[15] transition-all duration-1000 ease-in-out'>
+              <div ref={whereRef} className='absolute top-[40lvh] -right-40 lg:top-0 lg:right-0 opacity-0 lg:-translate-x-[7vw] lg:translate-y-[15lvh] w-[700px] h-[250px] scale-[50%] lg:scale-100 z-[15] transition-all duration-1000 ease-in-out'>
                 <img
                   ref={whereDateDatetimeRef}
                   src='info/info-date_datetime.png'
@@ -781,7 +795,7 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
                 ref={whereBtnRef}
                 className='absolute w-fit h-fit z-[13] top-0 right-0 opacity-0 -translate-x-[15vw] translate-y-[52lvh] leading-normal transition-all duration-1000 ease-in-out'
               >
-                <MoreInfoBtn text='場地資訊' color='black' />
+                {/* <MoreInfoBtn text='場地資訊' color='black' /> */}
               </div>
             </div>
 
@@ -790,12 +804,12 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
             <div>
               <div
                 ref={aboutTitle4Ref}
-                className='absolute z-[14] top-0 left-0 opacity-0 overflow-visible select-none transition-all duration-500 ease-in pointer-events-none select-none'
-                style={{ transform: 'translate(calc(-50% + 50vw + 64px), calc(-50% + 50lvh - 16px)) scale(5)' }}
+                className='absolute z-[14] top-6 lg:top-0 left-0 opacity-0 overflow-visible select-none transition-all duration-500 ease-in pointer-events-none select-none'
+                style={{ transform: `translate(calc(-50% + 50vw + ${infoMaskCollapseWidth}px), calc(-50% + 50lvh - 16px)) scale(5)` }}
               >
                 <div className='font-bold text-[15lvh] place-items-center'>
                   <div className='leading-none text-center'>一起</div>
-                  <br />
+                  <div className='h-48 lg:h-4'/>
                   <div className='leading-none text-center'>吧！</div>
                 </div>
               </div>
