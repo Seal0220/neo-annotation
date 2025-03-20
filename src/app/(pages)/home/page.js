@@ -42,21 +42,13 @@ export default function Home() {
 
       <ScrollAnimationContent />
 
-      {/* 滾動區域 */}
-      {/* <FlipBoard /> */}
-      {/* <ScrollHorizontal /> */}
-
-      {/* 最後一個區塊 */}
-      <div className='sticky top-0 flex items-center justify-center min-h-dvh w-full bg-gray-200'>
-        <div className='text-black text-5xl font-bold'>5</div>
-      </div>
     </div>
   );
 }
 
 
 
-function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
+function ScrollAnimationContent({ height = 500, isPaddingBottom = true }) {
   const { textConfig, updateConfig, TitleTextComponent } = useTitleText();
 
 
@@ -294,17 +286,21 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
 
   const symbolVerticalLine1Ani = animator.useAnimation(symbolVerticalLine1Ref)
     .before({ on: 5 }, (ele, vars, { progress }) => {
+      ele.classList.remove('symbolVerticalLine1-full');
       ele.style.transform = 'translate(0vw, 65lvh) rotate(-60deg) scale(0.8)';
     })
     .when({ on: 5, to: 6 }, (ele, vars, { progress }) => {
+      ele.classList.remove('symbolVerticalLine1-full');
       ele.style.transform = 'translate(55vw, 24lvh) rotate(25deg) scale(1)';
     })
     .after({ on: 6 }, (ele, vars, { progress }) => {
       if (ele.metrics?.rotation >= 90) {
-        ele.style.transform = `translate(calc(-50% + 50vw + ${infoMaskCollapseWidth}px), calc(-50% + 50lvh)) rotate(90deg) scale(5)`;
+        ele.classList.add('symbolVerticalLine1-full');
+        ele.classList.remove('symbolVerticalLine1-s');
       }
       else {
-        ele.style.transform = `translate(calc(-50% + 50vw + ${infoMaskCollapseWidth}px), calc(-50% + 50lvh)) rotate(90deg) scale(1)`;
+        ele.classList.remove('symbolVerticalLine1-full');
+        ele.classList.add('symbolVerticalLine1-s');
       }
     })
 
@@ -468,13 +464,13 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
 
   const aboutTitle4Ani = animator.useAnimation(aboutTitle4Ref)
     .before({ on: 6 }, (ele, vars, { progress }) => {
-      ele.style.transform = `translate(calc(-50% + 50vw + ${infoMaskCollapseWidth}px), calc(-50% + 50lvh - 16px)) scale(5)`;
-      ele.style.opacity = 0;
+      ele.classList.remove('aboutTitle4-visible');
+      ele.classList.add('aboutTitle4-hidden');
     })
     .after({ on: 6 }, (ele, vars, { progress }) => {
       if (symbolVerticalLine1Ani.ele.metrics.touchesTop || symbolVerticalLine1Ani.ele.metrics.touchesRight) {
-        ele.style.transform = `translate(calc(-50% + 50vw + ${infoMaskCollapseWidth}px), calc(-50% + 50lvh - 16px)) scale(1)`;
-        ele.style.opacity = 1;
+        ele.classList.add('aboutTitle4-visible');
+        ele.classList.remove('aboutTitle4-hidden');
       }
     })
 
@@ -694,7 +690,7 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
               </div>
               <div
                 ref={aboutTypewriter1Ref}
-                className='absolute z-20 lg:z-[11] top-16 lg:top-0 right-0 opacity-0 -translate-x-[120] translate-y-[10] scale-[5] w-2/3 lg:w-2/5 h-[50lvh] overflow-y-scroll flex flex-col gap-8 leading-snug text-sm lg:text-base font-semibold transition-all duration-1000 ease-in-out'
+                className='absolute z-20 lg:z-[11] top-16 lg:top-0 -right-20 lg:right-0 p-20 lg:p-0 opacity-0 -translate-x-[120] translate-y-[10] scale-[5] w-full lg:w-2/5 h-[50lvh] overflow-y-scroll flex flex-col gap-8 leading-snug text-sm lg:text-base font-semibold scrollbar-hide select-text transition-all duration-1000 ease-in-out'
               >
                 <TypewriterParagraph
                   paragraphs={[
@@ -804,12 +800,12 @@ function ScrollAnimationContent({ height = 1000, isPaddingBottom = true }) {
             <div>
               <div
                 ref={aboutTitle4Ref}
-                className='absolute z-[14] top-6 lg:top-0 left-0 opacity-0 overflow-visible select-none transition-all duration-500 ease-in pointer-events-none select-none'
-                style={{ transform: `translate(calc(-50% + 50vw + ${infoMaskCollapseWidth}px), calc(-50% + 50lvh - 16px)) scale(5)` }}
+                className='absolute z-[14] top-6 lg:top-0 left-0 opacity-0 overflow-visible select-none transition-all duration-500 ease-in pointer-events-none'
+                style={{ transform: `translate(calc(-50% + 50vw + ${infoMaskCollapseWidth}px), calc(-50% + 50lvh - 16px))` }}
               >
                 <div className='font-bold text-[15lvh] place-items-center'>
                   <div className='leading-none text-center'>一起</div>
-                  <div className='h-48 lg:h-4'/>
+                  <div className='h-48 lg:h-[15lvh]' />
                   <div className='leading-none text-center'>吧！</div>
                 </div>
               </div>

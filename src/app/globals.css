@@ -32,7 +32,7 @@ body {
 
 
 ul {
-list-style-type: '- ' !important;
+  list-style-type: '- ' !important;
 }
 
 .masked-wrapper {
@@ -64,6 +64,7 @@ list-style-type: '- ' !important;
 .info-hidden {
   transform: translateY(0) !important;
 }
+
 .info-visible {
   transform: translateY(calc(-100vh + 48px)) !important;
 }
@@ -72,11 +73,56 @@ list-style-type: '- ' !important;
 .infomask-expand {
   width: 100% !important;
 }
+
 .infomask-collapse {
   width: 0 !important;
 }
+
 @media (min-width: 1024px) {
   .infomask-collapse {
     width: 64px !important;
+  }
+}
+
+
+
+
+.aboutTitle4-hidden {
+  transform: translate(calc(-50% + 50vw + 0px), calc(-50% + 50lvh - 16px)) scale(5) !important;
+  opacity: 0 !important;
+}
+
+.aboutTitle4-visible {
+  transform: translate(calc(-50% + 50vw + 0px), calc(-50% + 50lvh - 16px)) scale() !important;
+  opacity: 1 !important;
+}
+
+@media (min-width: 1024px) {
+  .aboutTitle4-hidden {
+    transform: translate(calc(-50% + 50vw + 64px), calc(-50% + 50lvh - 16px)) scale(5) !important;
+    opacity: 0 !important;
+  }
+
+  .aboutTitle4-visible {
+    transform: translate(calc(-50% + 50vw + 640px), calc(-50% + 50lvh - 16px)) scale() !important;
+    opacity: 1 !important;
+  }
+}
+
+
+
+
+.symbolVerticalLine1-full {
+  transform: translate(calc(-50% + 50vw + 0px), calc(-50% + 50lvh)) rotate(90deg) scale(5) !important;
+}
+.symbolVerticalLine1-s {
+  transform: translate(calc(-50% + 50vw + 0px), calc(-50% + 50lvh)) rotate(90deg) scale(1) !important;
+}
+@media (min-width: 1024px) {
+  .symbolVerticalLine1-full {
+    transform: translate(calc(-50% + 50vw + 64px), calc(-50% + 50lvh)) rotate(90deg) scale(5) !important;
+  }
+  .symbolVerticalLine1-s {
+    transform: translate(calc(-50% + 50vw + 64px), calc(-50% + 50lvh)) rotate(90deg) scale(1) !important;
   }
 }

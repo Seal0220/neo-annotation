@@ -17,6 +17,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-three-fiber": "^6.0.13",
+    "tailwind-scrollbar-hide": "^2.0.0",
     "three": "^0.172.0",
     "three-stdlib": "^2.35.12",
     "uuid": "^11.1.0"

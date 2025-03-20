@@ -45,6 +45,7 @@ export default {
     },
   },
   plugins: [
+    require('tailwind-scrollbar-hide'),
     plugin(function({ matchUtilities, theme }) {
       matchUtilities(
         {
@@ -55,6 +56,6 @@ export default {
         },
         { values: theme('translate'), supportsNegativeValues: true }
       )
-    })
+    }),
   ],
 };
