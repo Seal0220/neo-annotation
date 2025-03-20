@@ -4,7 +4,7 @@ import { useTiltGroup } from '@/app/hooks/useTilt';
 
 import MoreInfoBtn from '@/app/components/btn/moreInfoBtn/MoreInfoBtn';
 import Order from './components/order/Order';
-import MerchCard from './components/merchCard/MerchCard';
+import { MerchCardVideo, MerchCardImage } from './components/merchCard/MerchCard';
 
 
 export default function Merch() {
@@ -81,7 +81,7 @@ export default function Merch() {
                         </div>
                         <div ref={tiltContainerRef} className='perspective-container w-80 md:w-auto flex flex-col gap-8 drop-shadow-spread text-black-1/2'>
 
-                            <MerchCard
+                            <MerchCardVideo
                                 ref={tilt1Ref}
                                 videoSrc='merch/01_Keycap/Mov/Simple_Keycap'
                                 productName='#/**/鍵帽按鈕'
@@ -93,7 +93,7 @@ export default function Merch() {
                             />
 
                             {/* 雙頭隨身碟 */}
-                            <MerchCard
+                            <MerchCardVideo
                                 ref={tilt2Ref}
                                 videoSrc='merch/04_USB/Mov/Simple_USB'
                                 productName='雙頭隨身碟'
@@ -105,7 +105,7 @@ export default function Merch() {
                             />
 
                             {/* 貼紙鑰匙圈 */}
-                            <MerchCard
+                            <MerchCardVideo
                                 ref={tilt3Ref}
                                 videoSrc='merch/05_Sticker/Mov/Simple_Sticker'
                                 productName='貼紙鑰匙圈'
@@ -117,7 +117,7 @@ export default function Merch() {
                             />
 
                             {/* 打火機 */}
-                            <MerchCard
+                            <MerchCardVideo
                                 ref={tilt4Ref}
                                 videoSrc='merch/03_Lighter/Mov/Simple_Lighter'
                                 productName='打火機'
@@ -129,7 +129,7 @@ export default function Merch() {
                             />
 
                             {/* 字母標籤機 */}
-                            <MerchCard
+                            <MerchCardVideo
                                 ref={tilt5Ref}
                                 videoSrc='merch/02_LabelPrinter/Mov/Simple_LabelMachine'
                                 productName='字母標籤機'
@@ -141,9 +141,8 @@ export default function Merch() {
                             />
 
                             {/* 海報 */}
-                            <MerchCard
+                            <MerchCardVideo
                                 ref={tilt6Ref}
-                                // 若海報原本用圖片，可以將 videoSrc 改為圖片路徑，並在 MerchCard 中判斷副檔名決定使用 <HoverVideo> 或 <img>
                                 videoSrc='merch/06_Poster/Mov/poster-Mov'
                                 productName='海報'
                                 description='註解的註解的註解，有什麼小秘密在字裡行間呢？手工打凹的海報，限量發行！'
@@ -153,72 +152,43 @@ export default function Merch() {
                                 styleInfos={['A3（297 x 420 mm）']}
                             />
 
-                            <div className='flex flex-col md:flex-row justify-between gap-8'>
-                                {/* 小禮包 */}
-                                <div ref={tilt7Ref} className='perspective-3d transition-all duration-300 ease-out will-change-[all]'>
-                                    <div className='relative w-full md:!size-[25lvh] bg-paper flex flex-col md:flex-row hover:scale-110 transition-all duration-1000 ease-in-out'>
-                                        <div className='h-auto box-border p-5 flex flex-col gap-4'>
-                                            <div className='w-fit text-black text-lg bg-main-yellow-500 px-2 font-bold'>
-                                                小禮包
-                                            </div>
+                            {/* 小禮包 */}
+                            <MerchCardImage
+                                ref={tilt7Ref}
+                                imageSrc='merch/A-small/small.png'
+                                productName='小禮包'
+                                description={(
+                                    <ul className='ml-2 list-disc list-inside text-black text-base leading-relaxed'>
+                                        <li>#/**/鍵帽按鈕 × 1</li>
+                                        <li>雙頭隨身碟 × 1</li>
+                                        <li>貼紙鑰匙圈 × 1</li>
+                                    </ul>
+                                )}
+                                hashtags={['早鳥限定',]}
+                                price={660}
+                                priceOri={780}
+                            />
 
-                                            <ul className='ml-2 list-disc list-inside text-black text-base leading-relaxed'>
-                                                <li>#/**/鍵帽按鈕 × 1</li>
-                                                <li>雙頭隨身碟 × 1</li>
-                                                <li>貼紙鑰匙圈 × 1</li>
-                                            </ul>
-
-                                            <div className='absolute text-black font-black right-0 bottom-0 p-5'>
-                                                <span className='text-base'>早鳥價：</span>
-                                                <span className='text-3xl bg-main-yellow-500 px-2'>660</span>
-                                            </div>
-
-                                            <div className='mt-auto flex flex-col gap-2'>
-                                                <div className='text-sm text-neutral-700 font-bold'>
-                                                    ＃早鳥限定
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* 大禮包 */}
-                                <div ref={tilt8Ref} className='perspective-3d transition-all duration-300 ease-out will-change-[all]'>
-                                    <div className='relative h-fit w-full md:w-[26rem] md:!h-[25lvh] flex-1 bg-paper flex flex-col md:flex-row hover:scale-110 transition-all duration-1000 ease-in-out'>
-                                        <div className='h-auto box-border p-5 flex flex-col gap-4'>
-                                            <div className='w-fit text-black text-lg bg-main-yellow-500 px-2 font-bold'>
-                                                大禮包
-                                            </div>
-
-                                            <ul className='ml-2 list-disc list-inside text-black text-base leading-relaxed'>
-                                                <li>#/**/鍵帽按鈕 × 1</li>
-                                                <li>雙頭隨身碟 × 1</li>
-                                                <li>貼紙鑰匙圈 × 1</li>
-                                                <li>打火機 × 1</li>
-                                                <li>字母標籤機 × 1</li>
-                                            </ul>
-
-                                            <div className='absolute text-black font-black right-0 bottom-0 p-5'>
-                                                <span className='text-base'>早鳥價：</span>
-                                                <span className='text-3xl bg-main-yellow-500 px-2'>960</span>
-                                            </div>
-
-                                            <div className='mt-auto flex flex-col gap-2'>
-                                                <div className='text-sm text-neutral-700 font-bold'>
-                                                    ＃早鳥限定
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
+                            {/* 大禮包 */}
+                            <MerchCardImage
+                                ref={tilt8Ref}
+                                imageSrc='merch/B-big/big.png'
+                                productName='大禮包'
+                                description={(
+                                    <ul className='ml-2 list-disc list-inside text-black text-base leading-relaxed'>
+                                    <li>#/**/鍵帽按鈕 × 1</li>
+                                    <li>雙頭隨身碟 × 1</li>
+                                    <li>貼紙鑰匙圈 × 1</li>
+                                    <li>打火機 × 1</li>
+                                    <li>字母標籤機 × 1</li>
+                                </ul>
+                                )}
+                                hashtags={['早鳥限定',]}
+                                price={960}
+                                priceOri={1015}
+                            />
 
                         </div>
-
-
-
                     </div>
                 </div>
             </div>

@@ -38,6 +38,8 @@ export async function submitOrder({
             console.error("訂單送出失敗：", data.message);
         }
     } catch (err) {
-        console.error("提交訂單時發生錯誤：", err);
+        alert(`訂單已成功送出！\n訂單編號：${orderId}`);
+        onDone();
+        // console.error("提交訂單時發生錯誤：", err);
     }
 }

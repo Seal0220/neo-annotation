@@ -221,7 +221,7 @@ export default function Order() {
                             </div>
                         </div>
                         <div className='place-self-center text-sm mt-8 mb-6'>
-                            <div className='mt-8'>
+                            <div>
                                 <div className='font-bold mb-2'>꒰ 7-11賣貨便 ꒱˚</div>
                                 <div className='ml-2'>
                                     使用7-11賣貨便下單，出貨時間如下：<br />
@@ -231,7 +231,7 @@ export default function Order() {
                                     </ul>
                                 </div>
                             </div>
-                            <div>
+                            <div className='mt-8'>
                                 <div className='font-bold mb-2'>꒰ 自取 ꒱˚</div>
                                 <div className='ml-2'>
                                     選取喜歡的周邊商品，輸入資料後，會在5個工作天之內寄送 email 給您，
