@@ -247,6 +247,8 @@ export default function Order() {
                                 ⊹周邊商品僅限官網購買取得，展覽現場將不販售任何周邊
                                 <br />
                                 ⊹圖片僅供參考
+                                <br />
+                                ⊹數量有限售完為止
                             </div>
                         </div>
                     </div>
