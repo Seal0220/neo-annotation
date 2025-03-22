@@ -294,14 +294,14 @@ export default function Order() {
                                                                         }
                                                                         className='w-16 border border-gray-300 rounded p-1'
                                                                     /> */}
-                                                                    <span className='ml-2 text-sm'>
+                                                                    {/* <span className='ml-2 text-sm'>
                                                                         0個&nbsp;({item.price}元)&nbsp;
-                                                                    </span>
+                                                                    </span> */}
                                                                 </div>
                                                             </div>
                                                             <div className='absolute right-0 ml-auto mr-0 md:mr-8 w-fit md:w-28 text-left flex flex-row'>
-                                                                <span className='text-sm'>= </span>
-                                                                <span className='w-14'>
+                                                                {/* <span className='text-sm'>= </span> */}
+                                                                <span className='w-fit'>
                                                                     <span className='ml-2 md:ml-5 text-base bg-main-yellow-50 px-2 inline-block'>
                                                                         已售完
                                                                         {/* {subTotal.toLocaleString('zh-TW')} */}
