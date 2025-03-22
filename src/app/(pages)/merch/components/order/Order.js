@@ -364,7 +364,7 @@ export default function Order() {
                                 />
                             </div> */}
                             {/* 訂單備註 */}
-                            <div className='mb-4'>
+                            {/* <div className='mb-4'>
                                 <label className='block font-semibold mb-2 bg-main-yellow-400 px-2 w-fit'>
                                     備註：
                                 </label>
@@ -378,7 +378,7 @@ export default function Order() {
                             </div>
                             <button type='submit' className='place-self-center rounded-full size-fit'>
                                 <ArrowBtn text='送出預購' color='black' />
-                            </button>
+                            </button> */}
                         </>
                     ) : shippingMethod === '7-11' && (
                         <ArrowBtn
