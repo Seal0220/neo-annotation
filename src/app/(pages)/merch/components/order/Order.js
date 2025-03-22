@@ -325,7 +325,7 @@ export default function Order() {
                                 </div>
                             </div>
                             {/* 使用者資訊 */}
-                            <div className='mb-4 flex flex-col gap-2'>
+                            {/* <div className='mb-4 flex flex-col gap-2'>
                                 <div className='flex flex-col md:flex-row gap-4'>
                                     <div className='w-full md:w-40'>
                                         <label className='block font-semibold mb-1 bg-main-yellow-400 px-2 w-fit'>
@@ -362,7 +362,7 @@ export default function Order() {
                                     onChange={(e) => setEmail(e.target.value)}
                                     className='w-full border border-gray-300 rounded p-2 mb-2'
                                 />
-                            </div>
+                            </div> */}
                             {/* 訂單備註 */}
                             <div className='mb-4'>
                                 <label className='block font-semibold mb-2 bg-main-yellow-400 px-2 w-fit'>
