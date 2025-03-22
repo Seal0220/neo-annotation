@@ -51,13 +51,15 @@ const initialGroupedProducts = [
     {
         groupName: '小禮包',
         items: [
-            { id: 'gift-small', label: '小禮包', price: 660, qty: 0 },
+            { id: 'gift-small-1', label: '鍵帽-鏡面', price: 660, qty: 0 },
+            { id: 'gift-small-2', label: '鍵帽-黃色', price: 660, qty: 0 },
         ],
     },
     {
         groupName: '大禮包',
         items: [
-            { id: 'gift-large', label: '大禮包', price: 960, qty: 0 },
+            { id: 'gift-large-1', label: '鍵帽-鏡面', price: 960, qty: 0 },
+            { id: 'gift-large-2', label: '鍵帽-黃色', price: 960, qty: 0 },
         ],
     },
 ];
@@ -279,7 +281,7 @@ export default function Order() {
                                                                 </div>
                                                                 <div className='text-sm md:text-base'>
                                                                     <span className='mx-2 md:mr-8 md:ml-4 text-sm'>×</span>
-                                                                    <input
+                                                                    {/* <input
                                                                         type='number'
                                                                         min='0'
                                                                         max='3'
@@ -291,9 +293,9 @@ export default function Order() {
                                                                             )
                                                                         }
                                                                         className='w-16 border border-gray-300 rounded p-1'
-                                                                    />
+                                                                    /> */}
                                                                     <span className='ml-2 text-sm'>
-                                                                        個&nbsp;({item.price}元)&nbsp;
+                                                                        0個&nbsp;({item.price}元)&nbsp;
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -301,7 +303,8 @@ export default function Order() {
                                                                 <span className='text-sm'>= </span>
                                                                 <span className='w-14'>
                                                                     <span className='ml-2 md:ml-5 text-base bg-main-yellow-50 px-2 inline-block'>
-                                                                        {subTotal.toLocaleString('zh-TW')}
+                                                                        已售完
+                                                                        {/* {subTotal.toLocaleString('zh-TW')} */}
                                                                     </span>
                                                                 </span>
                                                             </div>
