@@ -31,7 +31,7 @@ stop_screen_session() {
 
 update_app() {
     echo "Updating..."
-    git pull origin main
+    git pull origin master
     install_dependencies
     echo "Updated"
 }
