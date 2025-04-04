@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
+import { throttle } from 'lodash';
 import { convertTransformRotation } from '../functions/utils';
 
 const _metrics = {
@@ -78,14 +79,18 @@ export default function useElementMetrics(ref) {
       }
     };
 
+    const throttledUpdateMetrics = throttle(updateMetrics, 500);
+
+    // 初始先更新一次
     updateMetrics();
 
-    window.addEventListener('scroll', updateMetrics);
-    window.addEventListener('resize', updateMetrics);
+    window.addEventListener('scroll', throttledUpdateMetrics);
+    window.addEventListener('resize', throttledUpdateMetrics);
 
     return () => {
-      window.removeEventListener('scroll', updateMetrics);
-      window.removeEventListener('resize', updateMetrics);
+      window.removeEventListener('scroll', throttledUpdateMetrics);
+      window.removeEventListener('resize', throttledUpdateMetrics);
+      throttledUpdateMetrics.cancel();
     };
   }, [ref]);
 

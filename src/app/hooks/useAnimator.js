@@ -3,13 +3,13 @@ import { useState, useRef, useEffect } from 'react';
 import useElementMetrics, { getElementMetrics } from './useElementMetrics';
 
 export default function useAnimator(animatorRef) {
-    const metrics = useElementMetrics(animatorRef);
+    const metrics = getElementMetrics(animatorRef.current);
     const animations = useRef([]);
     const lastScrollY = useRef(0);
     const lastUpdateTime = useRef(0);
     const isDebug = useRef(false);
     const [isStart, setIsStart] = useState(false);
-    const [updateInterval, setUpdateInterval] = useState(200);
+    const [updateInterval, setUpdateInterval] = useState(100);
 
     let animationFrameId = null;
 

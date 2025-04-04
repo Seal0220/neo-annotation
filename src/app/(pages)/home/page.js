@@ -52,8 +52,6 @@ function ScrollAnimationContent({ height = 500, isPaddingBottom = true }) {
   const { textConfig, updateConfig, TitleTextComponent } = useTitleText();
 
 
-
-
   const animatorRef = useRef(null);
   const animator = useAnimator(animatorRef);
   // animator.debug();
@@ -151,12 +149,12 @@ function ScrollAnimationContent({ height = 500, isPaddingBottom = true }) {
 
   const infoContentAni = animator.useAnimation(infoContentRef)
     .before({ on: 2.5 }, (ele, vars) => {
-      ele.style.opacity = 1;
-      ele.style.userSelect = 'auto';
+      ele.classList.remove('infoContent-after');
+      ele.classList.add('infoContent-before');
     })
     .after({ on: 2.5 }, (ele, vars) => {
-      ele.style.opacity = 0;
-      ele.style.userSelect = 'none';
+      ele.classList.remove('infoContent-after');
+      ele.classList.add('infoContent-before');
     });
 
 
@@ -286,11 +284,11 @@ function ScrollAnimationContent({ height = 500, isPaddingBottom = true }) {
 
   const symbolVerticalLine1Ani = animator.useAnimation(symbolVerticalLine1Ref)
     .before({ on: 5 }, (ele, vars, { progress }) => {
-      ele.classList.remove('symbolVerticalLine1-full');
+      ele.classList.remove('symbolVerticalLine1-full', 'symbolVerticalLine1-s');
       ele.style.transform = 'translate(0vw, 65lvh) rotate(-60deg) scale(0.8)';
     })
     .when({ on: 5, to: 6 }, (ele, vars, { progress }) => {
-      ele.classList.remove('symbolVerticalLine1-full');
+      ele.classList.remove('symbolVerticalLine1-full', 'symbolVerticalLine1-s');
       ele.style.transform = 'translate(55vw, 24lvh) rotate(25deg) scale(1)';
     })
     .after({ on: 6 }, (ele, vars, { progress }) => {
@@ -804,7 +802,7 @@ function ScrollAnimationContent({ height = 500, isPaddingBottom = true }) {
             <div>
               <div
                 ref={aboutTitle4Ref}
-                className='absolute z-[14] top-6 lg:top-0 left-0 opacity-0 overflow-visible select-none transition-all duration-500 ease-in pointer-events-none'
+                className='absolute z-[14] top-6 lg:top-0 left-0 opacity-0 overflow-visible select-none transition-all duration-500 ease-in pointer-events-none will-change-transform'
                 style={{ transform: `translate(calc(-50% + 50vw + ${infoMaskCollapseWidth}px), calc(-50% + 50lvh - 16px))` }}
               >
                 <div className='font-bold text-[15lvh] place-items-center'>
