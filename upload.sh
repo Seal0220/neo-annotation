@@ -1,1 +1,1 @@
-rsync -avz --delete-after /mnt/c/Users/User/Documents/北藝大/畢製網頁/neo-annotation root@66.103.214.226:/var/works/neo-annotation
+rsync -avz --delete-after /mnt/c/Users/User/Documents/北藝大/畢製網頁/neo-annotation/.next root@66.103.214.226:/var/works/neo-annotation
