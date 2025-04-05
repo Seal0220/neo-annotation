@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.neo-annotation.art
+
+# Sitemaps
+Sitemap: https://www.neo-annotation.art/sitemap.xml
