@@ -1,6 +1,4 @@
-import Head from 'next/head';
-
-export default function SEO_Header() {
+export default function SEO() {
     const jsonLd = {
         "@context": "https://schema.org",
         "@graph": [
@@ -55,7 +53,7 @@ export default function SEO_Header() {
                             "name": "張立人"
                         }
                     },
-                    // 第二個子活動：開幕活動（包含子節目）
+                    // 第二個子活動：開幕活動及子節目
                     {
                         "@type": "Event",
                         "name": "開幕活動",
@@ -115,26 +113,26 @@ export default function SEO_Header() {
                 "name": "陳奕銓 / 廖炫棠",
                 "description": "團隊作品圍繞人類、科技與自我意識，探討數位媒介中的『記憶』、『夢境』與『語言』，以非線性敘事呈現跨領域實驗。"
             },
-            // 行政團隊 (部分示例)
+            // 行政團隊全部成員
             {
                 "@type": "Organization",
                 "name": "NEO-ANNOTATION Administrative Team",
                 "member": [
-                    // 總召 (Coordinator)
+                    // 總召
                     {
                         "@type": "Person",
                         "name": "高行萱",
                         "alternateName": "Kao Hsin Syuan",
                         "jobTitle": "Coordinator"
                     },
-                    // 副召 (Vice Coordinator)
+                    // 副召
                     {
                         "@type": "Person",
                         "name": "粘雅文",
                         "alternateName": "Nien Ya Wen",
                         "jobTitle": "Vice Coordinator"
                     },
-                    // 事務組 (Administration Department)
+                    // 事務組
                     {
                         "@type": "Person",
                         "name": "張禹婕",
@@ -153,7 +151,7 @@ export default function SEO_Header() {
                         "alternateName": "Huang Yu Jhen",
                         "jobTitle": "Administration Department"
                     },
-                    // 視覺組 (Design Department)
+                    // 視覺組
                     {
                         "@type": "Person",
                         "name": "阮姿霓",
@@ -196,7 +194,7 @@ export default function SEO_Header() {
                         "alternateName": "Liao Xuan Tang",
                         "jobTitle": "Design Department"
                     },
-                    // 公關組 (Public Relations)
+                    // 公關組
                     {
                         "@type": "Person",
                         "name": "劉庭安",
@@ -221,7 +219,7 @@ export default function SEO_Header() {
                         "alternateName": "Li Yu Heng",
                         "jobTitle": "Public Relations Department"
                     },
-                    // 網頁組 (Web Design)
+                    // 網頁組
                     {
                         "@type": "Person",
                         "name": "陳奕銓",
@@ -234,7 +232,7 @@ export default function SEO_Header() {
                         "alternateName": "Hu Nai Yun",
                         "jobTitle": "Web Design"
                     },
-                    // 紀錄組 (Photography Department)
+                    // 紀錄組
                     {
                         "@type": "Person",
                         "name": "游士萱",
@@ -265,7 +263,7 @@ export default function SEO_Header() {
                         "alternateName": "Fan Cheuk Hang",
                         "jobTitle": "Photography Department"
                     },
-                    // 活動組 (Event Planning Department)
+                    // 活動組
                     {
                         "@type": "Person",
                         "name": "洪伊又",
@@ -284,7 +282,7 @@ export default function SEO_Header() {
                         "alternateName": "Chang Yuan Chi",
                         "jobTitle": "Event Planning Department"
                     },
-                    // 技術統籌組 (Technical Director Department)
+                    // 技術統籌組
                     {
                         "@type": "Person",
                         "name": "黃冠勛",
@@ -434,11 +432,9 @@ export default function SEO_Header() {
     };
 
     return (
-        <Head>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-            />
-        </Head>
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
     );
 }
