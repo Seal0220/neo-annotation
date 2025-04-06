@@ -2,12 +2,17 @@
 import React, { useEffect, useRef, useState, forwardRef } from 'react';
 import { useTiltGroup } from '@/app/hooks/useTilt';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { setVisibility, setFullScreen, setIsScrollBarInfo } from '@/app/store/slices/menuSlice';
+
 import MoreInfoBtn from '@/app/components/btn/moreInfoBtn/MoreInfoBtn';
 import Order from './components/order/Order';
 import { MerchCardVideo, MerchCardImage } from './components/merchCard/MerchCard';
 
 
 export default function Merch() {
+    const dispatch = useDispatch();
+
     const symbolHtml1Ref = useRef(null);
     const symbolHashtag1Ref = useRef(null);
     const symbolStar1Ref = useRef(null);
@@ -25,6 +30,9 @@ export default function Merch() {
     const tilt8Ref = useRef(null);
     useTiltGroup(tiltContainerRef, [tilt1Ref, tilt2Ref, tilt3Ref, tilt4Ref, tilt5Ref, tilt6Ref, tilt7Ref, tilt8Ref], { maxAngle: 7.5 });
 
+    useEffect(() => {
+        dispatch(setVisibility(true));
+    }, []);
 
     return (
         <div className='overflow-x-hidden'>
@@ -176,12 +184,12 @@ export default function Merch() {
                                 productName='大禮包'
                                 description={(
                                     <ul className='ml-2 list-disc list-inside text-black text-base leading-relaxed'>
-                                    <li>#/**/鍵帽按鈕 × 1</li>
-                                    <li>雙頭隨身碟 × 1</li>
-                                    <li>貼紙鑰匙圈 × 1</li>
-                                    <li>打火機 × 1</li>
-                                    <li>字母標籤機 × 1</li>
-                                </ul>
+                                        <li>#/**/鍵帽按鈕 × 1</li>
+                                        <li>雙頭隨身碟 × 1</li>
+                                        <li>貼紙鑰匙圈 × 1</li>
+                                        <li>打火機 × 1</li>
+                                        <li>字母標籤機 × 1</li>
+                                    </ul>
                                 )}
                                 hashtags={['早鳥限定',]}
                                 price={960}

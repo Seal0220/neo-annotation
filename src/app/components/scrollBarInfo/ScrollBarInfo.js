@@ -6,20 +6,30 @@ import { ScrollBar } from '@/app/components/scrollBar/scrollBar';
 export default function ScrollBarInfo() {
     const items = [
         (
-            <div className='flex items-center font-bold text-gray-400 group-hover/scroll:text-gray-200 transition-all duration-500'>
-                <span className='text-4xl mb-2 mr-2'>@</span>
-                <span className='mt-[2px]'>臺灣當代文化實驗場 C-LAB</span>
+            <div className='flex h-full items-center font-bold opacity-70 group-hover/scroll:opacity-100 select-none transition-all duration-500 '>
+                <img
+                    src='info/info-location_clab-w.png'
+                    className='h-12'
+                />
             </div>
         ),
         (
-            <div className='flex items-center font-bold text-gray-400 group-hover/scroll:text-gray-200 transition-all duration-500'>
-                2025/4/18 - 26
+            <div className='flex h-full items-center font-bold opacity-70 group-hover/scroll:opacity-100 select-none transition-all duration-500 '>
+                <img
+                    src='info/info-date_year-w.png'
+                    className='h-8'
+                />
+                <img
+                    src='info/info-date_datetime-w.png'
+                    className='h-8'
+                />
             </div>
         ),
         (
-            <div className='flex items-center font-bold text-gray-400 group-hover/scroll:text-gray-200 transition-all duration-500'>
-                <span className='text-4xl mb-0 mr-2'>#</span>
-                <span className='mt-[2px]'>新增註解 neo-annotation</span>
+            <div className='flex h-full items-center font-bold text-white opacity-70 group-hover/scroll:opacity-100 select-none transition-all duration-500 '>
+                <span className='text-2xl mr-2'>#</span>
+                <span className='mt-[4px] font-genwanmin mr-1'>新增註解</span>
+                <span className='mt-[4px] font-genwanmin'>neo-annotation</span>
             </div>
         ),
     ];
@@ -29,7 +39,8 @@ export default function ScrollBarInfo() {
             items={items}
             time={'5s'}
             easeType='ease-in-out'
-            itemClassName='!px-8 !py-0'
+            itemClassName='!px-8 !py-0 h-12'
         />
     )
 }
+

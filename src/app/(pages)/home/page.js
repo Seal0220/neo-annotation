@@ -2,6 +2,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { setVisibility, setFullScreen, setIsScrollBarInfo } from '@/app/store/slices/menuSlice';
+
 import useElementMetrics from '@/app/hooks/useElementMetrics';
 import useAnimator from '@/app/hooks/useAnimator';
 import { useTilt } from '@/app/hooks/useTilt';
@@ -19,29 +22,7 @@ export default function Home() {
 
   return (
     <div className='min-h-dvh bg-white'>
-      {/* <div className='h-[200lvh]'>
-
-        <TitleTextComponent />
-
-        <div className='mt-4 flex items-center gap-3'>
-          <label htmlFor='stability-slider' className='text-sm font-medium text-gray-700'>value:</label>
-          <input
-            id='stability-slider'
-            type='range'
-            min='0'
-            max='50'
-            step='0.1'
-            value={textConfig.scatterFactor}
-            onChange={(e) => updateConfig('scatterFactor', parseFloat(e.target.value))}
-            className='w-52 h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer accent-blue-500'
-          />
-          <span className='text-sm font-semibold text-gray-900'>{textConfig.scatterFactor.toFixed(1)}</span>
-        </div>
-      </div> */}
-
-
       <ScrollAnimationContent />
-
     </div>
   );
 }
@@ -49,8 +30,20 @@ export default function Home() {
 
 
 function ScrollAnimationContent({ height = 500, isPaddingBottom = true }) {
+  const dispatch = useDispatch();
   const { textConfig, updateConfig, TitleTextComponent } = useTitleText();
 
+  function setMenuVisibility(boolean) {
+    dispatch(setVisibility(boolean));
+  };
+
+  function setMenuFullScreen(boolean) {
+    dispatch(setFullScreen(boolean));
+  };
+
+  function setMenuIsScrollBarInfo(boolean) {
+    dispatch(setIsScrollBarInfo(boolean));
+  };
 
   const animatorRef = useRef(null);
   const animator = useAnimator(animatorRef);
@@ -113,15 +106,18 @@ function ScrollAnimationContent({ height = 500, isPaddingBottom = true }) {
   /* INFO */
   const infoAni = animator.useAnimation(infoRef)
     .before({ on: 1 }, (ele, vars) => {
+      setMenuVisibility(false);
       ele.classList.remove('info-visible');
       ele.classList.add('info-hidden');
     })
     .when({ on: 1, to: 2 }, (ele, vars) => {
+      setMenuVisibility(true);
       setInfoTypewriterStart(true);
       ele.classList.remove('info-hidden');
       ele.classList.add('info-visible');
     })
     .after({ on: 2 }, (ele, vars) => {
+      setMenuVisibility(true);
       setInfoTypewriterStart(true);
       ele.classList.remove('info-hidden');
       ele.classList.add('info-visible');
@@ -132,10 +128,12 @@ function ScrollAnimationContent({ height = 500, isPaddingBottom = true }) {
       vars.isUnderHalf = ele.metrics.width <= document.documentElement.clientWidth / 2;
     })
     .before({ on: 2.5 }, (ele, vars) => {
+      setMenuIsScrollBarInfo(false);
       ele.classList.remove('infomask-collapse');
       ele.classList.add('infomask-expand');
     })
     .when({ on: 2.5, to: 3 }, (ele, vars) => {
+      setMenuIsScrollBarInfo(false);
       if (symbolBracesL1Ani.ele.metrics?.rotation === 90) {
         ele.classList.remove('infomask-expand');
         ele.classList.add('infomask-collapse');
@@ -143,6 +141,7 @@ function ScrollAnimationContent({ height = 500, isPaddingBottom = true }) {
       }
     })
     .after({ on: 3 }, (ele, vars) => {
+      setMenuIsScrollBarInfo(true);
       ele.classList.remove('infomask-expand');
       ele.classList.add('infomask-collapse');
     });
@@ -153,8 +152,8 @@ function ScrollAnimationContent({ height = 500, isPaddingBottom = true }) {
       ele.classList.add('infoContent-before');
     })
     .after({ on: 2.5 }, (ele, vars) => {
-      ele.classList.remove('infoContent-after');
-      ele.classList.add('infoContent-before');
+      ele.classList.remove('infoContent-before');
+      ele.classList.add('infoContent-after');
     });
 
 
@@ -478,6 +477,8 @@ function ScrollAnimationContent({ height = 500, isPaddingBottom = true }) {
 
 
   useEffect(() => {
+    setMenuVisibility(false);
+    setMenuIsScrollBarInfo(false);
     animator.start();
     return () => animator.stop();
   }, []);
@@ -735,9 +736,9 @@ function ScrollAnimationContent({ height = 500, isPaddingBottom = true }) {
 
               <div
                 ref={aboutUsBtnRef}
-                className='absolute w-fit h-fit z-[13] top-0 right-0 opacity-0 -translate-x-[12vw] translate-y-[65lvh] leading-normal transition-all duration-1000 ease-in-out'
+                className='absolute w-fit h-fit z-[13] -top-[12lvh] right-0 lg:top-0 lg:right-0 opacity-0 -translate-x-[12vw] translate-y-[65lvh] leading-normal transition-all duration-1000 ease-in-out'
               >
-                {/* <MoreInfoBtn text='關於我們' color='black' /> */}
+                <MoreInfoBtn to='/about' text='關於我們' color='black' />
               </div>
             </div>
 
@@ -761,7 +762,7 @@ function ScrollAnimationContent({ height = 500, isPaddingBottom = true }) {
                 />
               </div>
 
-              <div ref={whereRef} className='absolute top-[40lvh] -right-40 lg:top-0 lg:right-0 opacity-0 lg:-translate-x-[7vw] lg:translate-y-[15lvh] w-[700px] h-[250px] scale-[50%] lg:scale-100 z-[15] transition-all duration-1000 ease-in-out'>
+              <div ref={whereRef} className='absolute top-[40lvh] -right-40 lg:top-0 lg:right-0 opacity-0 lg:-translate-x-[7vw] lg:translate-y-[15lvh] w-[700px] h-[250px] scale-[50%] lg:scale-100 z-[15] transition-all duration-1000 ease-in-out pointer-events-none'>
                 <img
                   ref={whereDateDatetimeRef}
                   src='info/info-date_datetime.png'

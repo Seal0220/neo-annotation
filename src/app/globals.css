@@ -14,7 +14,7 @@
   --main-yellow-300: rgb(255, 235, 51);
   --main-yellow-400: rgb(255, 225, 9);
   --main-yellow-500: rgb(230, 207, 0);
-  --main-yellow-600: rgb(194, 174, 0);
+  --main-yellow-600: rgb(218, 196, 0);
   --main-yellow-700: rgb(163, 147, 0);
   --main-yellow-800: rgb(133, 119, 0);
   --main-yellow-900: rgb(102, 92, 0);
@@ -32,7 +32,11 @@ body {
 
 
 ul {
-  list-style-type: '- ' !important;
+  list-style-type: disc !important;
+}
+
+ul li::marker {
+  color: var(--main-yellow-600);
 }
 
 .masked-wrapper {
@@ -151,5 +155,3 @@ ul {
   opacity: 0 !important;
   user-select: none !important;
 }
-
-
