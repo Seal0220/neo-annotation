@@ -93,7 +93,13 @@ export default function Menu() {
                         }}
                     />
                     <List title="作品與活動" />
-                    <List title="地點與交通資訊" />
+                    <List
+                        title="地點與交通資訊"
+                        onClick={() => {
+                            setIsMobileMenuOpen(false);
+                            window.open('https://clab.org.tw/traffic/', '_blank');
+                        }}
+                    />
                     <List
                         title="周邊商品"
                         onClick={() => {

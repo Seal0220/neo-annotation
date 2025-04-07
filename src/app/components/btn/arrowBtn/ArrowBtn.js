@@ -2,7 +2,7 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 
-export default function ArrowBtn({ text = '按鈕', to = '', width = '', color = 'white', className = '' }) {
+export default function ArrowBtn({ text = '按鈕', to = '', _blank = false, width = '', color = 'white', className = '' }) {
     const router = useRouter();
 
     const getColorClasses = () => {
@@ -22,7 +22,11 @@ export default function ArrowBtn({ text = '按鈕', to = '', width = '', color =
             className={`${width || 'w-fit'} ${getColorClasses()} px-6 py-3 text-lg font-semibold rounded-full cursor-pointer select-none pointer-events-auto transition-all duration-300 flex items-center gap-1 ${className}`}
             onClick={() => {
                 if (to) {
-                    router.push(to);
+                    if (_blank) {
+                        window.open(to, '_blank');
+                    } else {
+                        router.push(to);
+                    }
                 }
             }}
         >

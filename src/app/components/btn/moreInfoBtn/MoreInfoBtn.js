@@ -2,7 +2,7 @@
 import React from 'react';
 import ArrowBtn from '../arrowBtn/ArrowBtn';
 
-export default function MoreInfoBtn({ text = '資訊', to = '', width = '', color = 'white', className = '' }) {
+export default function MoreInfoBtn({ text = '資訊', to = '', _blank = false, width = '', color = 'white', className = '' }) {
     return (
         <ArrowBtn
             text={(
@@ -12,6 +12,7 @@ export default function MoreInfoBtn({ text = '資訊', to = '', width = '', colo
                 </>
             )}
             to={to}
+            _blank={_blank}
             width={width}
             color={color}
             className={className}

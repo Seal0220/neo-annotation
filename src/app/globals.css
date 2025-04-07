@@ -143,15 +143,3 @@ ul li::marker {
     transform: translate(calc(-50% + 64px), calc(-50% + 50lvh)) rotate(0deg) scale(0.2) !important;
   }
 }
-
-
-
-.infoContent-before {
-  opacity: 1 !important;
-  user-select: auto !important;
-}
-
-.infoContent-after {
-  opacity: 0 !important;
-  user-select: none !important;
-}
