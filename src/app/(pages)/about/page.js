@@ -111,7 +111,7 @@ export default function About() {
                                 <MoreInfoBtn
                                     to='https://nma.tnua.edu.tw/'
                                     text='北藝新媒'
-                                    className='absolute translate-x-96 translate-y-[22rem]  lg:translate-y-80'
+                                    className='absolute translate-x-96 translate-y-[22rem] lg:translate-y-80'
                                 />
                             </div>
                         </div>
