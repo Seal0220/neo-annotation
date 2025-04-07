@@ -15,10 +15,10 @@ export default function Menu() {
 
     return (
         <div className="top-0 left-0 fixed z-[999]">
-            {/* 手機版：左上角漢堡按鈕，僅在小於 md 時顯示 */}
+            {/* 手機版：左上角漢堡按鈕，僅在小於 lg 時顯示 */}
             <button
                 onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-                className="absolute md:hidden p-2 m-4 bg-main-yellow-400 rounded drop-shadow-spread text-yellow-600 z-[1100] transition-all duration-300"
+                className="absolute lg:hidden p-2 m-4 bg-main-yellow-400 rounded drop-shadow-spread text-yellow-600 z-[1100] transition-all duration-300"
             >
                 <div className="relative w-8 h-8">
                     <svg
@@ -40,9 +40,9 @@ export default function Menu() {
             </button>
 
 
-            {/* 桌機版 Hover 觸發區（僅在 md 以上） */}
+            {/* 桌機版 Hover 觸發區（僅在 lg 以上） */}
             <div
-                className={`peer/nearby top-0 left-0 fixed z-[1001] h-dvh ${isVisible ? 'w-0 md:w-64 select-auto' : 'w-0 select-none'
+                className={`peer/nearby top-0 left-0 fixed z-[1001] h-dvh ${isVisible ? 'w-0 lg:w-64 select-auto' : 'w-0 select-none'
                     }`}
                 onMouseEnter={() => setIsNearby(true)}
                 onMouseLeave={() => setIsNearby(false)}
@@ -54,13 +54,13 @@ export default function Menu() {
                     peer/menu top-0 left-0 fixed z-[1010] h-dvh bg-black drop-shadow-[0px_0px_5px] fill-black overflow-hidden
                     transition-all duration-300 ease-in-out
                     ${isMobileMenuOpen ? 'w-96' : 'w-0'}
-                    ${isVisible ? ' md:w-16 md:select-auto md:peer-hover/nearby:w-24 md:hover:w-96' : ' md:w-0 md:select-none'}
+                    ${isVisible ? ' lg:w-16 lg:select-auto lg:peer-hover/nearby:w-24 lg:hover:w-96' : ' lg:w-0 lg:select-none'}
                 `}
                 onMouseEnter={() => {
-                    if (window.innerWidth >= 768) setIsInMenu(true);
+                    if (window.innerWidth >= 1024) setIsInMenu(true);
                 }}
                 onMouseLeave={() => {
-                    if (window.innerWidth >= 768) setIsInMenu(false);
+                    if (window.innerWidth >= 1024) setIsInMenu(false);
                 }}
             >
                 <div
@@ -124,8 +124,8 @@ export default function Menu() {
           top-0 left-0 fixed z-[1000] h-dvh bg-main-yellow-400 drop-shadow-[0px_0px_0px] text-main-yellow-500
           transition-all duration-300 ease-in-out
           ${isMobileMenuOpen ? 'drop-shadow-[0px_0px_30px] w-[26rem]' : 'w-0'}
-          ${isVisible ? ' md:w-16 md:select-auto' : ' md:w-0 md:select-none'}
-          ${!isMobileMenuOpen && isVisible ? ' md:peer-hover/nearby:drop-shadow-[0px_0px_20px] md:peer-hover/nearby:w-28 md:peer-hover/menu:drop-shadow-[0px_0px_30px] md:peer-hover/menu:w-[26rem]' : ''}
+          ${isVisible ? ' lg:w-16 lg:select-auto' : ' lg:w-0 lg:select-none'}
+          ${!isMobileMenuOpen && isVisible ? ' lg:peer-hover/nearby:drop-shadow-[0px_0px_20px] lg:peer-hover/nearby:w-28 lg:peer-hover/menu:drop-shadow-[0px_0px_30px] lg:peer-hover/menu:w-[26rem]' : ''}
         `}
             ></div>
         </div>

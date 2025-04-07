@@ -19,7 +19,7 @@ export default function ArrowBtn({ text = '按鈕', to = '', width = '', color =
 
     return (
         <div
-            className={`${width || 'w-fit'} ${getColorClasses()} px-6 py-3 text-lg font-semibold rounded-full cursor-pointer select-none transition-all duration-300 flex items-center gap-1 ${className}`}
+            className={`${width || 'w-fit'} ${getColorClasses()} px-6 py-3 text-lg font-semibold rounded-full cursor-pointer select-none pointer-events-auto transition-all duration-300 flex items-center gap-1 ${className}`}
             onClick={() => {
                 if (to) {
                     router.push(to);

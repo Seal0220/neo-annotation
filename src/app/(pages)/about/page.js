@@ -1,8 +1,12 @@
 'use client';
-import React, { useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useTiltGroup } from '@/app/hooks/useTilt';
+import Typewriter from '@/app/components/typewriter/Typewriter';
+import MoreInfoBtn from '@/app/components/btn/moreInfoBtn/MoreInfoBtn';
 
 export default function About() {
+    const [isLoaded, setIsLoaded] = useState(false);
+
     const groupUsContainerRef = useRef(null);
     const groupUs1Ref = useRef(null);
     const groupUs2Ref = useRef(null);
@@ -22,9 +26,12 @@ export default function About() {
         { maxAngle: 5 }
     );
 
+    useEffect(() => {
+        setIsLoaded(true);
+    }, []);
+
     return (
         <div className="overflow-x-hidden">
-            {/* 背景與固定元素 */}
             <div className="min-h-[100lvh] h-fit py-40">
                 <div className="fixed -z-50">
                     <div className="fixed top-0 left-0 w-full h-full bg-yellow-300 -z-50"></div>
@@ -66,17 +73,48 @@ export default function About() {
                     </div>
                 </div>
 
+                <div className='fixed -top-[5%] -left-28 lg:left-[15vw]'>
+                    <Typewriter
+                        content={'關於我們'}
+                        speed={250}
+                        start={isLoaded}
+                        className='font-bold text-[20lvh] lg:text-[25lvh] vertical-text will-change-contents'
+                    />
+                </div>
+
                 <div className="relative top-0 left-0 h-full w-full z-0">
                     <div className="h-full w-full flex flex-col items-center justify-center">
                         <div className="mb-20 flex flex-col items-center justify-center gap-4">
-                            <img
-                                src="logotypes/logotype-horizontal.png"
-                                className="w-96 select-none"
-                                alt="Logo"
-                            />
-                            <h1 className="text-4xl font-bold text-black">關於我們</h1>
+
                         </div>
 
+                        <div className='relative min-h-[50lvh] w-full'>
+                            <div className='fixed w-[180lvh] top-32 left-1/2 '>
+                                <img
+                                    src="logotypes/logotype-horizontal.png"
+                                    className="-translate-x-1/2 -translate-y-1/2 select-none"
+                                    alt="Logo"
+                                />
+                            </div>
+                            <div className='fixed w-[30rem] right-[40vw] lg:right-[30vw] top-[25lvh]'>
+                                <div className='absolute w-[1000px] pointer-events-none'>
+                                    <img src='pops/pop-01.svg' className='w-full h-auto object-cover' />
+                                </div>
+                                <div className="absolute w-[30rem] max-w-[95vw] left-64 top-32 lg:top-40 p-8">
+                                    <Typewriter
+                                        content={'國立臺北藝術大學新媒體藝術學系為一跨越人文藝術領域與尖端科技結合的未來學門。它作為推動數位科技與藝術整合的重要推手，以培育前瞻性的「新媒體科技」、「新媒體影像」與「新媒體跨域」等全方位未來藝術創意人才。'}
+                                        speed={20}
+                                        start={isLoaded}
+                                        className='font-bold text-white text-base'
+                                    />
+                                </div>
+                                <MoreInfoBtn
+                                    to='https://nma.tnua.edu.tw/'
+                                    text='北藝新媒'
+                                    className='absolute translate-x-96 translate-y-[22rem] lg:translate-y-80'
+                                />
+                            </div>
+                        </div>
 
                         <div ref={groupUsContainerRef} className="w-full max-w-4xl p-4 flex flex-col gap-8">
                             <Section
@@ -84,9 +122,24 @@ export default function About() {
                                 title='主辦單位 / Organizer'
                             >
                                 <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-                                    <img src='organizers/tnuanma.png' className='h-20 md:h-20 object-contain select-none pointer-events-none' />
-                                    <img src='organizers/tnua.gif' className='h-20 md:h-20 object-contain select-none pointer-events-none' />
-
+                                    <div
+                                        className='cursor-pointer'
+                                        onClick={() => window.open('https://nma.tnua.edu.tw/', '_blank')}
+                                    >
+                                        <img
+                                            src='organizers/tnuanma.png'
+                                            className='h-20 lg:h-20 object-contain select-none pointer-events-none'
+                                        />
+                                    </div>
+                                    <div
+                                        className='cursor-pointer'
+                                        onClick={() => window.open('https://w3.tnua.edu.tw/', '_blank')}
+                                    >
+                                        <img
+                                            src='organizers/tnua.gif'
+                                            className='h-20 lg:h-20 object-contain select-none pointer-events-none'
+                                        />
+                                    </div>
                                 </div>
                             </Section>
 
@@ -180,11 +233,11 @@ export default function About() {
                             >
 
                                 <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-                                    <img src="sponsors/giloo.png" className="h-10 md:h-12 object-contain select-none pointer-events-none" />
-                                    <img src="sponsors/kirin.png" className="h-10 md:h-12 object-contain select-none pointer-events-none" />
-                                    <img src="sponsors/bar.png" className="h-16 md:h-20 object-contain select-none pointer-events-none" />
-                                    <img src="sponsors/sponya.png" className="h-16 md:h-20 object-contain select-none pointer-events-none" />
-                                    <img src="sponsors/聯華食品.png" className="h-12 md:h-16 object-contain select-none pointer-events-none" />
+                                    <img src="sponsors/giloo.png" className="h-10 lg:h-12 object-contain select-none pointer-events-none" />
+                                    <img src="sponsors/kirin.png" className="h-10 lg:h-12 object-contain select-none pointer-events-none" />
+                                    <img src="sponsors/bar.png" className="h-16 lg:h-20 object-contain select-none pointer-events-none" />
+                                    <img src="sponsors/sponya.png" className="h-16 lg:h-20 object-contain select-none pointer-events-none" />
+                                    <img src="sponsors/聯華食品.png" className="h-12 lg:h-16 object-contain select-none pointer-events-none" />
                                     <span className="font-bold text-5xl px-4 text-black select-none pointer-events-none">miuk</span>
                                 </div>
 
@@ -203,7 +256,7 @@ const Section = React.forwardRef(function Section({ title, children }, ref) {
             ref={ref}
             className='perspective-3d drop-shadow-spread text-black-1/2 transition-transform duration-500 ease-out'
         >
-            <div className='bg-paper p-12 md:hover:scale-110 transition-all duration-1000 ease-in-out'>
+            <div className='bg-paper p-12 lg:hover:scale-110 transition-all duration-1000 ease-in-out'>
                 <h3 className="text-2xl font-semibold mb-2 text-black">{title}</h3>
                 {children}
             </div>
@@ -219,7 +272,7 @@ const Group = React.forwardRef(function Group({ title, members = [] }, ref) {
             ref={ref}
             className='perspective-3d drop-shadow-spread text-black-1/2 transition-transform duration-500 ease-out'
         >
-            <div className='bg-paper p-12 md:hover:scale-110 transition-all duration-1000 ease-in-out'>
+            <div className='bg-paper p-12 lg:hover:scale-110 transition-all duration-1000 ease-in-out'>
                 <h3 className="text-2xl font-semibold mb-2 text-black">{title}</h3>
                 <ul className="ml-4 list-disc text-black">
                     {members.map((member, index) => (
