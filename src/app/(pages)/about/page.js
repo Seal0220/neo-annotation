@@ -92,13 +92,13 @@ export default function About() {
                             <div className='fixed w-[180lvh] top-32 left-1/2 '>
                                 <img
                                     src="logotypes/logotype-horizontal.png"
-                                    className="-translate-x-1/2 -translate-y-1/2 select-none"
+                                    className="-translate-x-1/2 -translate-y-1/2 pointer-events-none select-none"
                                     alt="Logo"
                                 />
                             </div>
                             <div className='fixed w-[30rem] right-[40vw] lg:right-[30vw] top-[25lvh]'>
                                 <div className='absolute w-[1000px] pointer-events-none'>
-                                    <img src='pops/pop-01.svg' className='w-full h-auto object-cover' />
+                                    <img src='pops/pop-01.svg' className='w-full h-auto object-cover pointer-events-none select-none' />
                                 </div>
                                 <div className="absolute w-[30rem] max-w-[95vw] left-64 top-32 lg:top-40 p-8">
                                     <Typewriter
@@ -111,7 +111,7 @@ export default function About() {
                                 <MoreInfoBtn
                                     to='https://nma.tnua.edu.tw/'
                                     text='北藝新媒'
-                                    className='absolute translate-x-96 translate-y-[22rem] lg:translate-y-80'
+                                    className='absolute translate-x-96 translate-y-[22rem]'
                                 />
                             </div>
                         </div>
