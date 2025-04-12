@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
             <div className='flex flex-col justify-center items-center'>
               <span>北藝新媒110級畢業展 neo-annotation</span>
               <br />
-              <div className='text-xs text-neutral-600 text-center'>website made by 陳奕銓 @SEAL<br/>designed with 胡乃云</div>
+              <div className='text-xs text-neutral-600 text-center'>This website was developed by 陳奕銓 (@SEAL) <br/>and co-designed with 胡乃云.</div>
             </div>
           </footer>
         </Provider>
