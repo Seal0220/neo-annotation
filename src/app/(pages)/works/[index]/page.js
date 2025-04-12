@@ -62,7 +62,7 @@ export default function Work({ params }) {
           />
         </div>
 
-        <div className={`relative mt-[60lvh] bg-black min-h-full left-0 h-fit w-full z-0 flex flex-col justify-center ${isLoaded ? '' : 'pt-32'}`}>
+        <div className={`relative mt-[60lvh] bg-black min-h-full left-0 h-fit w-full z-0 flex flex-col justify-center ${isLoaded ? '' : 'pt-[50lvh]'}`}>
           <div className='absolute pl-4 lg:pl-0 -top-32 xl:-top-52 lg:left-[15vw] z-20'>
             <Typewriter
               content={work.title}
