@@ -47,7 +47,7 @@ function ScrollAnimationContent({ height = 500, isPaddingBottom = true }) {
 
   const animatorRef = useRef(null);
   const animator = useAnimator(animatorRef);
-  animator.debug();
+  // animator.debug();
 
   const [infoTypewriterStart, setInfoTypewriterStart] = useState(false);
 

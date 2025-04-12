@@ -12,7 +12,7 @@ export default function Works() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   const containerRef = useRef(null);
-  const groupRefs = useRef(works.map(() => React.createRef()));
+  const groupRefs = useRef(works?.map(() => React.createRef()));
 
   useTiltGroup(containerRef, groupRefs.current, { maxAngle: 5 });
 
@@ -91,7 +91,7 @@ export default function Works() {
                 className=' place-self-center w-fit h-fit transition-transform duration-500 ease-out pointer-events-auto cursor-pointer'
                 onClick={() => { router.push(`/works/${work.id}`) }}
               >
-                <div className='bg-black  drop-shadow-spread text-black-1/2 transition-transform duration-500 ease-in-out hover:scale-110'>
+                <div className='relative bg-black drop-shadow-spread text-black-1/2 transition-transform duration-500 ease-in-out hover:scale-110'>
                   <img src={`/works/${work.id}.webp`} className='' />
                   <div className="absolute top-0 left-0 w-full h-[20rem] sm:h-96">
                     <div className='absolute bottom-0 px-4 w-fit max-w-[90%] bg-main-yellow-400 text-black text-2xl font-bold flex flex-col-reverse whitespace-break-spaces select-none'>
