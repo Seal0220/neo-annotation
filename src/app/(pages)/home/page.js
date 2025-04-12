@@ -645,7 +645,7 @@ function ScrollAnimationContent({ height = 500, isPaddingBottom = true }) {
 
                 {/* 按鈕：更多策展資訊 */}
                 <div className='size-fit place-self-center pt-12 lg:-translate-x-6'>
-                  {/* <MoreInfoBtn text={'作品與活動資訊'} /> */}
+                  <MoreInfoBtn text={'作品與活動資訊'} to='/works'/>
                 </div>
               </div>
             </div>
