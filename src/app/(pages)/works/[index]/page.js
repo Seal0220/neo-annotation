@@ -96,7 +96,7 @@ export default function Work({ params }) {
             />
           </div>
 
-          <div className='place-self-center w-full lg:w-[70vw] max-w-[95vw] left-64 top-32 lg:top-40 p-8 pt-32'>
+          <div className='place-self-center w-full lg:w-[70vw] max-w-[95vw] left-64 top-32 lg:top-40 p-8 pt-32 min-h-[50lvh]'>
             <Typewriter
               content={work.description}
               speed={10}
