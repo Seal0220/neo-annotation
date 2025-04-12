@@ -82,7 +82,7 @@ export default function Works() {
         <div className='relative top-0 left-0 h-full w-full z-0 pt-[30lvh]'>
           <div
             ref={containerRef}
-            className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:max-w-4xl max-w-6xl mx-auto p-8'
+            className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:max-w-4xl xl:max-w-6xl mx-auto p-8'
           >
             {works?.map((work, index) => (
               <div
@@ -93,7 +93,7 @@ export default function Works() {
               >
                 <div className='bg-black  drop-shadow-spread text-black-1/2 transition-transform duration-500 ease-in-out hover:scale-110'>
                   <img src={`/works/${work.id}.webp`} className='' />
-                  <div className="absolute top-0 left-0 w-full h-96">
+                  <div className="absolute top-0 left-0 w-full h-[20rem] sm:h-96">
                     <div className='absolute bottom-0 px-4 w-fit max-w-[90%] bg-main-yellow-400 text-black text-2xl font-bold flex flex-col-reverse whitespace-break-spaces select-none'>
                       {work.title}
                     </div>
