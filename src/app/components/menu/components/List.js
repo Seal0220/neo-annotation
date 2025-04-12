@@ -2,9 +2,9 @@
 import React, { useState, useEffect } from 'react';
 
 const symbols = [
-    'symbols/symbol-Hashtag.png',
-    'symbols/symbol-Slash.png',
-    'symbols/symbol-Star.png'
+    '/symbols/symbol-Hashtag.png',
+    '/symbols/symbol-Slash.png',
+    '/symbols/symbol-Star.png'
 ];
 
 export default function List({ title = '', onClick = () => { } }) {

@@ -143,3 +143,21 @@ ul li::marker {
     transform: translate(calc(-50% + 64px), calc(-50% + 50lvh)) rotate(0deg) scale(0.2) !important;
   }
 }
+
+
+
+@keyframes cycleColor {
+  0% {
+    background-color: rgb(255, 242, 127);
+  }
+  50% {
+    background-color: rgb(102, 92, 0);
+  }
+  100% {
+    background-color: rgb(255, 242, 127);
+  }
+}
+
+.animate-cycleColor {
+  animation: cycleColor 3s ease-in-out infinite;
+}

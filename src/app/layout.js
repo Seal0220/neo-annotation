@@ -16,14 +16,18 @@ export default function RootLayout({ children }) {
         <title>NEO-ANNOTATION | 北藝新媒110級畢業展</title>
 
       </head>
-      <body className="antialiased">
+      <body className="antialiased bg-black">
         <Provider store={store}>
           <main className="min-h-dvh min-w-full">
             {children}
           </main>
 
-          <footer className="bottom-0 flex gap-6 h-16 text-neutral-400 text-xs font-bold flex-wrap items-center justify-center bg-black">
-            北藝新媒110級畢業展 neo-annotation
+          <footer className="bottom-0 w-lvw flex gap-6 h-32 text-neutral-400 text-sm font-bold flex-wrap items-center justify-center leading-tight bg-black">
+            <div className='flex flex-col justify-center items-center'>
+              <span>北藝新媒110級畢業展 neo-annotation</span>
+              <br/>
+              <span className='text-xs text-neutral-600'>website made by 陳奕銓 @SEAL</span>
+            </div>
           </footer>
         </Provider>
       </body>

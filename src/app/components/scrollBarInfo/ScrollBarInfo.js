@@ -8,7 +8,7 @@ export default function ScrollBarInfo() {
         (
             <div className='flex h-full items-center font-bold opacity-70 group-hover/scroll:opacity-100 select-none transition-all duration-500 '>
                 <img
-                    src='info/info-location_clab-w.png'
+                    src='/info/info-location_clab-w.png'
                     className='h-12'
                 />
             </div>
@@ -16,11 +16,11 @@ export default function ScrollBarInfo() {
         (
             <div className='flex h-full items-center font-bold opacity-70 group-hover/scroll:opacity-100 select-none transition-all duration-500 '>
                 <img
-                    src='info/info-date_year-w.png'
+                    src='/info/info-date_year-w.png'
                     className='h-8'
                 />
                 <img
-                    src='info/info-date_datetime-w.png'
+                    src='/info/info-date_datetime-w.png'
                     className='h-8'
                 />
             </div>
