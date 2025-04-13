@@ -35,7 +35,7 @@ const nextConfig = {
             {
               "id": "A2",
               "name": "王晨曦",
-              "title": "孵光",
+              "title": "孵光\n（Incubated Light）",
               "medium": "動力裝置"
             },
             {
