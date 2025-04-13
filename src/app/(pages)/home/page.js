@@ -740,7 +740,7 @@ function ScrollAnimationContent({ height = 500, isPaddingBottom = true }) {
 
               <div
                 ref={aboutUsBtnRef}
-                className='absolute w-fit h-fit z-[13] -top-[12lvh] right-0 lg:top-0 lg:right-0 opacity-0 -translate-x-[12vw] translate-y-[65lvh] leading-normal transition-all duration-1000 ease-in-out'
+                className='absolute w-fit h-fit z-30 -top-[12lvh] right-0 lg:top-0 lg:right-0 opacity-0 -translate-x-[12vw] translate-y-[65lvh] leading-normal transition-all duration-1000 ease-in-out'
               >
                 <MoreInfoBtn to='/about' text='關於我們' color='black' />
               </div>
@@ -796,7 +796,7 @@ function ScrollAnimationContent({ height = 500, isPaddingBottom = true }) {
 
               <div
                 ref={whereBtnRef}
-                className='absolute w-fit h-fit z-[13] top-64 lg:top-0 right-0 opacity-0 -translate-x-[15vw] translate-y-[52lvh] leading-normal transition-all duration-1000 ease-in-out'
+                className='absolute w-fit h-fit z-30 top-64 lg:top-0 right-0 opacity-0 -translate-x-[15vw] translate-y-[52lvh] leading-normal transition-all duration-1000 ease-in-out'
               >
                 <MoreInfoBtn to='https://clab.org.tw/traffic/' _blank text='場地資訊' color='black' />
               </div>
