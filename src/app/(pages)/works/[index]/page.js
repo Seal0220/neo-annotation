@@ -96,13 +96,29 @@ export default function Work({ params }) {
             />
           </div>
 
-          <div className='place-self-center w-full lg:w-[70vw] max-w-[95vw] left-64 top-32 lg:top-40 p-8 pt-32 min-h-[50lvh]'>
-            <Typewriter
-              content={work.description}
-              speed={10}
-              start={isLoaded}
-              className='font-bold text-white text-base whitespace-break-spaces'
-            />
+
+
+          <div className='min-h-[50lvh] w-full bg-black' >
+            <div className='place-self-center w-full lg:w-[70vw] max-w-[95vw] left-64 top-32 lg:top-40 p-8 pt-32'>
+              <Typewriter
+                content={work.description}
+                speed={10}
+                start={isLoaded}
+                className='font-bold text-white text-base whitespace-break-spaces'
+              />
+            </div>
+
+            {
+              index === 'A2' && (
+                <div className="lg:pl-16 grid grid-cols-1 md:grid-cols-2 gap-32 lg:gap-4 place-items-center py-32">
+                  {['/works/A2/1.png', '/works/A2/2.png'].map((src, idx) => (
+                    <div key={idx} className="w-fit h-[70lvh] overflow-hidden rounded-lg">
+                      <img src={src} alt={`Image ${idx + 1}`} className="w-auto h-full object-contain" />
+                    </div>
+                  ))}
+                </div>
+              )
+            }
           </div>
         </div>
       </div>
