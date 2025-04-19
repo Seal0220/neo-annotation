@@ -192,11 +192,11 @@ export default function Order() {
           );
 
           // 3) 重置表單
-          setNote(''); 
-          setName(''); 
-          setPhone(''); 
-          setEmail(''); 
-          setIg(''); 
+          setNote('');
+          setName('');
+          setPhone('');
+          setEmail('');
+          setIg('');
           setBankLast5('');
           setIsSending(false);
         }
@@ -346,7 +346,7 @@ export default function Order() {
               </div>
 
               {/* 使用者資訊 */}
-              <div className="mb-4 flex flex-col gap-2">
+              <div className="mb-4 flex flex-col gap-4">
                 <div className="flex flex-col md:flex-row gap-4">
                   <div className="w-full md:w-40">
                     <label className="block font-semibold mb-1 bg-main-yellow-400 px-2 w-fit">姓名：</label>
@@ -369,6 +369,7 @@ export default function Order() {
                     />
                   </div>
                 </div>
+
                 <div>
                   <label className="block font-semibold mb-1 bg-main-yellow-400 px-2 w-fit">信箱：</label>
                   <input
@@ -379,6 +380,7 @@ export default function Order() {
                     className="w-full border border-gray-300 rounded p-2 mb-2"
                   />
                 </div>
+
                 <div>
                   <label className="block font-semibold mb-1 bg-main-yellow-400 px-2 w-fit">IG帳號：</label>
                   <input
@@ -389,7 +391,17 @@ export default function Order() {
                     className="w-64 border border-gray-300 rounded p-2 mb-2"
                   />
                 </div>
+
                 <div>
+                  <div className='mb-2'>
+                    <p className='text-sm mb-1'>請先完成轉帳匯款，並填上您的帳號末五碼，我們會在5個工作天之內寄送 email 給您確認</p>
+                    <div className='flex flex-row'>
+                      <div className='w-2 h-6 bg-main-yellow-300 mr-2 mt-[2px]'></div>
+                      <div className='font-bold'>
+                        台北富邦銀行 (012) 0000684221024482
+                      </div>
+                    </div>
+                  </div>
                   <label className="block font-semibold mb-1 bg-main-yellow-400 px-2 w-fit">轉帳帳號末5碼：</label>
                   <input
                     required
