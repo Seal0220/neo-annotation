@@ -37,14 +37,14 @@ export const MerchCardVideo = forwardRef(function MerchCardVideo(
                     </div>
 
                     <div className='absolute text-black font-black right-0 bottom-0 p-5 flex flex-row items-end'>
-                        <span className='text-base'>早鳥價：</span>
+                        <span className='text-base'>售價：</span>
                         <div className='flex flex-col items-center'>
-                            <span className='text-xl text-neutral-600 '>
+                            {/* <span className='text-xl text-neutral-600 '>
                                 <del className='decoration-black-1/2 decoration-[3px]'>
                                     {priceOri}
                                 </del>
-                            </span>
-                            <span className='text-3xl bg-main-yellow-500 px-2'>{price}</span>
+                            </span> */}
+                            <span className='text-3xl bg-main-yellow-500 px-2'>{priceOri}</span>
                         </div>
                     </div>
 

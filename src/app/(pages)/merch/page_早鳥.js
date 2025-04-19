@@ -161,13 +161,13 @@ export default function Merch() {
                             />
 
                             {/* 小禮包 */}
-                            {/* <MerchCardImage
+                            <MerchCardImage
                                 ref={tilt7Ref}
                                 imageSrc='merch/A-small/small.png'
                                 productName='小禮包'
                                 description={(
                                     <ul className='ml-2 list-disc list-inside text-black text-base leading-relaxed'>
-                                        <li>#/*鍵帽按鈕 × 1</li>
+                                        <li>#/**/鍵帽按鈕 × 1</li>
                                         <li>雙頭隨身碟 × 1</li>
                                         <li>貼紙鑰匙圈 × 1</li>
                                     </ul>
@@ -175,16 +175,16 @@ export default function Merch() {
                                 hashtags={['早鳥限定',]}
                                 price={660}
                                 priceOri={780}
-                            /> */}
+                            />
 
                             {/* 大禮包 */}
-                            {/* <MerchCardImage
+                            <MerchCardImage
                                 ref={tilt8Ref}
                                 imageSrc='merch/B-big/big.png'
                                 productName='大禮包'
                                 description={(
                                     <ul className='ml-2 list-disc list-inside text-black text-base leading-relaxed'>
-                                        <li>#/*鍵帽按鈕 × 1</li>
+                                        <li>#/**/鍵帽按鈕 × 1</li>
                                         <li>雙頭隨身碟 × 1</li>
                                         <li>貼紙鑰匙圈 × 1</li>
                                         <li>打火機 × 1</li>
@@ -194,7 +194,7 @@ export default function Merch() {
                                 hashtags={['早鳥限定',]}
                                 price={960}
                                 priceOri={1015}
-                            /> */}
+                            />
 
                         </div>
                     </div>

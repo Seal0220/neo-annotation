@@ -7,7 +7,7 @@ export async function workFetch({
 } = {}) {
     try {
         // 基礎 URL 從環境變數讀取
-        let url = process.env.GET_WORKS_LINK;
+        let url = process.env.GOOGLE_SHEET_APP_SCRIPT_LINK;
         const params = [];
         
         // 若有 id 則加入參數，並且做 encode 避免 URL 特殊字元產生問題
