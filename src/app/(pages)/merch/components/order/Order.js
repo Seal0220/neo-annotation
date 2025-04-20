@@ -271,6 +271,13 @@ export default function Order() {
                   選取喜歡的周邊商品，輸入資料後，請先完成轉帳匯款，並填上您的帳號末五碼，我們會在5個工作天之內寄送 email 給您確認，
                   即購買成功ㄛ！<br />
                   購買成功後，於展覽期間至展場取貨即可☆.
+                  
+                  <div className='flex flex-row mt-4'>
+                    <div className='w-2 h-6 bg-main-yellow-300 mr-2'></div>
+                    <div className='font-bold'>
+                      4/23（三）開放自取領貨！
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="place-self-center h-px w-full bg-neutral-400 mt-6 mb-2" />
