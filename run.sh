@@ -63,7 +63,7 @@ case "$1" in
         start_screen_session
         ;;
     *)
-        install_dependencies
+        # install_dependencies
         # build_app
         echo "Launching the application..."
         npm run start
